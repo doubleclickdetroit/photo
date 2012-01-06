@@ -7,6 +7,7 @@
     %th State
     %th Email
     %th Heard from
+    %th Newsletter
     %th
     %th
     %th
@@ -18,6 +19,7 @@
       %td= prospect.state
       %td= prospect.email
       %td= prospect.heard_from
+      %td= prospect.newsletter ? 'X' : ''
       %td= link_to 'Show', prospect
       %td= link_to 'Edit', edit_prospect_path(prospect)
       %td= link_to 'Destroy', prospect, :confirm => 'Are you sure?', :method => :delete
