@@ -25,6 +25,6 @@
       = f.select :heard_from, Prospect::ADVERTISEMENTS, {:prompt => 'How did you heard about us?'}
     .field
       = f.check_box :newsletter
-      = f.label "Yes, I want to receive Zach & Jody's monthly exclusive Tuesday & Trips for newsletter subscribers only"
+      = f.label :newsletter, "Yes, I want to receive Zach & Jody's monthly exclusive Tuesday & Trips for newsletter subscribers only"
     .actions
       = f.submit 'Save'
