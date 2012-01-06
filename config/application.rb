@@ -11,6 +11,17 @@ end
 
 module Photo
   class Application < Rails::Application
+    # testing config
+    config.generators do |g|
+      g.test_framework :rspec, :views => false, :fixture => true
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+      g.template_engine :haml
+    end
+
+    # autoload lib/
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
