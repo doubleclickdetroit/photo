@@ -1,7 +1,8 @@
 %fieldset
   %legend Sign up! 
 
-  = form_for @prospect do |f|
+  -# = form_for @comment, :remote => true, :html => { :'data-type' => 'html', :id => 'create_comment_form' } do |f|
+  = form_for @prospect, :remote => true, :html => {'data-type' => 'json', :id => 'new_prospect'} do |f|
     -if @prospect.errors.any?
       #error_explanation
         %h2= "#{pluralize(@prospect.errors.count, "error")} prohibited this prospect from being saved:"
@@ -27,4 +28,4 @@
       = f.check_box :newsletter
       = f.label :newsletter, "Yes, I want to receive Zach & Jody's monthly exclusive Tuesday & Trips for newsletter subscribers only"
     .actions
-      = f.submit 'Save'
+      = f.submit 'Save', :remote => true

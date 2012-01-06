@@ -45,7 +45,8 @@ class ProspectsController < ApplicationController
     respond_to do |format|
       if @prospect.save
         format.html { redirect_to @prospect, notice: 'Prospect was successfully created.' }
-        format.json { render json: @prospect, status: :created, location: @prospect }
+        # format.json { render json: @prospect, status: :created, location: @prospect }
+        format.json { render json: Prospect::THANKYOU, status: :created, location: @prospect }
       else
         format.html { render action: "new" }
         format.json { render json: @prospect.errors, status: :unprocessable_entity }
