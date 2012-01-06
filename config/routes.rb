@@ -1,4 +1,5 @@
 Photo::Application.routes.draw do
+  root :to => 'prospects#new'
   resources :prospects
 
   # The priority is based upon order of creation:
