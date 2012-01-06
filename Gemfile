@@ -4,6 +4,7 @@ gem 'rails', '3.1.3'
 
 gem 'jquery-rails'
 gem "haml-rails"
+gem 'therubyracer'
 gem 'requirejs-rails'
 
 group :development, :test do
