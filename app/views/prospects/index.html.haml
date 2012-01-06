@@ -1,0 +1,27 @@
+%h1 Listing prospects
+
+%table
+  %tr
+    %th First
+    %th Last
+    %th State
+    %th Email
+    %th Heard from
+    %th
+    %th
+    %th
+
+  - @prospects.each do |prospect|
+    %tr
+      %td= prospect.first
+      %td= prospect.last
+      %td= prospect.state
+      %td= prospect.email
+      %td= prospect.heard_from
+      %td= link_to 'Show', prospect
+      %td= link_to 'Edit', edit_prospect_path(prospect)
+      %td= link_to 'Destroy', prospect, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Prospect', new_prospect_path
