@@ -36,6 +36,7 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  gem 'cucumber_factory'
   gem 'webrat'
   gem 'database_cleaner'
   gem 'selenium-client'
