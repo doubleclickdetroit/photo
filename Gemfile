@@ -5,9 +5,11 @@ gem 'rails', '3.1.3'
 gem 'thin'
 
 gem 'jquery-rails'
-gem "haml-rails"
-gem 'therubyracer'
+gem 'haml-rails'
+gem 'html5-rails', :git => 'git://github.com/sporkd/html5-rails.git'
 gem 'requirejs-rails'
+
+gem 'therubyracer'
 
 group :development, :test do
   gem 'sqlite3'
@@ -24,6 +26,8 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass', '0.12.alpha.2'
+  gem 'compass-h5bp'
 end
 
 group :development, :test do
