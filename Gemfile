@@ -5,7 +5,7 @@ gem 'rails', '3.1.3'
 gem 'thin'
 
 # auth
-gem 'friendly_id'
+# gem 'friendly_id'
 gem 'devise'
 
 gem 'jquery-rails'
@@ -36,7 +36,7 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'cucumber-rails'
-  gem 'cucumber_factory'
+  # gem 'cucumber_factory'
   gem 'webrat'
   gem 'database_cleaner'
   gem 'selenium-client'
