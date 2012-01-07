@@ -16,3 +16,5 @@
 
 # ignore all of brad's annoying vim swap files
 *.sw?
+# ...and all the annoying mac files :) 
+.DS_Store
