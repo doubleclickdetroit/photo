@@ -4,6 +4,10 @@ gem 'rails', '3.1.3'
 
 gem 'thin'
 
+# auth
+gem 'friendly_id'
+gem 'devise'
+
 gem 'jquery-rails'
 gem "haml-rails"
 gem 'therubyracer'

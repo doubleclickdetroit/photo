@@ -1,0 +1,17 @@
+!!!
+%html
+%head
+  %title Photo
+  = stylesheet_link_tag    "application"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+%body
+  %ul.user_menu
+    = render 'devise/menu/registration_items'
+    = render 'devise/menu/login_items'
+
+  #messages
+    %p.notice= notice
+    %p.alert= alert
+
+  = yield

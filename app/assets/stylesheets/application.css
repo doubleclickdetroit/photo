@@ -11,3 +11,13 @@ body{
   margin: 0 auto;
   margin-top: 40px;
 }
+
+ul.user_menu {
+  list-style: none; 
+  margin: 0 0 2em;
+  padding: 0;
+}
+
+ul.user_hmenu li {
+  display: inline;  
+}
