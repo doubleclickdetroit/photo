@@ -8,12 +8,10 @@
     %th Email
     %th Heard from
     %th Newsletter
-    %th
-    %th
-    %th
+    %th{ colspan: 3 }
 
   - @prospects.each do |prospect|
-    %tr
+    %tr{ id: dom_id(prospect) }
       %td= prospect.first
       %td= prospect.last
       %td= prospect.state
@@ -22,7 +20,7 @@
       %td= prospect.newsletter ? 'X' : ''
       %td= link_to 'Show', prospect
       %td= link_to 'Edit', edit_prospect_path(prospect)
-      %td= link_to 'Destroy', prospect, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Delete', prospect, :method => :delete, remote: true
 
 %br
 

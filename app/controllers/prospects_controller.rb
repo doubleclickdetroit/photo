@@ -79,6 +79,7 @@ class ProspectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to prospects_url }
       format.json { head :ok }
+      format.js
     end
   end
 end
