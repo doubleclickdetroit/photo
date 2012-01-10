@@ -11,6 +11,6 @@ $('#new_prospect').live 'ajax:success', (evt, json) ->
 
 	$wrapper.slideUp ->
 		$title.text json.title
-		$form.replaceWith ($ '<p>', text: json.text)
+		$form.replaceWith $ '<p>', text: json.text
 
 		do $wrapper.slideDown
