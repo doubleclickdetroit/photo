@@ -44,7 +44,7 @@ class ProspectsController < ApplicationController
 
     respond_to do |format|
       if @prospect.save
-        format.html { redirect_to @prospect, notice: 'Prospect was successfully created.' }
+        format.html { render action: "new", notice: "Prospect was successfully created." }
         # format.json { render json: @prospect, status: :created, location: @prospect }
         format.json { render json: Prospect::THANKYOU, status: :created, location: @prospect }
       else
@@ -79,6 +79,7 @@ class ProspectsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to prospects_url }
       format.json { head :ok }
+      format.js
     end
   end
 end

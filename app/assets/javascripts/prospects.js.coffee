@@ -2,9 +2,15 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$('#new_prospect').live 'ajax:success', (evt, json, status) ->
-	$('fieldset').slideUp 500, ->
-		$(this).empty()
-		$(this).append $('<legend>', text: json.title)
-		$(this).append $('<p>', text: json.text)
-		$(this).slideDown 500
+$('#new_prospect').live 'ajax:success', (evt, json) ->
+	$form    = $ this
+	$title   = $form.siblings 'legend'
+	$wrapper = do $form.parent
+
+	do $form.slideUp
+
+	$wrapper.slideUp ->
+		$title.text json.title
+		$form.replaceWith $ '<p>', text: json.text
+
+		do $wrapper.slideDown

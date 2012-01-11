@@ -1,5 +1,5 @@
 %fieldset
-  %legend Sign up! 
+  %legend Sign up!
 
   -# = form_for @comment, :remote => true, :html => { :'data-type' => 'html', :id => 'create_comment_form' } do |f|
   = form_for @prospect, :remote => true, :html => {'data-type' => 'json', :id => 'new_prospect'} do |f|
