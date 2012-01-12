@@ -7,9 +7,8 @@ gem 'thin'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'html5-rails', :git => 'git://github.com/sporkd/html5-rails.git'
-gem 'requirejs-rails'
 
-gem 'therubyracer'
+gem 'requirejs-rails'
 
 group :development, :test do
   gem 'sqlite3'
@@ -31,6 +30,8 @@ group :assets do
 end
 
 group :development, :test do
+  gem 'therubyracer'
+
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
 
