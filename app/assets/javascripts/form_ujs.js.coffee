@@ -1,4 +1,5 @@
 ($ 'form').live 'ajax:error', (evt, xhr) ->
+
 	EXPLANATION = "error_explanation"
 	FIELD_WRAP  = "field_with_errors"
 
