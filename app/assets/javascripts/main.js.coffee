@@ -1,7 +1,7 @@
-define ['router','jquery_ujs','form_ujs'], (Router) ->
+define ['router','plugins','jquery_ujs','form_ujs'], (Router) ->
 
 	name: "Simple Wedding Workflow"
-	version: "0.1.alpha"
+	version: "0.1.dev"
 
 	initialize: ->
 		do Router.initialize
