@@ -7,11 +7,11 @@ define ['underscore','backbone'], (_, Backbone) ->
 			"*actions"  : "defaultAction"
 
 		showProspects: ->
-			console.log "showProspects invoked!"
+			log "showProspects invoked!"
 
 		defaultAction: (action)->
 			require ['views/prospects/new']
-			console.log "defaultAction invoked!"
+			log "defaultAction invoked!"
 
 	initialize: ->
 		new AppRouter
