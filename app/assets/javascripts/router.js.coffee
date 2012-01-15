@@ -10,6 +10,7 @@ define ['underscore','backbone'], (_, Backbone) ->
 			console.log "showProspects invoked!"
 
 		defaultAction: (action)->
+			require ['views/prospects/new']
 			console.log "defaultAction invoked!"
 
 	initialize: ->
