@@ -1,2 +1,7 @@
 modules:
   - name: 'application'
+
+paths:
+  text:  'text'
+  order: 'order'
+  i18n:  'i18n'
