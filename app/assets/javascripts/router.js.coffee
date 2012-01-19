@@ -1,10 +1,10 @@
 define ['underscore','backbone'], (_, Backbone) ->
-	
+
 	AppRouter = Backbone.Router.extend
-		
+
 		routes:
 			"prospects": "showProspects"
-			"*actions"  : "defaultAction"
+			"*actions"  : "defaultAction" #
 
 		showProspects: ->
 			log "showProspects invoked!"
