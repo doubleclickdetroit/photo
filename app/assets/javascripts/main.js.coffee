@@ -1,7 +1,4 @@
-define ['router','plugins','jquery_ujs','form_ujs'], (Router) ->
+require ['jquery','backbone','app'], ($, Backbone, App) ->
 
-	name: "Simple Wedding Workflow"
-	version: "0.1.dev"
-
-	initialize: ->
-		do Router.initialize
+	log "#{App.name} \nVersion: #{App.version}"
+	do App.initialize

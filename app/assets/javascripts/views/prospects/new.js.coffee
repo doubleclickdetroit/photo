@@ -1,4 +1,4 @@
-define ['jquery','underscore','backbone'], ($,_,Backbone) ->
+define ['jquery','backbone'], ($,Backbone) ->
 
 	prospectFormView = Backbone.View.extend
 

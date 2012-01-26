@@ -1,4 +1,4 @@
-define ['underscore','backbone'], (_, Backbone) ->
+define ['backbone'], (Backbone) ->
 
 	AppRouter = Backbone.Router.extend
 
