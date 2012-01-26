@@ -34,7 +34,8 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'therubyracer'
+  gem 'therubyracer', :platforms => :ruby
+  gem 'execjs'
 
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
