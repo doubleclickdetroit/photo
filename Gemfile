@@ -4,6 +4,10 @@ gem 'rails', '3.1.3'
 
 gem 'thin'
 
+# auth
+# gem 'friendly_id'
+gem 'devise'
+
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'html5-rails', :git => 'git://github.com/sporkd/html5-rails.git'
@@ -37,6 +41,7 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'cucumber-rails'
+  # gem 'cucumber_factory'
   gem 'webrat'
   gem 'database_cleaner'
   gem 'selenium-client'

@@ -1,14 +1,23 @@
 !!! 5
 - ie_html :class => "no-js", :lang => "en" do
-	= render "head"
+  = render "head"
 
-	%body{ :class => "#{ controller.controller_name }" }
-		= render "header"
+  %body{ :class => "#{ controller.controller_name }" }
+    = render "header"
 
-		#main{ :role => "main" }
-			= render "flashes"
-			= yield
+    /////BEGIN BRAD'S MESS
+    %ul.user_menu
+      = render 'devise/menu/registration_items'
+      = render 'devise/menu/login_items'
+    #messages
+      %p.notice= notice
+      %p.alert= alert
+    /////END BRAD'S MESS
 
-		= render "footer"
+    #main{ :role => "main" }
+      = render "flashes"
+      = yield
 
-		= requirejs_include_tag "application"
+    = render "footer"
+
+    = requirejs_include_tag "application"

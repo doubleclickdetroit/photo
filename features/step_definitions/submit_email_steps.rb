@@ -1,15 +1,12 @@
-Given /^my email address is "([^""]*)"$/ do |arg1|
-  @prospect  = Prospect.new :first => 'Brad', :last => 'Chase',
-                        :state => 'OH', :email => 'foo@bar.com',
-                        :newsletter => true, :heard_from => 'Other'
-end
+# user_auth_steps.rb
+# Given /^I have the following information$/ do |user|
 
 Given /^I have never submitted it before$/ do
-  Prospect.where(:email => @prospect.email).each(&:destroy)
+  Prospect.destroy_all
 end
 
 Given /^I have submitted it before$/ do
-  @prospect.save
+  @user.save
 end
 
 When /^I visit the teaser page$/ do
@@ -17,12 +14,9 @@ When /^I visit the teaser page$/ do
 end
 
 When /^submit my email address and info$/ do
-  fill_in "First", :with => @prospect.first
-  fill_in "Last", :with => @prospect.last
-  fill_in "State", :with => @prospect.state
-  fill_in "Email", :with => @prospect.email
-  select @prospect.heard_from, :from => 'prospect_heard_from'
-  check "newsletter" if @prospect.newsletter
+  fill_in "First", :with => @user[:first]
+  fill_in "Last", :with => @user[:last]
+  fill_in "Email", :with => @user[:email]
   click_button "Save"
 end
 
