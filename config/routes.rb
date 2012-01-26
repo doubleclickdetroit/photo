@@ -1,9 +1,9 @@
 Photo::Application.routes.draw do
+  get "home/index"
+
   devise_for :users
 
-  root :to => 'prospects#new'
-  resources :prospects
-
+  root :to => 'home#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

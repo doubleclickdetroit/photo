@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107011130) do
-
-  create_table "prospects", :force => true do |t|
-    t.string   "first"
-    t.string   "last"
-    t.string   "state"
-    t.string   "email"
-    t.string   "heard_from"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "newsletter"
-  end
+ActiveRecord::Schema.define(:version => 20120126213020) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
