@@ -5,15 +5,6 @@
   %body{ :class => "#{ controller.controller_name }" }
     = render "header"
 
-    /////BEGIN BRAD'S MESS
-    %ul.user_menu
-      = render 'devise/menu/registration_items'
-      = render 'devise/menu/login_items'
-    #messages
-      %p.notice= notice
-      %p.alert= alert
-    /////END BRAD'S MESS
-
     #main{ :role => "main" }
       = render "flashes"
       = yield
