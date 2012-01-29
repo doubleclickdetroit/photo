@@ -6,13 +6,13 @@ define [], (require) ->
 	AppRouter = Backbone.Router.extend
 
 		routes:
-			""                     : "session_actions"
-			"users/*actions"        : "session_actions"
+			""               : "session_actions"
+			"users/*actions" : "session_actions"
 
 			"*splat" : "defaultAction"
 
 		session_actions: (actions = "home") ->
-			Session = require 'views/session'
+			Session = require 'views/session/session_facade'
 			do Session.getInstance()["do_#{actions.replace '/', '_'}"]
 
 		defaultAction: (splat) ->
