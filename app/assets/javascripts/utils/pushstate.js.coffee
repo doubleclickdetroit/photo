@@ -21,7 +21,7 @@ define [], (require) ->
 
 		constructor: ->
 			$(window).bind 'popstate', handlePopStateEvent
-			$(document).delegate 'a', 'click', handleHyperlinkPushState
+			$(document).delegate 'a[data-pushstate]', 'click', handleHyperlinkPushState
 
 		initialize: ->
 			log 'PushState init'
