@@ -19,8 +19,8 @@ define [], (require) ->
 			log 'defaultAction invoked!'
 
 	initialize: ->
-		# new AppRouter # eventually replace with line below
-		PushState.getInstance().subscribe new AppRouter
+		new AppRouter # eventually replace with line below
+		# PushState.getInstance().subscribe new AppRouter
 
 		Backbone.history.start
 			pushState: true
