@@ -7,21 +7,20 @@ define [], (require) ->
 
 		routes:
 			""                     : "session_actions"
-			"users/:action"        : "session_actions"
-			"users/:action/:other" : "session_actions" # can we rename "password/new" to "password"?
+			"users/*actions"        : "session_actions"
 
 			"*splat" : "defaultAction"
 
-		session_actions: (action) ->
+		session_actions: (actions = "home") ->
 			Session = require 'views/session'
-			do Session.getInstance()["do_#{action or= 'home'}"]
+			do Session.getInstance()["do_#{actions.replace '/', '_'}"]
 
 		defaultAction: (splat) ->
 			log 'defaultAction invoked!'
 
 	initialize: ->
-		new AppRouter # eventually replace with line below
-		# PushState.getInstance().subscribe new AppRouter
+		# new AppRouter # eventually replace with line below
+		PushState.getInstance().subscribe new AppRouter
 
 		Backbone.history.start
 			pushState: true

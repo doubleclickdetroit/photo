@@ -19,12 +19,12 @@ define [], (require) ->
 			log 'render: "home"'
 
 		do_sign_in: ->
-			log 'render: "sign_in"'
-			
+			log 'render: "sign_in"', tmpl_sign_in
+
 		do_sign_up: ->
 			log 'render: "sign_up"'
 
-		do_password: ->
+		do_password_new: ->
 			log 'render: "password"'
 
 	Session
