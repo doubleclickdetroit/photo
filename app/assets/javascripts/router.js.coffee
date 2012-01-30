@@ -3,20 +3,25 @@ define [], (require) ->
 	PushState = require 'utils/pushstate'
 	Backbone  = require 'backbone'
 
+	reformatPathToActions = (path) ->
+		path.replace '/', '_'
+
 	AppRouter = Backbone.Router.extend
 
 		routes:
-			""               : "session_actions"
+			""               : "home_actions"
 			"users/*actions" : "session_actions"
+			"*splat"         : "default_actions"
 
-			"*splat" : "defaultAction"
+		home_actions: ->
+			log 'home_actions invoked!'
 
-		session_actions: (actions = "home") ->
+		session_actions: (path) ->
 			Session = require 'views/session/session_facade'
-			do Session.getInstance()["do_#{actions.replace '/', '_'}"]
+			do Session.getInstance()["do_#{reformatPathToActions path}"]
 
-		defaultAction: (splat) ->
-			log 'defaultAction invoked!'
+		default_actions: (splat) ->
+			log 'default_actions invoked!'
 
 	initialize: ->
 		PushState.getInstance().subscribe new AppRouter

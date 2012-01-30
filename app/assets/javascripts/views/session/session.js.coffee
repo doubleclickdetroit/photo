@@ -14,9 +14,6 @@ define [], (require) ->
 		initialize: ->
 			log 'Session.Backbone.View initialize'
 
-		do_home: ->
-			log 'render: "home"'
-
 		do_sign_in: ->
 			log 'render: "sign_in"\n', tmpl_sign_in
 

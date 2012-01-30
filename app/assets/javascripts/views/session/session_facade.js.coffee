@@ -8,9 +8,6 @@ define [], (require) ->
 		initialize: ->
 			@sessionView = new SessionView
 
-		do_home: ->
-			do @sessionView.do_home
-
 		do_sign_in: ->
 			do @sessionView.do_sign_in
 

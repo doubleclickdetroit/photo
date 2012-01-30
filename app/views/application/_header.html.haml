@@ -1,6 +1,7 @@
 %header#header
 	%h1= app_name
 
-	%ul.user_menu
-		= render 'devise/menu/registration_items'
-		= render 'devise/menu/login_items'
+	%div.user-menu
+		%ul.user-actions
+			= render 'devise/menu/registration_items'
+			= render 'devise/menu/login_items'
