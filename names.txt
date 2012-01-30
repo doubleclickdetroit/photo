@@ -1,0 +1,12 @@
+User
+  Employee < User
+    Roles: Owner, Admin, Associate
+    Photographer < Employee
+  Customer < User
+    Roles?: Owner, Admin, Associate
+
+Group
+  Company < Group; Agency < Group
+    has_many :employees
+  Client < Group
+    has_many :customers

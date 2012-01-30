@@ -1,6 +1,6 @@
 @auth
 Feature: Registration
-  In order gain access to the site 
+  In order to gain access to the site 
   As a visitor to the site without a login
   I want to sign up for an account  
 
