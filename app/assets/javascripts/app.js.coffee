@@ -1,3 +1,4 @@
+# test comment
 define ['router','plugins'], (Router) ->
 
 	name: "Simple Wedding Workflow"
