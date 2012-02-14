@@ -1,0 +1,2 @@
+ideas:
+notes added during a meeting time by members of the meeting are added to the meeting entity?

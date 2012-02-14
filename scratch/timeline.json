@@ -1,0 +1,131 @@
+//and so it begins...
+//the timeline, an array of many entities
+'timeline':[
+
+
+  //meeting
+  {
+    'type':'meeting',
+    'title':'HLD Dev Discussion',
+    'text':'To discuss HLD dev stuff',
+    'start':'2012-01-27 21:41:31',
+    'finish':'2012-01-27 22:41:31',
+    //todo location
+    'location':'TBD',
+  },
+
+
+  //task
+  {
+    'type':'task',
+    'text':'Contact the client about X',
+    'complete':false,
+    'start':'2012-01-27 21:41:31',
+    'due':'2012-01-29 22:41:31',
+    //location allowed as well?
+  },
+
+
+  //task list
+  //array indicates the following should
+  //be grouped together in order
+  [
+    {
+      'type':'task',
+      'text':'Contact the client about X',
+      'complete':false,
+      'start':'2012-01-27 21:41:31',
+      'due':'2012-01-29 22:41:31'
+    },
+    {
+      'type':'task',
+      'text':'Contact the client about X',
+      'complete':false,
+      'start':'2012-01-27 21:41:31',
+      'due':'2012-01-29 22:41:31'
+    },
+  ],
+
+
+  //single (image) asset
+  {
+    'type':'asset',
+    'filetype':'png'
+    'text':'Image description',
+    'path':'/foo/bar.png',
+    'start':'2012-01-27 21:41:31'
+  },
+
+
+  //image group
+  [
+    {
+      'type':'asset',
+      'filetype':'png'
+      'text':'Image description',
+      'path':'/foo/bar.png',
+      'start':'2012-01-27 21:41:31'
+    },
+    {
+      'type':'asset',
+      'filetype':'png'
+      'text':'Image description',
+      'path':'/foo/baz.png',
+      'start':'2012-01-27 21:41:31'
+    },
+  ],
+
+
+  //grab bag :)
+  //meeting with tasks to be performed
+  //beforehand, as well as a pdf to be
+  //used during the meeting
+  //
+  //the first object in the array could
+  //take precedence here, defining the
+  //general entity type with the other
+  //objects considered to be attached
+  //to it.
+  [
+    {
+      'type':'meeting',
+      'title':'Client meeting',
+      'text':'Discuss foo and bar',
+      'start':'2012-01-27 21:41:31',
+      'finish':'2012-01-27 22:41:31',
+    },
+
+    {
+      'type':'task',
+      'text':'Do X prior to meeting',
+      'complete':true,
+      'start':'2012-01-27 21:41:31',
+      'due':'2012-01-29 22:41:31',
+    },
+    {
+      'type':'task',
+      'text':'Do Y prior to meeting',
+      'complete':false,
+      'start':'2012-01-27 21:41:31',
+      'due':'2012-01-29 22:41:31',
+    },
+
+    {
+      'type':'asset',
+      'filetype':'pdf'
+      'text':'',
+      'path':'/foo/bar.pdf',
+      'start':'2012-01-27 21:41:31'
+    },
+  ]
+]
+
+
+
+
+// thoughts:
+//
+// i gave all entities a 'start' but
+// since many things, like assets, dont
+// have a 'finish', perhaps 'time' would
+// be more appropriate...
