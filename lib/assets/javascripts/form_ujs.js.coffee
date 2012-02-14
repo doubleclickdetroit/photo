@@ -12,11 +12,17 @@
 		$field = $ this
 		$field.unwrap() if $field.parent().is ".#{FIELD_WRAP}"
 
-	data   = JSON.parse xhr.responseText
-	errors = for field, error of data
-		$list.append $ "<li>", text: "#{field} #{error}"
-		($fields.filter "[name*='[#{field}]']").wrapAll("<div class='#{FIELD_WRAP}' />")
+	try
+		data = JSON.parse xhr.responseText
 
-	$cont.prepend $ "<h2>", text: "#{errors.length} error#{if errors.length > 1 then "s" else ""} prohibited this prospect from being saved:"
+	catch err
+		data = "" : xhr.responseText
+
+	finally
+		errors = for field, error of data
+			$list.append $ "<li>", text: "#{field} #{error}"
+			($fields.filter "[name*='[#{field}]']").wrapAll("<div class='#{FIELD_WRAP}' />")
+
+		$cont.prepend $ "<h2>", text: "#{errors.length} error#{if errors.length > 1 then "s" else ""} prohibited this from being submitted:"
 
 	data

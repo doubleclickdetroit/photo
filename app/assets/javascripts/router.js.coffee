@@ -1,20 +1,30 @@
-define ['backbone'], (Backbone) ->
+define [], (require) ->
+
+	PushState = require 'utils/pushstate'
+	Backbone  = require 'backbone'
+
+	reformatPathToActions = (path) ->
+		path.replace '/', '_'
 
 	AppRouter = Backbone.Router.extend
 
 		routes:
-			"prospects": "showProspects"
-			"*actions"  : "defaultAction" #
+			""               : "home_actions"
+			"users/*actions" : "session_actions"
+			"*splat"         : "default_actions"
 
-		showProspects: ->
-			log "showProspects invoked!"
+		home_actions: ->
+			log 'home_actions invoked!'
 
-		defaultAction: (action)->
-			require ['views/prospects/new']
-			log "defaultAction invoked!"
+		session_actions: (path) ->
+			Session = require 'views/session/session_facade'
+			do Session.getInstance()["do_#{reformatPathToActions path}"]
+
+		default_actions: (splat) ->
+			log 'default_actions invoked!'
 
 	initialize: ->
-		new AppRouter
+		PushState.getInstance().subscribe new AppRouter
 
 		Backbone.history.start
 			pushState: true
