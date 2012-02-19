@@ -7,6 +7,7 @@ gem 'thin'
 # auth
 # gem 'friendly_id'
 gem 'devise'
+gem 'cancan'
 
 gem 'jquery-rails'
 gem 'haml-rails'

@@ -129,3 +129,57 @@
 // since many things, like assets, dont
 // have a 'finish', perhaps 'time' would
 // be more appropriate...
+//
+
+
+
+
+// V2
+//
+// perhaps the timeline array should
+// contain month objects which contain
+// day arrays that hold the entities...
+//
+// explicitly declare the type of a mixed
+// entity and include the others as members
+'project':{
+  'name':'Foo Bar',
+
+  'timeline':[
+    'feb': [
+      18: [
+        {
+          'type':'meeting',
+          'title':'Client meeting',
+          'text':'Discuss foo and bar',
+          'start':'2012-01-27 21:41:31',
+          'finish':'2012-01-27 22:41:31',
+          'members':[
+            {
+              'type':'task',
+              'text':'Do X prior to meeting',
+              'complete':true,
+              'start':'2012-01-27 21:41:31',
+              'due':'2012-01-29 22:41:31',
+            },
+            {
+              'type':'task',
+              'text':'Do Y prior to meeting',
+              'complete':false,
+              'start':'2012-01-27 21:41:31',
+              'due':'2012-01-29 22:41:31',
+            },
+
+            {
+              'type':'asset',
+              'filetype':'pdf'
+                'text':'',
+              'path':'/foo/bar.pdf',
+              'start':'2012-01-27 21:41:31'
+            },
+          ] //end timeline entity member array
+        } // end timeline entity
+      ] //end day
+    ] //end month
+  ] //end timeline
+} //end project

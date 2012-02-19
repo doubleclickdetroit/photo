@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%h1= @group.name
+
+= link_to 'Edit', edit_group_path(@group)
+\|
+= link_to 'Back', groups_path
+
+%h1 Timelines
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  -# - @group.timelines.each do |timeline|
+  -#   %tr
+  -#     %td= timeline.name
+  -#     %td= link_to 'Show', timeline
+  -#     %td= link_to 'Edit', edit_timeline_path(timeline)
+  -#     %td= link_to 'Destroy', timeline, :confirm => 'Are you sure?', :method => :delete
+

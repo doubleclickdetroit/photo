@@ -1,3 +1,4 @@
+#Successful account sign-up
 Given /^I have the following information$/ do |user|
   @user = user.hashes.first
 end
@@ -17,6 +18,7 @@ end
 When /^fill in and submit the form with my user data$/ do
   fill_in 'Name', :with => @user[:name]
   fill_in 'Email', :with => @user[:email]
+  # fill_in 'Organization Name', :with => @user[:group_name]
   fill_in 'Password', :with => @user[:password]
   fill_in 'Password confirmation', :with => @user[:password]
   click_button "Sign up"
@@ -25,4 +27,3 @@ end
 Then /^I see "([^"]*)"$/ do |text|
   page.should have_content(text)
 end
-

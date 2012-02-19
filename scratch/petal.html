@@ -1,0 +1,196 @@
+<head>
+    <script src="http://www.html5canvastutorials.com/libraries/kinetic-v3.7.3.js">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+    <script>
+        function drawLine(flower, lineLayer){
+            var stage = flower.getStage();
+            var context = lineLayer.getContext();
+ 
+            context.save();
+            context.beginPath();
+            lineLayer.clear();
+            context.strokeStyle = "green";
+            context.lineWidth = 10;
+            context.moveTo(flower.x, flower.y);
+            context.lineTo(stage.width / 2, stage.height + 10);
+            context.fill();
+            context.stroke();
+            context.closePath();
+            context.restore();
+        }
+
+        window.onload = function(){
+            var stage = new Kinetic.Stage("container", 578, 200);
+            var flowerLayer = new Kinetic.Layer();
+            var lineLayer = new Kinetic.Layer();
+            var flower = new Kinetic.Group();
+ 
+            // build center
+            var center = new Kinetic.Shape(function(){
+                var context = this.getContext();
+                context.beginPath();
+                context.lineWidth = 4;
+                context.fillStyle = center.color;
+                context.arc(0, 0, 20, 0, 2 * Math.PI, false);
+                context.fill();
+                context.stroke();
+                context.closePath();
+            });
+ 
+            // add custom property
+            center.color = "yellow";
+ 
+            center.on("mousedown", function(){
+                flower.draggable(true);
+                document.body.style.cursor = "pointer";
+            });
+            center.on("mouseover", function(){
+                this.color = "orange";
+                flowerLayer.draw();
+
+                var i = 1;
+                setInterval(function(){
+                  i = i + 0.1;
+                  if(i > 2) return;
+                  // console.log(i);
+
+                  center.setScale(i);
+                  flowerLayer.draw();
+                },2)
+            });
+            center.on("mouseout", function(){
+                this.color = "yellow";
+                flowerLayer.draw();
+
+                var i = 2;
+                center.setScale(i);
+
+                setInterval(function(){
+                  i = i - 0.1;
+                  if(i < 1) return;
+                  // console.log(i);
+
+                  center.setScale(i);
+                  flowerLayer.draw();
+                },2)
+            });
+ 
+
+            // todo sloppy sloptown
+            $mousedown = false;
+            function highlightPetalRange(i,j){
+              //reset all
+              for(i = 0; i < petals.length; i++){
+                petals[i].color = "#00dddd";
+              }
+
+              if(i == false) return;
+
+              for(i; i <= j; i++){
+                console.log('RANGE: ',i);
+                petals[i].color = 'red';
+              }
+              flowerLayer.draw();
+            }
+            var petals = [];
+            //end slop
+
+            // build petals
+            var numPetals = 31;
+            for (var n = 0; n < numPetals; n++) {
+                (function(){
+                    var petal = new Kinetic.Shape(function(){
+                        var context = this.getContext();
+                        context.globalAlpha = 0.8;
+                        context.beginPath();
+                        context.lineWidth = 4;
+                        context.fillStyle = petal.color;
+                        context.moveTo(-5, -20);
+                        context.bezierCurveTo(-40, -90, 40, -90, 5, -20);
+                        context.fill();
+                        context.stroke();
+                        context.closePath();
+                    });
+ 
+                    // add custom property
+                    petal.color = "#00dddd";
+ 
+                    petal.draggable(false);
+ 
+                    petal.on("mousedown", function(){
+                        $mousedown = petal.index;
+                        $('#start').text(petal.index);
+                        // console.log('DOWN', petal.index);
+                        petal.color = 'red';
+                        // this.moveToTop();
+                        center.moveToTop();
+                        flowerLayer.draw();
+                    });
+                    petal.on("mouseup", function(){
+                        $mousedown = false;
+                        $('#start','#end').text('');
+                        // console.log('UP', petal.index);
+                        // this.moveToTop();
+                        center.moveToTop();
+                        for(i = 0; i < numPetals; i++){
+                          petals[i].color = "#00dddd";
+                        }
+                        flowerLayer.draw();
+                    });
+                    petal.on("mouseover", function(){
+                        // console.log('OVER', petal.index);
+                        //this is a mess
+                        // this.color = "blue";
+                        if($mousedown){
+                          $('#end').text(petal.index);
+                          highlightPetalRange($mousedown,petal.index)
+                          // this.color = "red";
+                        }
+                        flowerLayer.draw();
+                    });
+                    petal.on("mouseout", function(){
+                        // console.log('OUT', petal.index);
+                        // if(!$mousedown){
+                        //   this.color = "#00dddd";
+                        // }
+                        flowerLayer.draw();
+                    });
+ 
+                    var rotation = 2 * Math.PI * n / numPetals;
+                    petal.setRotation(rotation);
+ 
+                    petals.push(petal);
+                    flower.add(petal);
+                }());
+            }
+ 
+            stage.on("mouseup", function(){
+                flower.draggable(false);
+                document.body.style.cursor = "default";
+            });
+ 
+            flower.on("dragmove", function(){
+                drawLine(this, lineLayer);
+            });
+ 
+            flower.add(center);
+            flower.setPosition(stage.width / 2, stage.height / 2);
+            flowerLayer.add(flower);
+ 
+            stage.add(lineLayer);
+            stage.add(flowerLayer);
+ 
+            drawLine(flower, lineLayer);
+        };
+    </script>
+</head>
+<body onmousedown="return false;">
+    <div id="container">
+    </div>
+    <div>
+      <span><strong>Start: </strong><span id="start"></span></span>
+      <span><strong>End: </strong><span id="end"></span></span>
+    </div>
+</body>

@@ -19,4 +19,10 @@ describe User do
       @membership.roles.should == @user.roles_for(@group)
     end
   end
+
+  describe '#enroll_in' do
+    it 'should enroll a member in a group with a particular role' do
+      @user.enroll_in @group, :as => 'owner'
+    end
+  end
 end

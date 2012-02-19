@@ -11,7 +11,4 @@ describe Group do
     @group.members << @user2
     @group.members.should == [@user1,@user2]
   end
-
-  it 'can only have members added by admin'
-  it 'can only have members removed by admin'
 end
