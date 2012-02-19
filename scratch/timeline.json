@@ -173,7 +173,7 @@
             {
               'type':'asset',
               'filetype':'pdf'
-                'text':'',
+              'text':'',
               'path':'/foo/bar.pdf',
               'start':'2012-01-27 21:41:31'
             },

@@ -6,7 +6,7 @@ class Group < ActiveRecord::Base
     user = args.shift
     role = args.extract_options![:as]
     self.members << user
-    m = Membership.for(self,group)
+    m = Membership.for(self,user)
     m.roles = [:owner]
     m.save
   end
