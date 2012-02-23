@@ -1,7 +1,7 @@
 # test comment
 define ['router','plugins'], (Router) ->
 
-	name: "Simple Wedding Workflow"
+	name: "DoubleClick Detroit CRM"
 	version: "0.1.dev"
 
 	initialize: ->

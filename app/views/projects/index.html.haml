@@ -1,25 +1,21 @@
-%p#notice= notice
-
-%h1= @group.name
-
-= link_to 'Edit', edit_group_path(@group)
-\|
-= link_to 'Back', groups_path
-
-%h2 Projects
-
-= link_to 'New Project', new_group_project_path(@group)
+%h1 Listing projects
 
 %table
   %tr
     %th Name
+    %th Group
     %th
     %th
     %th
 
-  - @group.projects.each do |project|
+  - @projects.each do |project|
     %tr
       %td= project.name
+      %td= project.group_id
       %td= link_to 'Show', project
       %td= link_to 'Edit', edit_project_path(project)
       %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Project', new_project_path

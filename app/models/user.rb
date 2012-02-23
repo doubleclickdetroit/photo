@@ -18,25 +18,27 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
 
   def membership_for(group)
-    Membership.for(self, group)
+    @membership ||= Membership.for(self, group)
   end
 
   def roles_for(group)
     self.membership_for(group).roles
   end
 
+  # @user.has_role? :admin
+  # @user.has_role? :admin, :for => @group
   def has_role?(*args)
-    role  = args.shift
+    roles = ([] << args.shift).flatten
     group = args.extract_options![:for]
-    self.membership_for(group).role? role
+    roles.each { |role| return true if roles_for(group).include?(role) }
   end
 
   def enroll_in(*args)
     group = args.shift
     role  = args.extract_options![:as]
     group.members << self
-    m = Membership.for(self,group)
-    m.roles = [:owner]
+    m = self.membership_for(group)
+    m.roles = [role]
     m.save
   end
 

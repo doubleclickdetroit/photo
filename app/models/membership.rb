@@ -11,14 +11,14 @@ class Membership < ActiveRecord::Base
     self.where(:group_id => group.id, :user_id => user.id).first
   end
 
-  scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
+  scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role)} > 0"} }
 
   #ONLY ADD TO THE END OF THIS ARRAY ELSE CHAOS
-  ROLES = %w[owner admin associate]
+  ROLES = [:owner, :admin, :associate]
   #ONLY ADD TO THE END OF THIS ARRAY ELSE CHAOS
 
   def roles=(roles)
-    self.roles_mask = (roles.map(&:to_s) & ROLES).map { |r| 2**ROLES.index(r) }.sum
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
   end
 
   def roles
@@ -26,6 +26,6 @@ class Membership < ActiveRecord::Base
   end
 
   def role?(role)
-    roles.include? role.to_s
+    roles.include? role
   end
 end

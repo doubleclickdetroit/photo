@@ -3,28 +3,57 @@ Feature: Projects
   As a member of the project's group
   I want to see and interact with a project
 
-  Scenario: Owner can create a new project
+  Scenario: Owner of a group can create a new project
     Given I am logged in
     And I belong to a group
-    And I am an owner for that group
-    When I visit that group's profile
+    And I am an "owner" for that group
+    When I visit my group's profile
     And click "New Project"
     And I fill in "Name" with "Test Project"  
-    And click "Save"
-    Then I should see "Project created successfully"
+    And press "Save"
+    # todo land on groups page
+    Then I should see "Project was successfully created."
     And I should see "Test Project"
    
-  # Scenario: Admin can create a new timeline
+  Scenario: Admin of a group can create a new project
+    Given I am logged in
+    And I belong to a group
+    And I am an "admin" for that group
+    When I visit my group's profile
+    And click "New Project"
+    And I fill in "Name" with "Test Project"  
+    And press "Save"
+    # todo land on groups page
+    Then I should see "Project was successfully created."
+    And I should see "Test Project"
 
+  # Scenario: Associate of a group cannot create a new project
+  #   Given I am logged in
+  #   And I belong to a group
+  #   And I am an "associate" for that group
+  #   When I visit my group's profile
+  #   And click "New Project"
+  #   Then I should see "You are not authorized to access this page"
+  # 
+  # Scenario: A user not belonging to a group cannot see its projects
+  #   Given I am logged in
+  #   And there is a group with a project
+  #   And I am not a member of that group
+  #   When I visit that group's profile
+  #   Then I should see "You are not authorized to access this page"
 
-  # Scenario: Only timelines belonging to the group are shown
+  Scenario: Only projects belonging to the group are shown
+    Given I am logged in
+    And I belong to a group
+    And I am an "admin" for that group
+    And there are many projects that do not belong to my group
+    When I visit my group's profile
+    Then I shouldn't see the projects that don't belong
 
-  # Scenario: A user not belonging to a group cannot see its timelines
-
-  # Scenario: Attempt to view timelines while not logged in
-  #   Given I am not logged in
-  #    # todo 
-  #   When I navigate to group management
-  #   # todo
-  #   # Then I am redirected to "/"
-  #   Then I should see "You need to sign in or sign up before continuing."
+  Scenario: Attempt to view projects while not logged in
+    Given I am not logged in
+    And there is a group with a project
+    When I navigate to that project
+    # todo
+    # Then I am redirected to "/"
+    Then I should see "You need to sign in or sign up before continuing."
