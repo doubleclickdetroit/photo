@@ -29,7 +29,6 @@ class ProjectsController < ApplicationController
   # GET /projects/new.json
   def new
     @project = Project.new :group_id => params[:group_id]
-    # @group_id = params[:group_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,7 +48,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project.group, notice: 'Project was successfully created.' }
         format.json { render json: @project, status: :created, location: @project }
       else
         format.html { render action: "new" }
@@ -81,7 +80,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     respond_to do |format|
-      format.html { redirect_to projects_url }
+      # format.html { redirect_to projects_url }
       format.json { head :ok }
     end
   end

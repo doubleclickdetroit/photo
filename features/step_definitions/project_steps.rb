@@ -6,10 +6,6 @@ Given /^I am an? "([^"]*)" for that group$/ do |role|
   @user.enroll_in(@group, :as => role.intern)
 end
 
-When /^I visit (my|that) group's profile$/ do |blank_arg|
-  visit group_path(@group)
-end
-
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |field, val|
   fill_in field, :with => val
 end
@@ -27,16 +23,16 @@ Then /^I shouldn't see the projects that don't belong$/ do
   page.should_not have_content('Foo Project')
 end
 
-Given /^there is a group with a project$/ do
-  @group = Factory(:group)
-  @project = Factory(:project)
-  @group.projects << @project
-end
-
 When /^I navigate to that project$/ do
   visit project_path(@project)
 end
 
-Given /^I am not a member of that group$/ do
-  Membership.for(@user, @group).try(:destroy)
+Then /^I should be redirected to "([^"]*)"$/ do |path|
+  current_path.should == path 
+end
+
+
+
+def current_path
+  URI.parse(current_url).path
 end

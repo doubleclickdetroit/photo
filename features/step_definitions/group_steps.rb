@@ -54,6 +54,24 @@ Given /^I am not logged in$/ do
   delete destroy_user_session_url
 end
 
+Given /^there is a group with a project$/ do
+  @group = Factory(:group)
+  @project = Factory(:project)
+  @group.projects << @project
+end
+
+Given /^I am not a member of that group$/ do
+  Membership.for(@user, @group).try(:destroy)
+end
+
+When /^I visit (my|that) group's profile$/ do |blank_arg|
+  visit group_path(@group)
+end
+
+
+
+
+
 # Then /^I am redirected to "([^\"]*)"$/ do |url|
 #   assert [301, 302].include?(@integration_session.status), "Expected status to be 301 or 302, got #{@integration_session.status}"
 #   location = @integration_session.headers["Location"]

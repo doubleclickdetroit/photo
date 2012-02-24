@@ -1,10 +1,12 @@
 class GroupsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:new, :create]
 
   # GET /groups
   # GET /groups.json
   def index
-    @groups = current_user.groups
+    @groups = current_user ? current_user.groups : []
 
     respond_to do |format|
       format.html # index.html.erb

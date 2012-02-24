@@ -18,37 +18,31 @@ class User < ActiveRecord::Base
   has_many :groups, :through => :memberships
 
   def membership_for(group)
-    @membership ||= Membership.for(self, group)
+    Membership.for(self, group)
   end
 
   def roles_for(group)
-    self.membership_for(group).roles
+    membership_for(group).try(:roles) || []
   end
 
-  # @user.has_role? :admin
   # @user.has_role? :admin, :for => @group
+  # @user.has_role? [:owner,:admin], :for => @group
   def has_role?(*args)
     roles = ([] << args.shift).flatten
     group = args.extract_options![:for]
-    roles.each { |role| return true if roles_for(group).include?(role) }
+    raise ArgumentError, "Expected arg :for => group_instance" unless group
+    has_role = false
+    roles.each { |role| has_role = true if roles_for(group).include?(role) }
+    has_role
   end
 
   def enroll_in(*args)
     group = args.shift
     role  = args.extract_options![:as]
+    raise ArgumentError, "Expected arg :as => :role_symbol" unless role
     group.members << self
     m = self.membership_for(group)
     m.roles = [role]
     m.save
   end
-
-  # overriding groups to accomodate roles in memberships
-  # todo fix, slow
-  # alias :groups_orig :groups
-  # def groups
-  #   groups_orig.each do |g|
-  #     m = Membership.where(:group_id => g.id, :user_id => self.id).first
-  #     g.instance_eval { def roles; m.roles; end }
-  #   end
-  # end
 end

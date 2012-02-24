@@ -4,8 +4,15 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    can :manage, Group do |group|
+      group && user.has_role?([:owner,:admin], :for => group)
+    end
+    can :read, Group do |group|
+      group && user.has_role?(:associate, :for => group)
+    end
+
     can :manage, Project do |project|
-      project && user.has_role?(:owner, :for => project.group)
+      project && user.has_role?([:owner,:admin], :for => project.group)
     end
 
     # Define abilities for the passed in user here. For example:
