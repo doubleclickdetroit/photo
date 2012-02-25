@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @entity.title
+%p
+  %b Text:
+  = @entity.text
+%p
+  %b Type:
+  = @entity.type
+
+= link_to 'Edit', edit_entity_path(@entity)
+\|
+= link_to 'Back', entities_path

@@ -15,11 +15,9 @@
     %th Name
     %th
     %th
-    %th
 
   - @group.projects.each do |project|
     %tr
-      %td= project.name
-      %td= link_to 'Show', project
+      %td= link_to project.name, project
       %td= link_to 'Edit', edit_project_path(project)
       %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete

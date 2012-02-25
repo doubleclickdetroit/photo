@@ -28,6 +28,7 @@ When /^I navigate to that project$/ do
 end
 
 Then /^I should be redirected to "([^"]*)"$/ do |path|
+  # todo test for 303/304
   current_path.should == path 
 end
 

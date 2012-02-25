@@ -2,18 +2,15 @@ Photo::Application.routes.draw do
   devise_for :users
 
   resources :groups do
-    # resources :users, :name_prefix => 'user_'
-    # resources :projects, :name_prefix => 'projects_'
-
-    # resources :users, :as => 'user'
-    # resources :projects, :as => 'projects'
-
     resources :users
     resources :projects
   end
 
-  resources :projects
- 
+  resources :projects do
+    resources :entities
+  end
+
+  resources :entities
   resources :memberships
 
   root :to => 'home#index'

@@ -3,9 +3,19 @@
 %p
   %b Name:
   = @project.name
-%p
-  %b Group:
-  = @project.group_id
+
+%fieldset
+  %legend Entities
+  %table
+    %tr
+      %th Type
+      %th Title
+      %th Text
+      %th
+      %th
+      %th
+  = render :partial => 'entity', :collection => @project.entities
+  = link_to 'New Entity', new_project_entity_path(@project)
 
 = link_to 'Edit', edit_project_path(@project)
 \|
