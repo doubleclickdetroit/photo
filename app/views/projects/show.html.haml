@@ -14,8 +14,8 @@
       %th
       %th
       %th
-  = render :partial => 'entity', :collection => @project.entities
-  = link_to 'New Entity', new_project_entity_path(@project)
+    = render :partial => 'entity', :collection => @project.entities
+  = link_to 'New task', new_project_task_path(@project)
 
 = link_to 'Edit', edit_project_path(@project)
 \|

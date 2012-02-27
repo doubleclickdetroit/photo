@@ -2,6 +2,6 @@
   %td= entity.type.try(:capitalize)
   %td= entity.title
   %td= entity.text
-  %td= link_to 'Show', entity
+  %td= link_to 'Show', entity_path(entity)
   %td= link_to 'Edit', edit_entity_path(entity)
-  %td= link_to 'Destroy', entity, :confirm => 'Are you sure?', :method => :delete
+  %td= link_to 'Destroy', entity_path(entity), :confirm => 'Are you sure?', :method => :delete

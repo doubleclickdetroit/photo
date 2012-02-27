@@ -1,32 +1,32 @@
-Feature: Project Entities
-  In order to track specifics of a project 
+Feature: Tasks
+  In order to keep track of what is done and what needs to be completed
   As a member of the project's group
-  I want to be able to view entities to track tasks, events, etc 
+  I want to be able to view and create tasks 
 
-  Scenario: Owner of a group can view the entities of a project from the project view
+  Scenario: Owner of a group can view the tasks of a project from the project view
     Given I am logged in
     And I belong to a group
     And I am an "owner" for that group
     And that group already has a project named "Cucumber Project"
-    And that project already has several entities
+    And that project already has several tasks
     When I visit my group's profile
     And click "Cucumber Project"
-    Then I should see all the entities' titles 
+    Then I should see all the tasks' titles 
 
-  Scenario Outline: All group members add an entity to a project 
+  Scenario Outline: All group members add an task to a project 
     Given I am logged in
     And I belong to a group
     And I am an "<role>" for that group
     And that group already has a project named "Cucumber Project"
     When I visit my group's profile
     And click "Cucumber Project"
-    And click "New Entity"
-    And fill in "Title" with "Test Entity"
-    And fill in "Text" with "Test entity copy text"
+    And click "New task"
+    And fill in "Title" with "Test task"
+    And fill in "Text" with "Test task copy text"
     And select "Task" from "Type"
     And press "Save"
     # todo check redirect to project page
-    Then I should see "Entity was successfully created."
+    Then I should see "Task was successfully created."
 
     Examples:
       | role      |
@@ -37,12 +37,12 @@ Feature: Project Entities
 
   # todo selenium confirm dialog
   # @js
-  # Scenario Outline: Only owners and admins may delete an entity from a project 
+  # Scenario Outline: Only owners and admins may delete an task from a project 
   #   Given I am logged in
   #   And I belong to a group
   #   And I am an "<role>" for that group
   #   And that group already has a project named "Cucumber Project"
-  #   And that project already has an entity
+  #   And that project already has an task
   #   When I visit my group's profile
   #   And click "Cucumber Project"
   #   # todo this cleaner
@@ -54,6 +54,6 @@ Feature: Project Entities
 
   #   Examples:
   #     | role      | message                          |
-  #     | owner     | Entity was successfully created. | 
-  #     | admin     | Entity was successfully created. |
-  #     | associate | foobarbazboo | 
+  #     | owner     | Task was successfully created. | 
+  #     | admin     | Task was successfully created. |
+  #     | associate | failure message | 

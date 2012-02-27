@@ -7,19 +7,19 @@ When /^select "([^"]*)" from "([^"]*)"$/ do |option, dropdown|
   select(option, :from => dropdown)
 end
 
-Given /^that project already has several entities$/ do
-  3.times { @project.entities << Factory(:entity) }
-  @entities = @project.entities
+Given /^that project already has several tasks$/ do
+  3.times { @project.entities << Factory(:task) }
+  @tasks = @project.tasks
 end
 
-Then /^I should see all the entities' titles$/ do
-  @entities.each do |entity|
-    page.should have_content(entity.title)
+Then /^I should see all the tasks' titles$/ do
+  @tasks.each do |task|
+    page.should have_content(task.title)
   end
 end
 
-Given /^that project already has an entity$/ do
-  @project.entities << Factory(:entity)
+Given /^that project already has an task$/ do
+  @project.entities << Factory(:task)
 end
 
 # When /^confirm the dialog$/ do

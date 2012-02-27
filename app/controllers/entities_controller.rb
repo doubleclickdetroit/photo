@@ -40,11 +40,11 @@ class EntitiesController < ApplicationController
   # POST /entities
   # POST /entities.json
   def create
-    @entity = Entity.new(params[:entity])
+    @entity = Entity.spawn(params[:entity])
 
     respond_to do |format|
       if @entity.save
-        format.html { redirect_to @entity.project, notice: 'Entity was successfully created.' }
+        format.html { redirect_to @entity.project, notice: "#{@entity.type} was successfully created." }
         format.json { render json: @entity, status: :created, location: @entity }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class EntitiesController < ApplicationController
 
     respond_to do |format|
       if @entity.update_attributes(params[:entity])
-        format.html { redirect_to @entity, notice: 'Entity was successfully updated.' }
+        format.html { redirect_to @entity.project, notice: "#{@entity.type} was successfully updated." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -76,7 +76,7 @@ class EntitiesController < ApplicationController
     @entity.destroy
 
     respond_to do |format|
-      format.html { redirect_to entities_url }
+      format.html { redirect_to project_url(@entity.project) }
       format.json { head :ok }
     end
   end
