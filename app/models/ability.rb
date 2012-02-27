@@ -4,15 +4,23 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    # OWNER / ADMIN
     can :manage, Group do |group|
       group && user.has_role?([:owner,:admin], :for => group)
     end
+    can :manage, Project do |project|
+      project && user.has_role?([:owner,:admin], :for => project.group)
+    end
+
+    # ASSOCIATE
     can :read, Group do |group|
       group && user.has_role?(:associate, :for => group)
     end
-
-    can :manage, Project do |project|
-      project && user.has_role?([:owner,:admin], :for => project.group)
+    can :read, Project do |project|
+      project && user.has_role?(:associate, :for => project.group)
+    end
+    can [:read, :create, :update], Entity do |entity|
+      entity && user.has_role?(:associate, :for => entity.group)
     end
 
     # Define abilities for the passed in user here. For example:

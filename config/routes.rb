@@ -8,6 +8,8 @@ Photo::Application.routes.draw do
 
   resources :projects do
     resources :entities
+    # resources :tasks, :controller => 'entities', :requirements => {:type => 'task'}
+    resources :tasks, :controller => 'entities', :type => 'task'
   end
 
   resources :entities
