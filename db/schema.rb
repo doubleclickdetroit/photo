@@ -17,9 +17,7 @@ ActiveRecord::Schema.define(:version => 20120301083251) do
     t.integer  "assignee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "entity_type"
-    t.integer  "assignable_id"
-    t.string   "assignable_type"
+    t.integer  "entity_id"
   end
 
   create_table "entities", :force => true do |t|
