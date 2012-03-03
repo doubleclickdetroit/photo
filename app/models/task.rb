@@ -1,5 +1,6 @@
 class Task < Entity
-  # has_one :assignment, :as => :assignable
+  has_one :deadline, :foreign_key => :entity_id
 
-  # delegate :assignee, :to => :assignment
+  delegate :due, :due=, :to => :deadline
+  delegate :complete, :complete=, :to => :deadline
 end

@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :deadline do
     entity nil
     due "2012-03-03 17:28:35"
-    met false
+    complete false
   end
 end

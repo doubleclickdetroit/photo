@@ -1,38 +1,57 @@
 require 'spec_helper'
 
-describe Task do
-  before(:each) do
-    @user = Factory(:user)
-    @task = Factory(:task)
-    # @task.assignment = Assignment.create(
-    #                       :assignee_id     => @user.id,
-    #                       :assignable_id   => @task.id,
-    #                       :assignable_type => Entity.to_s)
-  end
-
-  describe '#assignee' do
-    it 'should return a User' do
+describe Entity do
+  describe Task do
+    before(:each) do
+      @user = Factory(:user)
+      @task = Factory(:task)
+      @deadline = Factory(:deadline)
+      @task.deadline = @deadline
     end
-  end
 
-  describe '#assign_to' do
-    it 'should return a User' do
+    describe '#due' do
+      it 'should return the due date from the associated Deadline' do
+        @task.due.should == @deadline.due
+      end
     end
-  end
 
-  describe '#complete' do
-    it 'should return a User' do
+    describe '#due=' do
+      it 'should set the due date for the associated Deadline' do
+        time = DateTime.now  
+        @deadline.due.should_not == time
+        @task.due = time
+        @task.due.should == time 
+      end
     end
-  end
 
-  describe '#reminder' do
-    it 'should return a User' do
+    describe '#complete' do
+      it 'should return the complete date from the associated Deadline' do
+        @task.complete.should == @deadline.complete
+      end
     end
-  end
 
-  describe '#reminds=' do
-    it 'should return a User' do
+    describe '#complete=' do
+      it 'should set the complete boolean for the associated Deadline' do
+        @deadline.complete.should_not == true
+        @task.complete = true
+        @task.complete.should == true 
+      end
     end
-  end
 
+    # describe '#complete' do
+    #   it 'should return a User' do
+    #   end
+    # end
+
+    # describe '#reminder' do
+    #   it 'should return a User' do
+    #   end
+    # end
+
+    # describe '#reminds=' do
+    #   it 'should return a User' do
+    #   end
+    # end
+
+  end
 end
