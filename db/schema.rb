@@ -11,14 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301083251) do
-
-  create_table "assignments", :force => true do |t|
-    t.integer  "assignee_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "entity_id"
-  end
+ActiveRecord::Schema.define(:version => 20120303020133) do
 
   create_table "entities", :force => true do |t|
     t.string   "title"
@@ -78,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20120301083251) do
     t.boolean  "assigned"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
 end

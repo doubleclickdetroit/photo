@@ -33,28 +33,19 @@ describe Entity do
     end
   end
 
-  describe '#assign_to(/#assignee)' do
+  describe '#assignee =(/#assignee)' do
     it 'should assign the task to a User' do
-      @entity.assign_to @user
+      @entity.assignee = @user
       @entity.assignee.should == @user
     end
   end
 
-  describe '#assign' do
-    it 'should return nil when no user is assigned' do
-      @entity.assign_to @user
-      @entity.assignee.should == @user
-    end
-  end
-
+  # todo not sure about this method
   describe '#unassign!' do
     it 'should unassign the entity' do
-      @entity.assign_to @user
+      @entity.assignee = @user
       @entity.unassign!
       @entity.assignee.should be_nil
     end
   end
-
-  # describe '#assignee' do
-  # end
 end
