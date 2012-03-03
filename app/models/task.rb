@@ -1,3 +1,5 @@
 class Task < Entity
-  include Completable
+  # has_one :assignment, :as => :assignable
+
+  # delegate :assignee, :to => :assignment
 end

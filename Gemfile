@@ -50,6 +50,7 @@ group :development, :test do
   gem 'selenium-webdriver'
 	gem 'launchy'
 	gem 'guard-rspec'
+	gem 'guard-cucumber'
   gem 'spork'
   gem 'guard-spork'
   # gem 'guard-rails-assets'
