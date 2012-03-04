@@ -22,3 +22,18 @@ class Entity < ActiveRecord::Base
     assignment.destroy && reload
   end
 end
+
+class Task < Entity
+  has_one :deadline, :foreign_key => :entity_id
+
+  delegate :due, :due=, :to => :deadline
+  delegate :complete, :complete=, :to => :deadline
+end
+
+class Event < Entity
+  has_one :location, :foreign_key => :entity_id
+
+  delegate :line1, :line2, :line1=, :line2=, :to => :location, :prefix => true
+  # alias :attendees :followers
+  # alias :attendees= :followers=
+end

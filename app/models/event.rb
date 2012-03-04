@@ -1,3 +1,3 @@
-class Task < Entity
+class Event < Entity
   ### defined in entity.rb ###
 end
