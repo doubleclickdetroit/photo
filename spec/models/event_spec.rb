@@ -18,11 +18,9 @@ describe Entity do
 
     describe '#attendees methods' do
       it 'should simply be an alias to #followers' do
-        pending 'messed up association thing...'
-        # @event.followers
-        # @event.attendees = [Factory(:user)]
-        # @event.attendees << Factory(:user)
-        # @event.attendees.should == @event.followers
+        @event.attendees = [Factory(:user)]
+        @event.attendees << Factory(:user)
+        @event.attendees.should == @event.followers
       end
     end
   end

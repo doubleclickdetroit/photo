@@ -34,6 +34,6 @@ class Event < Entity
   has_one :location, :foreign_key => :entity_id
 
   delegate :line1, :line2, :line1=, :line2=, :to => :location, :prefix => true
-  # alias :attendees :followers
-  # alias :attendees= :followers=
+  alias :attendees :followers
+  alias :attendees= :followers=
 end
