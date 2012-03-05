@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :location do
     entity nil
-    line1 "MyString"
-    line2 "MyString"
+    line1 "123 Main St."
+    line2 "Derpville, OH 45678"
   end
 end
