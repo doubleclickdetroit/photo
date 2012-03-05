@@ -12,6 +12,8 @@ class Entity < ActiveRecord::Base
   belongs_to :project
   delegate :group, :to => :project
 
+  has_many :comments
+
   has_many :watchings
   has_many :followers, :through => :watchings, :source => :user 
 

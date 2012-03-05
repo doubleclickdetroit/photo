@@ -7,9 +7,14 @@ describe Entity do
     @entity = Factory(:entity)
   end
 
-  # describe '#group' do
-  # # delegated to #project
-  # end
+  describe '#group' do
+    it 'should be delegated to #project' do
+      @group = Factory(:group)
+      @group.projects << @project
+      @project.entities << @entity
+      @entity.group.should == @project.group
+    end
+  end
 
   # provided by ActiveRecord
   describe '#project=/project' do
@@ -46,6 +51,15 @@ describe Entity do
       @entity.assignee = @user
       @entity.unassign!
       @entity.assignee.should be_nil
+    end
+  end
+
+  describe '#comments' do
+    it 'should r/w and push comments' do
+      @comment1,@comment2 = Factory(:comment),Factory(:comment)
+      @entity.comments = [@comment1]
+      @entity.comments << @comment2
+      @entity.comments.should == [@comment1,@comment2]
     end
   end
 end
