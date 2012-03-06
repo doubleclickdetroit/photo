@@ -2,8 +2,11 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :user do
-    sequence(:name) {|n|"foo#{n}"}
+    sequence(:first) {|n|"Foo#{n}"}
+    sequence(:last) {|n|"Bar#{n}"}
+
     sequence(:email) {|n|"foo#{n}@bar.com"}
+
     password "foobarbaz"
     password_confirmation {|u| u.password}
 
