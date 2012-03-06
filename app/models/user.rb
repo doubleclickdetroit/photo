@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
+  has_attached_file :avatar, :styles => { :icon => '30x30', :small => '100x100' },
+                    :default_url => "/images/default_:style_avatar.png",
+                    :default_style => :icon
+
   has_many :comments
 
   # todo dependent destroy...

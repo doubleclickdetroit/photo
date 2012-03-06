@@ -9,6 +9,7 @@ gem 'thin'
 # gem 'friendly_id'
 gem 'devise'
 gem 'cancan'
+gem "paperclip", "~> 2.7"
 
 gem 'jquery-rails'
 gem 'haml-rails'

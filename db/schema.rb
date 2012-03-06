@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305054259) do
+ActiveRecord::Schema.define(:version => 20120306062953) do
 
   create_table "comments", :force => true do |t|
     t.integer  "entity_id"
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20120305054259) do
   create_table "deadlines", :force => true do |t|
     t.integer  "entity_id"
     t.datetime "due"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.boolean  "complete",   :default => false, :null => false
   end
 
@@ -37,32 +37,24 @@ ActiveRecord::Schema.define(:version => 20120305054259) do
     t.string   "title"
     t.string   "text"
     t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "project_id"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
   end
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
-
-  create_table "locations", :force => true do |t|
-    t.integer  "entity_id"
-    t.string   "line1"
-    t.string   "line2"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "locations", ["entity_id"], :name => "index_locations_on_entity_id"
 
   create_table "memberships", :force => true do |t|
     t.integer  "group_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "roles_mask"
   end
 
@@ -72,9 +64,21 @@ ActiveRecord::Schema.define(:version => 20120305054259) do
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
+
+  create_table "time_places", :force => true do |t|
+    t.integer  "entity_id"
+    t.datetime "start"
+    t.datetime "finish"
+    t.string   "address1"
+    t.string   "address2"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "time_places", ["entity_id"], :name => "index_time_places_on_entity_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -87,9 +91,13 @@ ActiveRecord::Schema.define(:version => 20120305054259) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "name"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -99,8 +107,8 @@ ActiveRecord::Schema.define(:version => 20120305054259) do
     t.integer  "user_id"
     t.integer  "entity_id"
     t.boolean  "assigned"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "type"
   end
 

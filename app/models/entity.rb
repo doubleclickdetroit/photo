@@ -9,6 +9,9 @@ class Entity < ActiveRecord::Base
     klass.new args.first
   end
 
+  belongs_to :created_by, :class_name => 'User'
+  belongs_to :updated_by, :class_name => 'User'
+
   belongs_to :project
   delegate :group, :to => :project
 
@@ -33,9 +36,13 @@ class Task < Entity
 end
 
 class Event < Entity
-  has_one :location, :foreign_key => :entity_id
+  has_one :time_place, :foreign_key => :entity_id
+  delegate :start, :start=, 
+           :finish, :finish=, 
+           :address1, :address1=,
+           :address2, :address2=,
+           :to => :time_place
 
-  delegate :line1, :line2, :line1=, :line2=, :to => :location, :prefix => true
   alias :attendees :followers
   alias :attendees= :followers=
 end

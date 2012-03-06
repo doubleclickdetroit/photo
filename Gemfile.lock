@@ -53,6 +53,7 @@ GEM
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     chunky_png (1.2.5)
+    cocaine (0.2.1)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -132,6 +133,11 @@ GEM
     multi_json (1.1.0)
     nokogiri (1.5.0)
     orm_adapter (0.0.6)
+    paperclip (2.7.0)
+      activerecord (>= 2.3.0)
+      activesupport (>= 2.3.2)
+      cocaine (>= 0.0.2)
+      mime-types
     pg (0.13.2)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -239,6 +245,7 @@ DEPENDENCIES
   html5-rails!
   jquery-rails
   launchy
+  paperclip (~> 2.7)
   pg
   rails (= 3.2.0)
   requirejs-rails

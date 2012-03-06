@@ -1,3 +1,14 @@
+# todo:
+# 1 reminders
+# 2 TimePlace PlaceAndTime
+# 3 heroku
+# 4 avatars
+#
+#
+#
+#
+#
+#
 # all entities have:
 # 1 title
 # 2 text
