@@ -1,8 +1,8 @@
 # todo:
 # 1 reminders
-# 2 TimePlace PlaceAndTime
-# 3 heroku
-# 4 avatars
+# 2 heroku
+# 3 Container for Entities
+# 4 db:seed
 #
 #
 #
@@ -47,15 +47,6 @@ class Task < Entity
   include Assignable # assignment implies need for completion
 end
 
-module Assignable
-  included do
-    has_one  :assignment
-
-    delegate :assignee, :to => :assignment
-    delegate :complete, :to => :assignment
-  end
-end
-
 # handles
 # 1 assignment
 # 2 reminder
@@ -92,25 +83,3 @@ end
 class Comment
   belongs_to :commentable, :polymorphic => true
 end
-
-
-
-##############################
-######### MODULES ############
-##############################
-
-module Attachable; end
-
-module Attendable; end
-
-module Completable; end
-
-module Remindable; end
-
-module Assignable; end
-
-module Watchable; end
-module Followable; end
-module Notifiable; end
-
-module Commentable; end
