@@ -1,17 +1,25 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+##################################
+######## Users & Group ###########
+##################################
+
 @ben  = Factory(:user, :first => 'Ben', :last => 'Babics')
 @brad = Factory(:user, :first => 'Brad', :last => 'Chase')
 @josh  = Factory(:user, :first => 'Josh', :last => 'Yurich')
 
 @group = Factory(:group, :name => 'DoubleClick Detroit')
 
-# puts @ben.inspect, @group.inspect
-
 @ben.enroll_in @group, :as => :owner
 @josh.enroll_in @group, :as => :admin
 @brad.enroll_in @group, :as => :associate
+
+
+
+##################################
+########### Project ##############
+##################################
 
 @project = Factory(:project, :name => 'Timeline CRM')
 @group.projects << @project
@@ -20,11 +28,11 @@ def hour_and_minute_for_date(hour, minute, date)
   DateTime.new date.year, date.month, date.day, hour, minute
 end
 
-#7
-#8
-#9
-#10
-#today is the 11th
+
+
+##################################
+############ Events ##############
+##################################
 
 events = [
   {
@@ -97,6 +105,11 @@ events.each do |event|
 end
 
 
+
+##################################
+############# Tasks ##############
+##################################
+
 tasks = [
   {
     :title => 'Attach Requirements Documentation',
@@ -125,3 +138,40 @@ tasks.each do |task|
   @task.deadline = @dealine
   @project.entities << @task
 end
+
+
+
+##################################
+############ Assets ##############
+##################################
+
+assets = [
+  {
+    :title => 'Requirements Documentation',
+    :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_at => 3.days.ago 
+    # word doc
+  },
+  {
+    :title => 'Wireframes',
+    :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_at => 1.day.ago 
+    # pdf  
+  },
+  {
+    :title => 'Mockups',
+    :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_at => 1.day.ago 
+    # pdf  
+  }
+]
+
+# assets.each do |asset|
+#   deadline = asset.delete :deadline
+# 
+#   @attachment = Factory(:attachment, attachment)
+#   @asset      = Factory(:asset, asset)
+# 
+#   @asset.attachment = @dealine
+#   @project.entities << @asset
+# end
