@@ -41,8 +41,11 @@ class Event < Entity
            :finish, :finish=, 
            :address1, :address1=,
            :address2, :address2=,
+           :address3, :address3=,
            :to => :time_place
 
   alias :attendees :followers
   alias :attendees= :followers=
+
+  # accepts_nested_attributes_for :time_place
 end

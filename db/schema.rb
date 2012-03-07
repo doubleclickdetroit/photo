@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306204644) do
+ActiveRecord::Schema.define(:version => 20120307013616) do
 
   create_table "comments", :force => true do |t|
     t.integer  "entity_id"
@@ -35,13 +35,13 @@ ActiveRecord::Schema.define(:version => 20120306204644) do
 
   create_table "entities", :force => true do |t|
     t.string   "title"
-    t.string   "text"
     t.string   "type"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "project_id"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.text     "text"
   end
 
   create_table "groups", :force => true do |t|
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20120306204644) do
     t.string   "address2"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "address3"
   end
 
   add_index "time_places", ["entity_id"], :name => "index_time_places_on_entity_id"
