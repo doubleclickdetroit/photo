@@ -16,7 +16,8 @@ When /^click "([^"]*)"$/ do |link|
 end
 
 When /^fill in and submit the form with my user data$/ do
-  fill_in 'Name', :with => @user[:name]
+  fill_in 'First', :with => @user[:first]
+  fill_in 'Last', :with => @user[:last]
   fill_in 'Email', :with => @user[:email]
   # fill_in 'Organization Name', :with => @user[:group_name]
   fill_in 'Password', :with => @user[:password]

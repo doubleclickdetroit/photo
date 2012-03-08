@@ -3,14 +3,16 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :multipart => true }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
+  <div><%= f.label :first %><br />
+  <%= f.text_field :first %></div>
+
+  <div><%= f.label :last %><br />
+  <%= f.text_field :last %></div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
   <div><%= f.label :avatar %><br />
-  <%= link_to image_tag current_user.avatar.url(:small) %><br />
   <%= f.file_field :avatar %></div>
 
   <div><%= f.label :password %><br />

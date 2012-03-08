@@ -6,11 +6,10 @@ Feature: Registration
 
   Scenario: Successful account sign-up 
     Given I have the following information
-      |name  |email      |group_name|password|
-      |bchase|foo@bar.com|foobar    |asdfasdf|
+      |first|last |email      |group_name|password|
+      |brad |chase|foo@bar.com|foobar    |asdfasdf|
     And I am not a registered user 
     When I visit the home page
     And click "Sign up" 
     And fill in and submit the form with my user data 
     Then I see "Welcome! You have signed up successfully."
-
