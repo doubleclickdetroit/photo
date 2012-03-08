@@ -49,3 +49,7 @@ class Event < Entity
 
   # accepts_nested_attributes_for :time_place
 end
+
+class Asset < Entity
+  # has_attached_file :file
+end

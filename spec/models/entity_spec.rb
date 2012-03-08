@@ -76,32 +76,4 @@ describe Entity do
       @entity.updated_by.should == @user
     end
   end
-
-  describe '#avatar' do
-    describe '#url' do
-      describe 'is not defined' do
-        it 'should default to the default 30x30 when passed :icon' do
-          @user.avatar.url(:icon).should == "/images/default_icon_avatar.png"
-        end
-
-        it 'should default to the default 100x100 when passed :small' do
-          @user.avatar.url(:small).should == "/images/default_small_avatar.png"
-        end
-      end
-
-      describe 'is defined' do
-        before(:each) do
-          @user = Factory(:user, :with_avatar)
-        end
-
-        it 'should return a URL for an icon when passed :icon' do
-          @user.avatar.url(:icon).should match('icon')
-        end
-
-        it 'should return a URL for a small image when passed :small' do
-          @user.avatar.url(:small).should match('small')
-        end
-      end
-    end
-  end
 end
