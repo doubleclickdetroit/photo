@@ -15,8 +15,20 @@ Factory.define :event do |f|
   f.type "Event"
 end
  
-# Factory.define :asset do |f|
-#   f.sequence(:title) {|n| "Asset #{n}"}
+Factory.define :embed do |f|
+  f.sequence(:title) {|n| "Embed #{n}"}
+  f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+  f.type "Embed"
+end
+
+# Factory.define :suggestion do |f|
+#   f.sequence(:title) {|n| "Suggestion #{n}"}
 #   f.sequence(:text) {|n| "Lorem ipsum #{n}"}
-#   f.type "asset"
+#   f.type "Suggestion"
+# end
+
+# Factory.define :correspondence do |f|
+#   f.sequence(:title) {|n| "Correspondence #{n}"}
+#   f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+#   f.type "Correspondence"
 # end

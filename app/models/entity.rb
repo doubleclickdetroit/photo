@@ -50,6 +50,57 @@ class Event < Entity
   # accepts_nested_attributes_for :time_place
 end
 
-class Asset < Entity
-  # has_attached_file :file
+class Embed < Entity
+  has_one :asset, :foreign_key => :entity_id, :dependent => :destroy
+  # after_save :associate_asset
+  after_initialize :associate_asset
+
+  # { :attachment              => :file,
+  #   :attachment=             => :file=,
+  #   :attachment_file_name    => :file_name,
+  #   :attachment_file_size    => :file_size,
+  #   :attachment_content_type => :content_type
+  # }.each do |old, new|
+  #   delegate old, :to => :asset
+  #   self.class_eval do
+  #     # if old.to_s.match(/=/)
+  #     #   define_method new {|arg| self.send old, arg }
+  #     # else
+  #       define_method new { send old }
+  #     # end
+  #   end
+  # end
+
+  # remapping paperclip methods on #asset
+  # e.g. the following change is made from/to 
+  # @embed.asset.attachment_file_name
+  # @embed.file_name
+  # key/values work as
+  # [message sent to asset]/[method on Embed]
+  { :attachment => :file,
+    :attachment= => :file=,
+    :attachment_file_name => :file_name,
+    :attachment_file_size => :file_size,
+    :attachment_content_type => :content_type,
+    :attachment_url => :url
+  }.each do |old, new|
+    delegate old, :to => :asset
+
+    self.class_eval do
+      if old.to_s.match(/=/)
+        define_method new do |arg|
+          self.send old, arg
+        end
+      else
+        define_method new do 
+          self.send old
+        end
+      end
+    end
+  end
+
+private
+  def associate_asset
+    self.asset = Asset.new
+  end
 end
