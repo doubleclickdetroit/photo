@@ -3,6 +3,11 @@
 # 2 heroku
 # 3 Container for Entities
 # 4 db:seed
+# 5 Suggestion
+# 6 Correspondence
+#
+#
+#
 #
 # [DEVISE] You are using t.database_authenticatable and others in your migration and this feature is deprecated. Please simply use Rails helpers instead as mentioned here:
 #https://github.com/plataformatec/devise/wiki/How-To:-Upgrade-to-Devise-2.0-migration-schema-style

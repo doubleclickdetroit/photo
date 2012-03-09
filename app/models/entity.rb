@@ -104,3 +104,7 @@ private
     self.asset = Asset.new
   end
 end
+
+class Suggestion < Entity
+  # todo define this
+end
