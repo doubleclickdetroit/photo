@@ -108,3 +108,6 @@ end
 class Suggestion < Entity
   # todo define this
 end
+
+class Correspondence < Entity
+end
