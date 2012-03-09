@@ -142,36 +142,39 @@ end
 
 
 ##################################
-############ Assets ##############
+############ Embeds ##############
 ##################################
 
-assets = [
+embeds = [
   {
     :title => 'Requirements Documentation',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
-    :created_at => 3.days.ago 
-    # word doc
+    :created_at => 3.days.ago,
+
+    :asset => { :file_path => ['test','fixtures','test.doc'] }
   },
   {
     :title => 'Wireframes',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
-    :created_at => 1.day.ago 
-    # pdf  
+    :created_at => 1.day.ago,
+
+    :asset => { :file_path => ['test','fixtures','test.pdf'] }
   },
   {
     :title => 'Mockups',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
-    :created_at => 1.day.ago 
-    # pdf  
+    :created_at => 1.day.ago,
+
+    :asset => { :file_path => ['test','fixtures','test.pdf'] }
   }
 ]
 
-# assets.each do |asset|
-#   deadline = asset.delete :deadline
-# 
-#   @attachment = Factory(:attachment, attachment)
-#   @asset      = Factory(:asset, asset)
-# 
-#   @asset.attachment = @dealine
-#   @project.entities << @asset
-# end
+embeds.each do |embed|
+  asset  = embed.delete :asset
+  file = Rails.root.join(*asset[:file_path]).open
+
+  @embed = Factory(:embed, embed)
+  @embed.file = file 
+
+  @project.entities << @embed
+end
