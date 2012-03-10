@@ -5,7 +5,7 @@ describe Entity do
     before(:each) do
       @embed = Factory(:embed)
       @asset = Factory(:asset)
-      @embed.file = Rails.root.join('app','assets','images','avatar.png').open
+      @embed.asset.file = Rails.root.join('app','assets','images','avatar.png').open
     end
 
     describe '#asset' do

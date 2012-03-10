@@ -46,7 +46,7 @@ class Entity < ActiveRecord::Base
     hash = self.attributes
 
     # haha... ass(ociation)...
-    additional_attriubtes(true).each do |ass|
+    self.class.additional_attributes(true).each do |ass|
       # true gives you super's attributes
       hash[ass] = self.send ass
     end
@@ -92,7 +92,7 @@ class Embed < Entity
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
   def self.additional_attributes(include_super=false)
-    %w(file file_name file_size content_type url) + ( include_super ? super : [] )
+    %w(file_name file_size content_type url) + ( include_super ? super : [] )
   end
   attach self.additional_attributes, :from => :asset
 
