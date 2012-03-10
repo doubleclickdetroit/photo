@@ -28,11 +28,26 @@ class Entity < ActiveRecord::Base
     assignment.destroy && reload
   end
 
+  def self.attach(*args)
+    attributes   = args.shift
+    from = args.extract_options![:from]
+
+    attributes.each do |att|
+      getter, setter = att, att+"="
+      delegate getter, setter, :to => from
+    end
+  end
+
+  def self.additional_attributes(include_super=false)
+    %w(comments followers assignee)
+  end
+
   def to_hash(*args)
     hash = self.attributes
 
     # haha... ass(ociation)...
-    %w(comments followers assignee).each do |ass|
+    additional_attriubtes(true).each do |ass|
+      # true gives you super's attributes
       hash[ass] = self.send ass
     end
     
@@ -43,32 +58,32 @@ end
 class Task < Entity
   has_one :deadline, :foreign_key => :entity_id
 
-  delegate :due, :due=, :to => :deadline
-  delegate :complete, :complete=, :to => :deadline
-
-  def to_hash(*args, &block)
-    hash = super(*args,&block)
-
-    hash['due']      = self.due
-    hash['complete'] = self.due
-
-    hash
+  # handles delegation of methods to associations
+  # and #to_hash functionality for Entity subclasses
+  def self.additional_attributes(include_super=false)
+    %w(due complete) + ( include_super ? super : [] )
   end
+  attach self.additional_attributes, :from => :deadline
 end
 
 class Event < Entity
-  has_one :time_place, :foreign_key => :entity_id
-  delegate :start, :start=, 
-           :finish, :finish=, 
-           :address1, :address1=,
-           :address2, :address2=,
-           :address3, :address3=,
-           :to => :time_place
-
   alias :attendees :followers
   alias :attendees= :followers=
 
-  # accepts_nested_attributes_for :time_place
+  has_one :time_place, :foreign_key => :entity_id
+  # delegate :start, :start=, 
+  #          :finish, :finish=, 
+  #          :address1, :address1=,
+  #          :address2, :address2=,
+  #          :address3, :address3=,
+  #          :to => :time_place
+
+  # handles delegation of methods to associations
+  # and #to_hash functionality for Entity subclasses
+  def self.additional_attributes(include_super=false)
+    %w(start finish address1 address2 address3) + ( include_super ? super : [] )
+  end
+  attach self.additional_attributes, :from => :time_place
 end
 
 class Embed < Entity
