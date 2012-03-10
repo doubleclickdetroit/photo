@@ -71,12 +71,6 @@ class Event < Entity
   alias :attendees= :followers=
 
   has_one :time_place, :foreign_key => :entity_id
-  # delegate :start, :start=, 
-  #          :finish, :finish=, 
-  #          :address1, :address1=,
-  #          :address2, :address2=,
-  #          :address3, :address3=,
-  #          :to => :time_place
 
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
@@ -91,49 +85,16 @@ class Embed < Entity
   # after_save :associate_asset
   after_initialize :associate_asset
 
-  # { :attachment              => :file,
-  #   :attachment=             => :file=,
-  #   :attachment_file_name    => :file_name,
-  #   :attachment_file_size    => :file_size,
-  #   :attachment_content_type => :content_type
-  # }.each do |old, new|
-  #   delegate old, :to => :asset
-  #   self.class_eval do
-  #     # if old.to_s.match(/=/)
-  #     #   define_method new {|arg| self.send old, arg }
-  #     # else
-  #       define_method new { send old }
-  #     # end
-  #   end
-  # end
 
-  # remapping paperclip methods on #asset
-  # e.g. the following change is made from/to 
-  # @embed.asset.attachment_file_name
-  # @embed.file_name
-  # key/values work as
-  # [message sent to asset]/[method on Embed]
-  { :attachment => :file,
-    :attachment= => :file=,
-    :attachment_file_name => :file_name,
-    :attachment_file_size => :file_size,
-    :attachment_content_type => :content_type,
-    :attachment_url => :url
-  }.each do |old, new|
-    delegate old, :to => :asset
-
-    self.class_eval do
-      if old.to_s.match(/=/)
-        define_method new do |arg|
-          self.send old, arg
-        end
-      else
-        define_method new do 
-          self.send old
-        end
-      end
-    end
+  # todo? #file/file= ???
+  # todo the following shouldnt allow setters... 
+  #
+  # handles delegation of methods to associations
+  # and #to_hash functionality for Entity subclasses
+  def self.additional_attributes(include_super=false)
+    %w(file file_name file_size content_type url) + ( include_super ? super : [] )
   end
+  attach self.additional_attributes, :from => :asset
 
 private
   def associate_asset
