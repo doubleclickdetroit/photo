@@ -14,4 +14,22 @@ class Group < ActiveRecord::Base
     m.roles = [:owner]
     m.save
   end
+
+  def to_hash
+    hash = {
+      'id' => self.id,
+      'name' => self.name
+    }
+
+    hash['users'] = self.members.map do |u|
+      {
+        'id' => u.id,
+        'first' => u.first,
+        'last' => u.last,
+        'email' => u.email
+      }
+    end
+
+    hash
+  end
 end

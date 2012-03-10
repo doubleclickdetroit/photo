@@ -132,10 +132,10 @@ tasks = [
 tasks.each do |task|
   deadline = task.delete :deadline
 
-  @deadline = Factory(:deadline, deadline)
   @task     = Factory(:task, task)
+  @deadline = Factory(:deadline, deadline)
 
-  @task.deadline = @dealine
+  @task.deadline = @deadline
   @project.entities << @task
 end
 

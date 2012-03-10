@@ -9,6 +9,7 @@ class Entity < ActiveRecord::Base
     klass.new args.first
   end
 
+  # todo these have not been set in the controller
   belongs_to :created_by, :class_name => 'User'
   belongs_to :updated_by, :class_name => 'User'
 
@@ -26,6 +27,18 @@ class Entity < ActiveRecord::Base
   def unassign!
     assignment.destroy && reload
   end
+
+  def to_hash(*args)
+    hash = self.attributes
+
+    associations = %w(comments followers assignee)
+    # haha... ass...
+    associations.each do |ass|
+      hash[ass] = self.send ass
+    end
+    
+    hash
+  end
 end
 
 class Task < Entity
@@ -33,6 +46,15 @@ class Task < Entity
 
   delegate :due, :due=, :to => :deadline
   delegate :complete, :complete=, :to => :deadline
+
+  def to_hash(*args, &block)
+    hash = super(*args,&block)
+
+    hash['due']      = self.due
+    hash['complete'] = self.due
+
+    hash
+  end
 end
 
 class Event < Entity
