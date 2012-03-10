@@ -22,12 +22,9 @@ class Group < ActiveRecord::Base
     }
 
     hash['users'] = self.members.map do |u|
-      {
-        'id' => u.id,
-        'first' => u.first,
-        'last' => u.last,
-        'email' => u.email
-      }
+      %w(id first last email).inject({}) do |hash,att|
+        hash[att] = u.send att; hash
+      end
     end
 
     hash

@@ -31,9 +31,8 @@ class Entity < ActiveRecord::Base
   def to_hash(*args)
     hash = self.attributes
 
-    associations = %w(comments followers assignee)
-    # haha... ass...
-    associations.each do |ass|
+    # haha... ass(ociation)...
+    %w(comments followers assignee).each do |ass|
       hash[ass] = self.send ass
     end
     
