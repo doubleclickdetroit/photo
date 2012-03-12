@@ -21,10 +21,10 @@ describe Group do
       hash.has_key?('name').should be_true
     end
 
-    it 'should list its #users' do
-      keys = %w(id first last email)
+    it 'should list its #users with roles' do
+      keys = %w(id first last email roles).sort
       hash['users'].all? do |u|
-        u.keys == keys
+        u.keys.sort == keys
       end.should be_true
     end
   end

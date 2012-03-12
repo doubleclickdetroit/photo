@@ -51,4 +51,10 @@ class User < ActiveRecord::Base
     m.roles = [role]
     m.save
   end
+
+  def to_hash
+    self.attributes.select do |k,v|
+      %w(id first last email).include? k
+    end
+  end
 end

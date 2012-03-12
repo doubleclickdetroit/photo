@@ -22,9 +22,7 @@ class Group < ActiveRecord::Base
     }
 
     hash['users'] = self.members.map do |u|
-      %w(id first last email).inject({}) do |hash,att|
-        hash[att] = u.send att; hash
-      end
+      u.to_hash.merge 'roles' => u.roles_for(self)
     end
 
     hash

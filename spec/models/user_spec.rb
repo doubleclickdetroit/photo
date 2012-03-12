@@ -97,4 +97,11 @@ describe User do
       end
     end
   end
+
+  describe '#to_hash' do
+    it 'should return a hash with limited attributes' do
+      keys = %w(id first last email).sort
+      @user.to_hash.keys.sort.should == keys
+    end
+  end
 end
