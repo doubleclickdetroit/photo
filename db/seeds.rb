@@ -1,13 +1,21 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+puts "** Begin Seeding"
+
+
+
 ##################################
 ######## Users & Group ###########
 ##################################
 
+puts "  ** Building Users"
+
 @ben  = Factory(:user, :first => 'Ben', :last => 'Babics')
 @brad = Factory(:user, :first => 'Brad', :last => 'Chase')
 @josh  = Factory(:user, :first => 'Josh', :last => 'Yurich')
+
+puts "  ** Building/Associating Groups"
 
 @group = Factory(:group, :name => 'DoubleClick Detroit')
 
@@ -22,6 +30,8 @@
 ########### Project ##############
 ##################################
 
+puts "  ** Building Project"
+
 @project = Factory(:project, :name => 'Timeline CRM')
 @group.projects << @project
 
@@ -34,6 +44,8 @@ end
 ##################################
 ############ Events ##############
 ##################################
+
+puts "    ** Adding Events"
 
 events = [
   {
@@ -111,6 +123,8 @@ end
 ############# Tasks ##############
 ##################################
 
+puts "    ** Adding Tasks"
+
 tasks = [
   {
     :title => 'Attach Requirements Documentation',
@@ -145,6 +159,8 @@ end
 ##################################
 ############ Embeds ##############
 ##################################
+
+puts "    ** Adding Embeds"
 
 embeds = [
   {
@@ -188,6 +204,8 @@ end
 ### Random Comments and Followers ###
 #####################################
 
+puts "    ** Adding Arbitrary Comments/Followers"
+
 def random_user
   @users[rand(@users.size)]
 end
@@ -216,3 +234,7 @@ Entity.all.each do |ent|
   # puts "number of followers: #{users.size}"
   ent.followers = users
 end
+
+
+
+puts "** Done Seeding"
