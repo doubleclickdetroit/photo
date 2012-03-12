@@ -87,7 +87,19 @@ describe Entity do
     end
 
     it 'should have attributes of associated models' do
-      pending 'these are currently [].to_s i think'
+      # check make sure the vals for these keys
+      # are Arrays of Hashes
+      keys = %w(comments followers)
+      hash = @entity.to_hash
+      all_hashes_in_array = keys.all? do |key|
+        hash[key].all? do |array_item|
+          array_item.is_a? Hash
+        end
+      end
+      all_hashes_in_array.should be_true
+
+      # check assignee...
+      pending '#assignee'
     end
   end
 end

@@ -48,7 +48,8 @@ class Entity < ActiveRecord::Base
     # haha... ass(ociation)...
     self.class.additional_attributes(true).each do |ass|
       # true gives you super's attributes
-      hash[ass] = self.send ass
+      obj = self.send(ass)
+      hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj
     end
     
     hash
