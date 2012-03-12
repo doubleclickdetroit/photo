@@ -38,20 +38,11 @@ describe Entity do
       end
     end
 
-    # describe '#complete' do
-    #   it 'should return a User' do
-    #   end
-    # end
-
-    # describe '#reminder' do
-    #   it 'should return a User' do
-    #   end
-    # end
-
-    # describe '#reminds=' do
-    #   it 'should return a User' do
-    #   end
-    # end
-
+    describe '#to_hash' do
+      it 'should have attributes of associated models for Task' do
+        keys = %w(due complete)
+        (@task.to_hash.keys & keys).should == keys
+      end
+    end
   end
 end

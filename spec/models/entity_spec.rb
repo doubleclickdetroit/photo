@@ -76,4 +76,18 @@ describe Entity do
       @entity.updated_by.should == @user
     end
   end
+
+  describe '#to_hash' do
+    # Entity(id: integer, title: string, type: string, created_at: datetime, updated_at: datetime, project_id: integer, created_by_id: integer, updated_by_id: integer, text: text) 
+    # comments, followers, assignee
+    it 'should have all Entity attributes as keys' do
+      attr_keys = @entity.attributes.keys
+      hash_keys = @entity.to_hash.keys
+      (attr_keys & hash_keys).should == attr_keys
+    end
+
+    it 'should have attributes of associated models' do
+      pending 'these are currently [].to_s i think'
+    end
+  end
 end

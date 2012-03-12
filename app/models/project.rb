@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   has_many :entities
 
   def tasks
-    self.entities.where :type => 'Task'
+    entities.where :type => 'Task'
   end
 
   def entities_by_month_and_date
@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
              end
       month, day = date.month, date.day
 
-      hash[month] ||= {}
+      hash[month]      ||= {}
       hash[month][day] ||= []
       hash[month][day] << ent.to_hash(:associations => true)
     end
@@ -45,8 +45,10 @@ class Project < ActiveRecord::Base
     #       day
     #         entity
     #           comments
+    #           ...
     #         entity
     #           comments
+    #           ...
     #     month
     #       day
     #         ...

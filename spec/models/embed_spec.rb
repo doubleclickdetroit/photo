@@ -32,5 +32,12 @@ describe Entity do
         @embed.url.should match(/system.*#{@embed.file_name}/)
       end
     end
+
+    describe '#to_hash' do
+      it 'should have attributes of associated models for Task' do
+        keys = %w(file_name file_size content_type url)
+        (@embed.to_hash.keys & keys).should == keys
+      end
+    end
   end
 end

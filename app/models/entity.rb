@@ -60,6 +60,10 @@ class Task < Entity
 
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
+  # def self.additional_attributes(include_super=false)
+  #   attrs = %w(due complete) 
+  #   include_super ? attrs + super : attrs
+  # end
   def self.additional_attributes(include_super=false)
     %w(due complete) + ( include_super ? super : [] )
   end
