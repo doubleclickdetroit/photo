@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
       %w(id first last email).include? k
     end
 
-    hash['roles'] = self.roles_for group if group.is_a? Group
+    hash['roles'] = self.roles_for(group).map(&:to_s) if group.is_a? Group
 
     hash
   end

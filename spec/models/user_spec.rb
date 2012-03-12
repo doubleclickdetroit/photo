@@ -105,8 +105,11 @@ describe User do
     end
 
     it 'should return a hash with roles if passed a Group' do
+      @membership.destroy
+      @user.enroll_in @group, :as => :admin
+
       keys  = %w(id first last email roles).sort
-      roles = @user.roles_for @group 
+      roles = @user.roles_for(@group).map(&:to_s)
 
       hash = @user.to_hash(@group)
       hash.keys.sort.should == keys
