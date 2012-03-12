@@ -22,7 +22,8 @@ class Group < ActiveRecord::Base
     }
 
     hash['users'] = self.members.map do |u|
-      u.to_hash.merge 'roles' => u.roles_for(self).map(&:to_s)
+      # u.to_hash.merge 'roles' => u.roles_for(self).map(&:to_s)
+      u.to_hash(self)
     end
 
     hash
