@@ -6,15 +6,22 @@ Photo::Application.routes.draw do
     resources :projects
   end
 
+  # does this belong with Groups?
+  resources :memberships
+
+
   resources :projects do
     resources :entities
-    # resources :tasks, :controller => 'entities', :requirements => {:type => 'task'}
-    resources :tasks, :controller => 'entities', :type => 'task'
+
+    # routes for Task, Event, etc
+    Entity::TYPES.each do |subclass|
+      str = subclass.to_s
+      sym = str.downcase.pluralize.intern
+      resources sym, :controller => 'entities', :type => str 
+    end
   end
 
   resources :entities
-  resources :memberships
-
   root :to => 'home#index'
 
   match '/profile/:username', :controller => :profile, :action => :show

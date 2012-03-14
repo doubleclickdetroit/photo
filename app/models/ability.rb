@@ -11,6 +11,9 @@ class Ability
     can :manage, Project do |project|
       project && user.has_role?([:owner,:admin], :for => project.group)
     end
+    can :manage, Entity do |entity|
+      entity && user.has_role?([:owner,:admin], :for => entity.group)
+    end
 
     # ASSOCIATE
     can :read, Group do |group|

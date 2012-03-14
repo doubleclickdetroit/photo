@@ -1,6 +1,6 @@
 class Entity < ActiveRecord::Base
   # todo dynamically
-  TYPES = [Task]
+  TYPES = [Task, Event, Embed]
   TYPES_HASH = Hash[TYPES.map{|i| [i.to_s,i]}]
 
   def self.spawn(*args, &block)

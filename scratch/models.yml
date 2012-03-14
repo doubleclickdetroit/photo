@@ -1,0 +1,73 @@
+# require 'yaml'
+# hash = {'Models'=>{}}
+# [User,Group,Project,Event,Task,Embed].each do |klass|
+#   hash['Models'][klass.to_s] = klass.last.to_hash.keys
+# end
+# y hash
+
+
+Models:
+  User:
+    - id
+    - email
+    - first
+    - last
+  Group:
+    - id
+    - name
+    - users
+  Project:
+    - name
+    - id
+    - group
+    - timeline
+  Event:
+    - id
+    - title
+    - type
+    - created_at
+    - updated_at
+    - project_id
+    - created_by_id
+    - updated_by_id
+    - text
+    - start
+    - finish
+    - address1
+    - address2
+    - address3
+    - comments
+    - followers
+    - assignee
+  Task:
+    - id
+    - title
+    - type
+    - created_at
+    - updated_at
+    - project_id
+    - created_by_id
+    - updated_by_id
+    - text
+    - due
+    - complete
+    - comments
+    - followers
+    - assignee
+  Embed:
+    - id
+    - title
+    - type
+    - created_at
+    - updated_at
+    - project_id
+    - created_by_id
+    - updated_by_id
+    - text
+    - file_name
+    - file_size
+    - content_type
+    - url
+    - comments
+    - followers
+    - assignee
