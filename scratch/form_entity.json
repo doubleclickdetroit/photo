@@ -1,0 +1,65 @@
+{
+	form: [
+		{
+			"Personal Information": [
+				{
+					title   : "First Name",
+					entity  : "input",
+					value   : "John",
+					attrs   : { "id": "field-fName" },
+					required: true,
+					layout  : "100%" // 100% is default
+				},
+				{
+					title   : "Last Name",
+					entity  : "input",
+					value   : "Doe",
+					attrs   : { "id": "field-lName" },
+					required: true,
+					layout  : "100%" // 100% is default
+				}
+			],
+
+			"Permissions": [
+				{
+					title : "Role",
+					entity: "select",
+					attrs : { "class": "field" },
+					value : [
+						{ "user" : true },
+						{ "admin": false }
+					],
+					required: false,
+					layout  : "50%"
+				},
+				{
+					title : "Active",
+					entity: "radio",
+					attrs : { "class": "field" },
+					value : [
+						{ "Yes": true },
+						{ "No" : false }
+					],
+					required: false,
+					layout  : "50%"
+				}
+			]
+		}
+	],
+	controls: [
+		{
+			title : "Cancel",
+			entity: "anchor",
+			attrs : {
+				"href": "/users",
+				"rel" : "external"
+			}
+		},
+		{
+			title : "Submit",
+			entity: "submit",
+			value : "submit"
+			attrs : { "id": "btn-submit" }
+		},
+	]
+}

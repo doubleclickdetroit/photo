@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310090223) do
+ActiveRecord::Schema.define(:version => 20120315061711) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",        :null => false
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(:version => 20120310090223) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "invitations", :force => true do |t|
+    t.string   "first"
+    t.string   "last"
+    t.string   "email"
+    t.integer  "group_id"
+    t.integer  "inviter_id"
+    t.text     "message"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

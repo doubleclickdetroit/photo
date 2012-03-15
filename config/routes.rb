@@ -1,4 +1,6 @@
 Photo::Application.routes.draw do
+  resources :invitations
+
   devise_for :users
 
   resources :groups do
@@ -20,8 +22,8 @@ Photo::Application.routes.draw do
       resources sym, :controller => 'entities', :type => str 
     end
   end
-
   resources :entities
+
   root :to => 'home#index'
 
   match '/profile/:username', :controller => :profile, :action => :show

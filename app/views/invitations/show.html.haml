@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b First:
+  = @invitation.first
+%p
+  %b Last:
+  = @invitation.last
+%p
+  %b Email:
+  = @invitation.email
+%p
+  %b Group:
+  = @invitation.group_id
+%p
+  %b Inviter:
+  = @invitation.inviter_id
+%p
+  %b Message:
+  = @invitation.message
+
+= link_to 'Edit', edit_invitation_path(@invitation)
+\|
+= link_to 'Back', invitations_path

@@ -1,5 +1,5 @@
-@auth
-Feature: Registration
+# todo deprecated remove once registration is done properly
+Feature: Registration without invitation
   In order to gain access to the site 
   As a visitor to the site without a login
   I want to sign up for an account  
@@ -13,3 +13,4 @@ Feature: Registration
     And click "Sign up" 
     And fill in and submit the form with my user data 
     Then I see "Welcome! You have signed up successfully."
+

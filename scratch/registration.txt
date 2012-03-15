@@ -1,0 +1,44 @@
+invited to project (group insinuated... for beta)
+
+States:
+
+  1.
+    A. Task.create :title => "#{invitation.inviter} invited you to join #{project.name}"
+      i. inviter.avatar is shown for this entity
+    B. Form.create :first_name, :last_name, :email... 
+
+  2.
+    A. Milestone.create :title => "Registration 50% complete!" 
+    B. Form.create :timezone, :text...
+      i. must handle file upload, which will eventually live in the jQuery template
+
+  3.
+    A. Milestone.create :title => "Registration 100% complete!" 
+    B. One-off Entity to take you to Project, is fed project.id
+
+
+Things I'm missing:
+
+  Quick:
+  - Milestone < Entity
+
+  Involved:
+  - Form < Entity
+
+  - Invitation
+  - Invitation Email
+
+  - Phase
+  - Phase.state
+
+  - One-off Entity to take you to Project, is fed project.id
+
+
+Pre-requires:
+  - Phases
+  - Email/Invitation
+  - Workflow
+
+Requires:
+  - Milestone
+  - Form

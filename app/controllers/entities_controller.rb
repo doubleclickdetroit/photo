@@ -1,4 +1,8 @@
 class EntitiesController < ApplicationController
+  before_filter :authenticate_user! #, :roles_to_current_user
+  load_and_authorize_resource
+  skip_authorize_resource :only => :new
+
   # GET /entities
   # GET /entities.json
   def index
