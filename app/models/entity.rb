@@ -120,5 +120,10 @@ class Correspondence < Entity
 end
 
 class Form < Entity
-  # todo define this
+  has_one :form_data, :foreign_key => :entity_id
+
+  def self.additional_attributes(include_super=false)
+    %w(data) + ( include_super ? super : [] )
+  end
+  attach self.additional_attributes, :from => :form_data
 end
