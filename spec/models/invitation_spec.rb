@@ -1,67 +1,70 @@
 require 'spec_helper'
 
 describe Invitation do
-  before(:each) do
-    @inviter = Factory(:user)
-    @invitee = Factory.build(:user)
-    @group   = Factory(:group)
 
-    ActionMailer::Base.deliveries = []
+  # todo move this to user_mailer_spec
+  describe '#send_invitation' do
+    before(:each) do
+      ActionMailer::Base.deliveries = []
+
+      @inviter = Factory(:user)
+      @invitee = Factory.build(:user)
+      @group   = Factory(:group)
+
+      @message = "This is a welcome message to the invitee from the inviter"
+
+      @invitation_hash = { :first      => @invitee.first,
+        :last       => @invitee.last,
+        :email      => @invitee.email,
+        :message    => @message,
+        :group_id   => @group.id,
+        :inviter_id => @inviter.id }
+
+      @invitation = Invitation.create @invitation_hash
+
+      @email = ActionMailer::Base.deliveries.last
+    end
+
+    it 'should be from invitations@app.com' do
+      # todo stash host name in Rails or something
+      # todo fix the .first below...?
+      @email.from.first.should == "invitations@app.com"
+    end
+
+    it 'should include the group name' do
+      # group checks
+      @email.body.should include(@group.name)
+    end
+
+    it "should include the inviter's first name" do
+      # inviter checks
+      @email.body.should include(@inviter.first)
+    end
+
+    it 'should be sent to the invitee' do
+      # todo fix the .first below...?
+      @email.to.first.should == @invitee.email
+    end
+
+    it "should contain the invitee's first name" do
+      @email.body.should include(@invitee.first)
+    end
+
+    it 'should send an email with message' do
+      @email.body.should include("#{@inviter.first} says...")
+      @email.body.should include(@message)
+    end
+
+    it 'should show no message if none exists' do
+      ActionMailer::Base.deliveries = []
+      @invitation_hash.delete(:message)
+      Invitation.create @invitation_hash
+
+      @email = ActionMailer::Base.deliveries.last
+
+      @email.body.should_not include("#{@inviter.first} says...")
+      @email.body.should_not include(@message)
+    end
   end
 
-  it 'should send an email to the invitee upon creation' do
-    @message = "This is a welcome message to the invitee from the inviter"
-
-    @invitation = Invitation.create :first      => @invitee.first,
-                                    :last       => @invitee.last,
-                                    :email      => @invitee.email,
-                                    :message    => @message,
-                                    :group_id   => @group.id,
-                                    :inviter_id => @inviter.id
-
-    @email = ActionMailer::Base.deliveries.first
-
-    # system checks
-    # todo stash host name in Rails or something
-    # todo fix the .first below...?
-    @email.from.first.should == "invitations@app.com"
-    # group checks
-    @email.body.should include(@group.name)
-
-    # inviter checks
-    @email.body.should include(@inviter.first)
-    @email.body.should include(@message)
-
-    # invitee checks
-    # todo fix the .first below...?
-    @email.to.first.should   == @invitee.email
-    @email.body.should include(@invitee.first)
-  end
-
-  it 'should send an email to the invitee upon creation and not show message if none exists' do
-    @invitation = Invitation.create :first      => @invitee.first,
-                                    :last       => @invitee.last,
-                                    :email      => @invitee.email,
-                                    :group_id   => @group.id,
-                                    :inviter_id => @inviter.id
-
-    @email = ActionMailer::Base.deliveries.first
-
-    # system checks
-    # todo stash host name in Rails or something
-    # todo fix the .first below...?
-    @email.from.first.should == "invitations@app.com"
-    # group checks
-    @email.body.should include(@group.name)
-
-    # inviter checks
-    @email.body.should include(@inviter.first)
-    # @email.body.should include(@message)
-    @email.body.should_not include("#{@inviter.first} says...")
-
-    # invitee checks
-    # todo fix the .first below...?
-    @email.to.first.should   == @invitee.email
-    @email.body.should include(@invitee.first)
-  end
 end
