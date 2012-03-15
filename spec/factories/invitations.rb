@@ -1,12 +1,14 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
+include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :invitation do
-    first "MyString"
-    last "MyString"
-    email "MyString"
+    sequence(:first) {|n|"InviteeFirst#{n}"}
+    sequence(:last) {|n|"InviteeLast#{n}"}
+
+    sequence(:email) {|n|"invitee#{n}@example.com"}
+
     group_id 1
     inviter_id 1
-    message "MyText"
+    message "Invitation message text"
   end
 end

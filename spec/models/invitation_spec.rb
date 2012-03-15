@@ -14,11 +14,11 @@ describe Invitation do
       @message = "This is a welcome message to the invitee from the inviter"
 
       @invitation_hash = { :first      => @invitee.first,
-        :last       => @invitee.last,
-        :email      => @invitee.email,
-        :message    => @message,
-        :group_id   => @group.id,
-        :inviter_id => @inviter.id }
+                           :last       => @invitee.last,
+                           :email      => @invitee.email,
+                           :message    => @message,
+                           :group_id   => @group.id,
+                           :inviter_id => @inviter.id }
 
       @invitation = Invitation.create @invitation_hash
 
@@ -53,6 +53,7 @@ describe Invitation do
     it 'should send an email with message' do
       @email.body.should include("#{@inviter.first} says...")
       @email.body.should include(@message)
+      @email.body.should include(@inviter.avatar.url(:small))
     end
 
     it 'should show no message if none exists' do
@@ -65,6 +66,22 @@ describe Invitation do
       @email.body.should_not include("#{@inviter.first} says...")
       @email.body.should_not include(@message)
     end
+
+    # todo links for join group/register
+    it 'should say "Join Group" if the invitee is already registered by that email' do
+      ActionMailer::Base.deliveries = []
+      @invitation_hash[:email] = Factory(:user).email
+      @invitee = Invitation.create @invitation_hash
+
+      @email = ActionMailer::Base.deliveries.last
+
+      @email.body.should_not include('Register')
+    end
+
+    it 'should say "Register & Join Group" if the user is not registered by that email' do
+      @email.body.should include('Register &amp; Join Group')
+    end
+
   end
 
 end

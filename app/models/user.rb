@@ -65,4 +65,9 @@ class User < ActiveRecord::Base
 
     hash
   end
+
+  def self.exists_by_email?(email)
+    where(:email => email).count > 0
+  end
+
 end

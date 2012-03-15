@@ -13,3 +13,9 @@
       = image_tag @inviter.avatar.url(:small)
       %p= "#{@inviter.first} says..."
       %p= "#{@message}"
+
+    -# - if User.where(:email => @invitee.email).count != 0
+    - if User.exists_by_email? @invitee.email
+      = link_to "Join Group", "#"
+    - else
+      = link_to "Register & Join Group", "#"

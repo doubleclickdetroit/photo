@@ -123,4 +123,15 @@ describe User do
       hash['roles'].should == roles
     end
   end
+
+  describe '#exists_by_email?' do
+    it 'should return false if there is no User for the email' do
+      User.exists_by_email?(@user.email).should be_true
+    end
+
+    it 'should return true if there is a User for the email' do
+      User.exists_by_email?("dne@dne.com").should be_false
+    end
+  end
+
 end
