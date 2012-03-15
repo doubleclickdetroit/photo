@@ -40,9 +40,28 @@ describe Entity do
 
     describe '#to_hash' do
       it 'should have attributes of associated models for Task' do
-        keys = %w(due complete)
-        (@task.to_hash.keys & keys).should == keys
+        keys = %w(assignee due complete).sort
+        (@task.to_hash.keys & keys).sort.should == keys
       end
     end
+
+    describe '#assignee' do
+      it 'should return a User to whom the task is assigned' do
+        @task.assignee.should be_nil
+        @task.assignee = @user
+        @task.assignee.should == @user
+        @task.assignee.should be_a_kind_of(User) 
+      end
+    end
+
+    # todo not sure about this method
+    describe '#unassign!' do
+      it 'should unassign the Task' do
+        @task.assignee = @user
+        @task.unassign!
+        @task.assignee.should be_nil
+      end
+    end
+
   end
 end

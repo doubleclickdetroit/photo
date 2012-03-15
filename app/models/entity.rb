@@ -21,13 +21,6 @@ class Entity < ActiveRecord::Base
   has_many :watchings
   has_many :followers, :through => :watchings, :source => :user 
 
-  has_one :assignment
-  has_one :assignee, :through => :assignment, :source => :user 
-
-  def unassign!
-    assignment.destroy && reload
-  end
-
   def self.attach(*args)
     attributes   = args.shift
     from = args.extract_options![:from]
@@ -39,7 +32,7 @@ class Entity < ActiveRecord::Base
   end
 
   def self.additional_attributes(include_super=false)
-    %w(comments followers assignee)
+    %w(comments followers)
   end
 
   def to_hash(*args)
@@ -59,12 +52,15 @@ end
 class Task < Entity
   has_one :deadline, :foreign_key => :entity_id
 
+  has_one :assignment, :foreign_key => :entity_id
+  has_one :assignee, :through => :assignment, :source => :user 
+
+  def unassign!
+    assignment.destroy && reload
+  end
+
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
-  # def self.additional_attributes(include_super=false)
-  #   attrs = %w(due complete) 
-  #   include_super ? attrs + super : attrs
-  # end
   def self.additional_attributes(include_super=false)
     %w(due complete) + ( include_super ? super : [] )
   end

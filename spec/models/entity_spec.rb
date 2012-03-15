@@ -38,22 +38,6 @@ describe Entity do
     end
   end
 
-  describe '#assignee =(/#assignee)' do
-    it 'should assign the task to a User' do
-      @entity.assignee = @user
-      @entity.assignee.should == @user
-    end
-  end
-
-  # todo not sure about this method
-  describe '#unassign!' do
-    it 'should unassign the entity' do
-      @entity.assignee = @user
-      @entity.unassign!
-      @entity.assignee.should be_nil
-    end
-  end
-
   describe '#comments' do
     it 'should r/w and push comments' do
       @comment1,@comment2 = Factory(:comment),Factory(:comment)
@@ -78,8 +62,6 @@ describe Entity do
   end
 
   describe '#to_hash' do
-    # Entity(id: integer, title: string, type: string, created_at: datetime, updated_at: datetime, project_id: integer, created_by_id: integer, updated_by_id: integer, text: text) 
-    # comments, followers, assignee
     it 'should have all Entity attributes as keys' do
       attr_keys = @entity.attributes.keys
       hash_keys = @entity.to_hash.keys
@@ -87,7 +69,7 @@ describe Entity do
     end
 
     it 'should have attributes of associated models' do
-      # check make sure the vals for these keys
+      # check to make sure the vals for these keys
       # are Arrays of Hashes
       keys = %w(comments followers)
       hash = @entity.to_hash
@@ -97,9 +79,6 @@ describe Entity do
         end
       end
       all_hashes_in_array.should be_true
-
-      # check assignee...
-      pending '#assignee'
     end
   end
 end
