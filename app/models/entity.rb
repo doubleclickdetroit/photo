@@ -21,22 +21,6 @@ class Entity < ActiveRecord::Base
   has_many :watchings
   has_many :followers, :through => :watchings, :source => :user 
 
-  def self.attach(*args)
-    attributes = args.shift
-    from = args.extract_options![:from]
-
-    attributes.each do |att|
-      getter, setter = att, att+"="
-      delegate getter, setter, :to => from
-    end
-  end
-
-  @@super_additional_attributes = %w(comments followers)
-  def all_additional_attributes
-    subclass_attributes = self.class.class_variable_get :@@own_additional_attributes  
-    subclass_attributes + @@super_additional_attributes
-  end
-
   def to_hash(*args)
     hash = self.attributes
 
@@ -49,6 +33,27 @@ class Entity < ActiveRecord::Base
     
     hash
   end
+
+protected
+
+  def self.attach(*args)
+    attributes = args.shift
+    from = args.extract_options![:from]
+
+    attributes.each do |att|
+      getter, setter = att, att+"="
+      delegate getter, setter, :to => from
+    end
+  end
+
+private
+
+  @@super_additional_attributes = %w(comments followers)
+  def all_additional_attributes
+    subclass_attributes = self.class.class_variable_get :@@own_additional_attributes  
+    subclass_attributes + @@super_additional_attributes
+  end
+
 end
 
 class Task < Entity
@@ -66,8 +71,8 @@ class Task < Entity
   # def self.additional_attributes(include_super=false)
   #   %w(due complete) + ( include_super ? super : [] )
   # end
-  @@own_additional_attributes = %w(due complete)
-  attach @@own_additional_attributes, :from => :deadline
+  @@own_additional_attributes = %w(assignee due complete)
+  attach %w(due complete), :from => :deadline
 end
 
 class Milestone < Task
