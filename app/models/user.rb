@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   has_many :memberships
   has_many :groups, :through => :memberships
 
+  def name
+    "#{first} #{last}"
+  end
+
   def membership_for(group)
     Membership.for(self, group)
   end

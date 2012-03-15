@@ -1,0 +1,15 @@
+!!! 5
+
+%html
+  %body
+
+    %h1= "Hi #{@invitee.first},"
+
+    %h2= "You're invited to join #{@group.name} by #{@inviter.name}!"
+
+    %p=  "Lorem ipsum dolor sit amet, hamburger cheeseburger cupcake scone"
+
+    - if @message
+      = image_tag @inviter.avatar.url(:small)
+      %p= "#{@inviter.first} says..."
+      %p= "#{@message}"

@@ -8,6 +8,12 @@ describe User do
     @membership = Membership.find_by_user_id_and_group_id @user.id, @group.id
   end
 
+  describe '#name' do
+    it 'should return the concatenated result of #first and #last with a space between' do
+      @user.name.should == "#{@user.first} #{@user.last}"
+    end
+  end
+
   describe '#membership_for' do
     it 'should return nil if user is not member of the group' do
       @membership.delete

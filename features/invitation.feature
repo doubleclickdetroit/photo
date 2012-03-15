@@ -22,14 +22,13 @@ Feature: Invitation to a group (non-member)
   As a non-member of the site
   I want to receive an email inviting me to join
 
-  Scenario:
-    Given my information is as follows
-      |first|last |email      |
-      |Brad |Chase|foo@bar.com|
-    When I am invited to join a group named "DoubleClick Detroit"
-    Then I should receive an email invitation
-    And it should contain the group name  
-    And my first name
+  # Scenario:
+  #   Given my information is as follows
+  #     |first|last |email      |
+  #     |Brad |Chase|foo@bar.com|
+  #   # todo message for Invitation
+  #   When I am invited to join a group named "DoubleClick Detroit"
+  #   Then I should receive an email invitation containing the proper information
  
 # Feature: Invitation to a group (existing member by proper email)
 # 
