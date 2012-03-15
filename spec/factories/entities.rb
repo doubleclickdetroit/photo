@@ -21,20 +21,26 @@ Factory.define :embed do |f|
   f.type "Embed"
 end
 
-Factory.define :Milestone do |f|
+Factory.define :milestone do |f|
   f.sequence(:title) {|n| "Milestone #{n}"}
   f.sequence(:text) {|n| "Lorem ipsum #{n}"}
   f.type "Milestone"
 end
 
-# Factory.define :suggestion do |f|
-#   f.sequence(:title) {|n| "Suggestion #{n}"}
-#   f.sequence(:text) {|n| "Lorem ipsum #{n}"}
-#   f.type "Suggestion"
-# end
+Factory.define :form do |f|
+  f.sequence(:title) {|n| "Form #{n}"}
+  f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+  f.type "Form"
+end
 
-# Factory.define :correspondence do |f|
-#   f.sequence(:title) {|n| "Correspondence #{n}"}
-#   f.sequence(:text) {|n| "Lorem ipsum #{n}"}
-#   f.type "Correspondence"
-# end
+Factory.define :suggestion do |f|
+  f.sequence(:title) {|n| "Suggestion #{n}"}
+  f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+  f.type "Suggestion"
+end
+
+Factory.define :correspondence do |f|
+  f.sequence(:title) {|n| "Correspondence #{n}"}
+  f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+  f.type "Correspondence"
+end

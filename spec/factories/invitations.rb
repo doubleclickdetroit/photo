@@ -7,8 +7,8 @@ FactoryGirl.define do
 
     sequence(:email) {|n|"invitee#{n}@example.com"}
 
-    group_id 1
-    inviter_id 1
+    group_id nil
+    inviter_id nil
     message "Invitation message text"
   end
 end

@@ -118,3 +118,7 @@ end
 class Correspondence < Entity
   # todo define this
 end
+
+class Form < Entity
+  # todo define this
+end

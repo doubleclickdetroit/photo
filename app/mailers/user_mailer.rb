@@ -5,6 +5,7 @@ class UserMailer < ActionMailer::Base
     @invitee = User.new :first => invitation.first,
                         :last  => invitation.last,
                         :email => invitation.email
+
     @inviter = invitation.inviter
     @group   = invitation.group
     @message = invitation.message
