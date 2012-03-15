@@ -21,6 +21,12 @@ Factory.define :embed do |f|
   f.type "Embed"
 end
 
+Factory.define :Milestone do |f|
+  f.sequence(:title) {|n| "Milestone #{n}"}
+  f.sequence(:text) {|n| "Lorem ipsum #{n}"}
+  f.type "Milestone"
+end
+
 # Factory.define :suggestion do |f|
 #   f.sequence(:title) {|n| "Suggestion #{n}"}
 #   f.sequence(:text) {|n| "Lorem ipsum #{n}"}

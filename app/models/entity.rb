@@ -71,6 +71,10 @@ class Task < Entity
   attach self.additional_attributes, :from => :deadline
 end
 
+class Milestone < Task
+  # todo define this
+end
+
 class Event < Entity
   alias :attendees :followers
   alias :attendees= :followers=
@@ -112,4 +116,5 @@ class Suggestion < Entity
 end
 
 class Correspondence < Entity
+  # todo define this
 end
