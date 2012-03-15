@@ -20,25 +20,27 @@ States:
 Things I'm missing:
 
   Quick:
-  - Milestone < Entity
+  X Milestone < Entity
 
   Involved:
   - Form < Entity
 
-  - Invitation
-  - Invitation Email
+  X Invitation
+  X Invitation Email
+
+  - Workflow
+    - vars
 
   - Phase
-  - Phase.state
+    - state
 
   - One-off Entity to take you to Project, is fed project.id
 
 
-Pre-requires:
-  - Phases
-  - Email/Invitation
-  - Workflow
+========================
+Phases...
 
-Requires:
-  - Milestone
-  - Form
+Project has_many :phases
+
+Phase has_many :entities
+attr title, text, state
