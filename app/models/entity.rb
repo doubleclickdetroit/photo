@@ -22,7 +22,7 @@ class Entity < ActiveRecord::Base
   has_many :followers, :through => :watchings, :source => :user 
 
   def self.attach(*args)
-    attributes   = args.shift
+    attributes = args.shift
     from = args.extract_options![:from]
 
     attributes.each do |att|
@@ -31,15 +31,17 @@ class Entity < ActiveRecord::Base
     end
   end
 
-  def self.additional_attributes(include_super=false)
-    %w(comments followers)
+  @@super_additional_attributes = %w(comments followers)
+  def all_additional_attributes
+    subclass_attributes = self.class.class_variable_get :@@own_additional_attributes  
+    subclass_attributes + @@super_additional_attributes
   end
 
   def to_hash(*args)
     hash = self.attributes
 
     # haha... ass(ociation)...
-    self.class.additional_attributes(true).each do |ass|
+    all_additional_attributes.each do |ass|
       # true gives you super's attributes
       obj = self.send(ass)
       hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj
@@ -61,10 +63,11 @@ class Task < Entity
 
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
-  def self.additional_attributes(include_super=false)
-    %w(due complete) + ( include_super ? super : [] )
-  end
-  attach self.additional_attributes, :from => :deadline
+  # def self.additional_attributes(include_super=false)
+  #   %w(due complete) + ( include_super ? super : [] )
+  # end
+  @@own_additional_attributes = %w(due complete)
+  attach @@own_additional_attributes, :from => :deadline
 end
 
 class Milestone < Task
@@ -79,10 +82,11 @@ class Event < Entity
 
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
-  def self.additional_attributes(include_super=false)
-    %w(start finish address1 address2 address3) + ( include_super ? super : [] )
-  end
-  attach self.additional_attributes, :from => :time_place
+  # def self.additional_attributes(include_super=false)
+  #   %w(start finish address1 address2 address3) + ( include_super ? super : [] )
+  # end
+  @@own_additional_attributes = %w(start finish address1 address2 address3)
+  attach @@own_additional_attributes, :from => :time_place
 end
 
 class Embed < Entity
@@ -96,10 +100,11 @@ class Embed < Entity
   #
   # handles delegation of methods to associations
   # and #to_hash functionality for Entity subclasses
-  def self.additional_attributes(include_super=false)
-    %w(file_name file_size content_type url) + ( include_super ? super : [] )
-  end
-  attach self.additional_attributes, :from => :asset
+  # def self.additional_attributes(include_super=false)
+  #   %w(file_name file_size content_type url) + ( include_super ? super : [] )
+  # end
+  @@own_additional_attributes = %w(file_name file_size content_type url)
+  attach @@own_additional_attributes, :from => :asset
 
 private
   def associate_asset
@@ -118,8 +123,9 @@ end
 class Form < Entity
   has_one :form_data, :foreign_key => :entity_id
 
-  def self.additional_attributes(include_super=false)
-    %w(data) + ( include_super ? super : [] )
-  end
-  attach self.additional_attributes, :from => :form_data
+  # def self.additional_attributes(include_super=false)
+  #   %w(data) + ( include_super ? super : [] )
+  # end
+  @@own_additional_attributes = %w(data)
+  attach @@own_additional_attributes, :from => :form_data
 end

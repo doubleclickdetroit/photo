@@ -4,7 +4,13 @@ describe Entity do
   before(:each) do
     @user = Factory(:user)
     @project = Factory(:project)
-    @entity = Factory(:entity)
+
+    # todo Entity must be of a subclass type
+    # for #to_hash to function properly, Task
+    # has been arbitrarily chosen here...
+    # maybe change this?
+    @entity = Factory(:task)
+    @entity.deadline = Factory(:deadline)
   end
 
   describe '#group' do
