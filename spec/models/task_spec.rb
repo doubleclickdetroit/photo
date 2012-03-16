@@ -56,9 +56,10 @@ describe Entity do
 
     # todo not sure about this method
     describe '#unassign!' do
-      it 'should unassign the Task' do
+      it 'should unassign the Task and destroy the Assignment' do
         @task.assignee = @user
         @task.unassign!
+        @task.assignment.should be_nil
         @task.assignee.should be_nil
       end
     end

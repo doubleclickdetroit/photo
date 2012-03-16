@@ -1,6 +1,6 @@
 class Entity < ActiveRecord::Base
   # todo dynamically
-  TYPES = [Task, Event, Embed]
+  TYPES = [Task, Event, Embed, Form]
   TYPES_HASH = Hash[TYPES.map{|i| [i.to_s,i]}]
 
   def self.spawn(*args, &block)
@@ -63,14 +63,11 @@ class Task < Entity
   has_one :assignee, :through => :assignment, :source => :user 
 
   def unassign!
-    assignment.destroy && reload
+    assignment.destroy
+    self.assignee   = nil  
+    self.assignment = nil  
   end
 
-  # handles delegation of methods to associations
-  # and #to_hash functionality for Entity subclasses
-  # def self.additional_attributes(include_super=false)
-  #   %w(due complete) + ( include_super ? super : [] )
-  # end
   @@own_additional_attributes = %w(assignee due complete)
   attach %w(due complete), :from => :deadline
 end
@@ -85,11 +82,6 @@ class Event < Entity
 
   has_one :time_place, :foreign_key => :entity_id
 
-  # handles delegation of methods to associations
-  # and #to_hash functionality for Entity subclasses
-  # def self.additional_attributes(include_super=false)
-  #   %w(start finish address1 address2 address3) + ( include_super ? super : [] )
-  # end
   @@own_additional_attributes = %w(start finish address1 address2 address3)
   attach @@own_additional_attributes, :from => :time_place
 end
@@ -99,15 +91,6 @@ class Embed < Entity
   # after_save :associate_asset
   after_initialize :associate_asset
 
-
-  # todo? #file/file= ???
-  # todo the following shouldnt allow setters... 
-  #
-  # handles delegation of methods to associations
-  # and #to_hash functionality for Entity subclasses
-  # def self.additional_attributes(include_super=false)
-  #   %w(file_name file_size content_type url) + ( include_super ? super : [] )
-  # end
   @@own_additional_attributes = %w(file_name file_size content_type url)
   attach @@own_additional_attributes, :from => :asset
 
@@ -128,9 +111,6 @@ end
 class Form < Entity
   has_one :form_data, :foreign_key => :entity_id
 
-  # def self.additional_attributes(include_super=false)
-  #   %w(data) + ( include_super ? super : [] )
-  # end
   @@own_additional_attributes = %w(data)
   attach @@own_additional_attributes, :from => :form_data
 end

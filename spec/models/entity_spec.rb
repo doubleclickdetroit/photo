@@ -86,5 +86,15 @@ describe Entity do
       end
       all_hashes_in_array.should be_true
     end
+
+    Entity::TYPES.each do |subclass|
+      class_sym = subclass.to_s.downcase.intern
+      attrs     = subclass.class_variable_get(:@@own_additional_attributes).sort
+
+      it "should have #{attrs.inspect} as keys for type:#{subclass.to_s}" do
+        @entity = Factory(class_sym, :with_association)
+        (@entity.to_hash.keys & attrs).sort.should == attrs.sort
+      end
+    end
   end
 end

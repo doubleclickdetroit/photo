@@ -18,5 +18,7 @@ describe FormData do
     it 'should return a Hash' do
       @form_data.data.should be_a_kind_of(Hash)
     end
+
+    it 'should contain certain keys...'
   end
 end

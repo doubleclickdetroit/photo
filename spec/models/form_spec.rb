@@ -7,7 +7,6 @@ describe Form do
     @form.form_data = @form_data
   end
 
-  # @form.hash # => @form.form_data.hash
   describe '#data' do
     it 'should be delegated to #form_data' do
       @form.data = {:from => 'spec/models/form_spec'}
