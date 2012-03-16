@@ -40,11 +40,5 @@ describe Entity do
       end
     end
 
-    describe '#to_hash' do
-      it 'should have attributes of associated models for Task' do
-        keys = %w(start finish address1 address2 address3)
-        (@event.to_hash.keys & keys).should == keys
-      end
-    end
   end
 end

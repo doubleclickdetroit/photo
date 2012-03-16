@@ -38,13 +38,6 @@ describe Entity do
       end
     end
 
-    describe '#to_hash' do
-      it 'should have attributes of associated models for Task' do
-        keys = %w(assignee due complete).sort
-        (@task.to_hash.keys & keys).sort.should == keys
-      end
-    end
-
     describe '#assignee' do
       it 'should return a User to whom the task is assigned' do
         @task.assignee.should be_nil
