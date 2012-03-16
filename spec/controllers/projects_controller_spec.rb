@@ -137,15 +137,45 @@ describe ProjectsController do
     end
 
     describe "GET new" do
-      it "redirects to root" do
+      it "redirects to root with flash alert" do
         pending 'excepted this in the controller i think...'
         get :new, {:group_id => @group.id}, valid_session
         response.should redirect_to(root_path)
+        flash[:alert].should == access_denied_alert
       end
+    end
 
-      it 'sends a flash alert' do
-        pending 'excepted this in the controller i think...'
-        get :new, {:group_id => @group.id}, valid_session
+    describe "GET edit" do
+      it "redirects to root with flash alert" do
+        project = Factory(:project)
+        get :edit, {:id => project.to_param}, valid_session
+        response.should redirect_to(root_path)
+        flash[:alert].should == access_denied_alert
+      end
+    end
+
+    describe "POST create" do
+      it "redirects to root with flash alert" do
+        post :create, {:project => {:group_id => @group.id}}, valid_session
+        response.should redirect_to(root_path)
+        flash[:alert].should == access_denied_alert
+      end
+    end
+
+    describe "PUT update" do
+      it "redirects to root with flash alert" do
+        project = Factory(:project) 
+        put :update, {:id => project.to_param, :project => {}}, valid_session
+        response.should redirect_to(root_path)
+        flash[:alert].should == access_denied_alert
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "redirects to root with flash alert" do
+        project = Factory(:project) 
+        delete :destroy, {:id => project.to_param}, valid_session
+        response.should redirect_to(root_path)
         flash[:alert].should == access_denied_alert
       end
     end
