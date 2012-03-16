@@ -53,41 +53,62 @@ describe ProjectsController do
     let(:sign_in_alert) {'You need to sign in or sign up before continuing.'}
 
     describe "GET index" do
-      it "redirects to sign_in" do
+      it "redirects to sign_in with flash alert" do
         get :index, {}, valid_session
         response.should redirect_to(new_user_session_path)
-      end
-
-      it 'sends a flash alert' do
-        get :index, {}, valid_session
         flash[:alert].should == sign_in_alert
       end
     end
 
     describe "GET show" do
-      it "redirects to sign_in" do
+      it "redirects to sign_in with flash alert" do
         project = Factory(:project)
         get :show, {:id => project.to_param}, valid_session
         response.should redirect_to(new_user_session_path)
-      end
-
-      it 'sends a flash alert' do
-        project = Factory(:project)
-        get :show, {:id => project.to_param}, valid_session
         flash[:alert].should == sign_in_alert
       end
     end
 
     describe "GET new" do
-      it "redirects to sign_in" do
+      it "redirects to sign_in with flash alert" do
         pending 'excepted this in the controller i think...'
         get :new, {:group_id => @group.id}, valid_session
         response.should redirect_to(new_user_session_path)
+        flash[:alert].should == sign_in_alert
       end
+    end
 
-      it 'sends a flash alert' do
-        pending 'excepted this in the controller i think...'
-        get :new, {:group_id => @group.id}, valid_session
+    describe "GET edit" do
+      it "redirects to sign_in with flash alert" do
+        project = Factory(:project)
+        get :edit, {:id => project.to_param}, valid_session
+        response.should redirect_to(new_user_session_path)
+        flash[:alert].should == sign_in_alert
+      end
+    end
+
+    describe "POST create" do
+      it "redirects to sign_in with flash alert" do
+        post :create, {:project => {}}, valid_session
+        response.should redirect_to(new_user_session_path)
+        flash[:alert].should == sign_in_alert
+      end
+    end
+
+    describe "PUT update" do
+      it "redirects to sign_in with flash alert" do
+        project = Factory(:project)
+        put :update, {:id => project.to_param, :project => {}}, valid_session
+        response.should redirect_to(new_user_session_path)
+        flash[:alert].should == sign_in_alert
+      end
+    end
+
+    describe "DELETE destroy" do
+      it "redirects to sign_in with flash alert" do
+        project = Factory(:project)
+        delete :destroy, {:id => project.to_param}, valid_session
+        response.should redirect_to(new_user_session_path)
         flash[:alert].should == sign_in_alert
       end
     end
