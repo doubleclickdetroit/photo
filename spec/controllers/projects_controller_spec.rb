@@ -19,29 +19,68 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ProjectsController do
-  # attr_accessor :valid_attributes, :valid_session
+  attr_accessor :valid_attributes, :valid_session
+  
+  # # This should return the minimal set of attributes required to create a valid
+  # # Project. As you add validations to Project, be sure to
+  # # update the return value of this method accordingly.
+  # def valid_attributes
+  #   {}
+  # end
   # 
-  # # # This should return the minimal set of attributes required to create a valid
-  # # # Project. As you add validations to Project, be sure to
-  # # # update the return value of this method accordingly.
-  # # def valid_attributes
-  # #   {}
-  # # end
-  # # 
-  # # # This should return the minimal set of values that should be in the session
-  # # # in order to pass any filters (e.g. authentication) defined in
-  # # # ProjectsController. Be sure to keep this updated too.
-  # # def valid_session
-  # #   {}
-  # # end
+  # # This should return the minimal set of values that should be in the session
+  # # in order to pass any filters (e.g. authentication) defined in
+  # # ProjectsController. Be sure to keep this updated too.
+  # def valid_session
+  #   {}
+  # end
 
+  # describe 'user not logged in' do
+  #   describe "GET index" do
+  #     it "redirects to sign_in" do
+  #       project = Factory(:project)
+  #       get :index, {}, valid_session
+  #       flash = 'You need to sign in or sign up before continuing.'
+  #       response.should redirect_to(new_user_session_path)
+  #     end
+  #   end
+  # end
+
+  # describe 'user logged in, not a group member' do
+  #   login_user()
+  #   describe "GET index" do
+  #     it "redirects to sign_in" do
+  #       project = Factory(:project)
+  #       get :index, {}, valid_session
+  #       flash = 'You need to sign in or sign up before continuing.'
+  #       response.should redirect_to(new_user_session_path)
+  #     end
+  #   end
+  # end
+
+  # describe 'admin for group logged in' do
+  #   login_admin()
+  #   
+  #   describe "GET index" do
+  #     it "assigns all projects as @projects" do
+  #       project = Factory(:project)
+  #       get :index, {}, valid_session
+  #       assigns(:projects).should eq([project])
+  #     end
+  #   end
+  # end
+
+  # login_user()
   # login_admin()
 
   # describe "GET index" do
   #   it "assigns all projects as @projects" do
-  #     project = Project.create! valid_attributes
+  #     # project = Project.create! valid_attributes
+  #     project = Factory(:project)
   #     get :index, {}, valid_session
-  #     assigns(:projects).should eq([project])
+  #     # assigns(:projects).should eq([project])
+  #     flash = 'You need to sign in or sign up before continuing.'
+  #     response.should redirect_to(new_user_session_path)
   #   end
   # end
 

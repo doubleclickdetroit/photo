@@ -9,8 +9,10 @@ describe Form do
 
   describe '#data' do
     it 'should be delegated to #form_data' do
-      @form.data = {:from => 'spec/models/form_spec'}
-      @form.data.should == @form_data.data
+      hash = {'from' => 'spec/models/form_spec'}
+      @form.data = hash 
+      @form.data.should == hash
+      @form_data.data.should == hash
     end
   end
 end

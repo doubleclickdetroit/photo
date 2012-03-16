@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :form_data do
     sequence(:data) do |n|
-      {:number => n, :from => 'spec/factories/form_data'}
+      {'number' => n, 'from' => 'spec/factories/form_data'}
     end
     entity_id = nil
   end

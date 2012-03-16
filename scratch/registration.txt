@@ -23,19 +23,25 @@ Things I'm missing:
   X Milestone < Entity
 
   Involved:
-  - Form < Entity
+  X Form < Entity
 
   X Invitation
   X Invitation Email
 
-  - Workflow
-    - vars
-
   - Phase
     - state
 
+  - Workflow
+    - vars
+
   - One-off Entity to take you to Project, is fed project.id
 
+
+Finished when:
+  1 there is a registration workflow 
+    - can be instantiated for a given group
+  2 registration timeline is made up of stages
+    - stages detect when previous step is complete
 
 ========================
 Phases...

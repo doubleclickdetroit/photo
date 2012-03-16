@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :project do
-    name "MyString"
+    sequence(:name) {|n| "Project Name #{n}"}
     group_id 1
   end
 end
