@@ -105,8 +105,8 @@ describe User do
   end
 
   describe '#to_hash' do
+      keys = %w(id first last email icon).sort
     it 'should return a hash with limited attributes' do
-      keys = %w(id first last email).sort
       @user.to_hash.keys.sort.should == keys
     end
 
@@ -114,7 +114,8 @@ describe User do
       @membership.destroy
       @user.enroll_in @group, :as => :admin
 
-      keys  = %w(id first last email roles).sort
+      keys  << 'roles'
+      keys  = keys.sort
       roles = @user.roles_for(@group).map(&:to_s)
 
       hash = @user.to_hash(@group)

@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
     hash = self.attributes.select do |k,v|
       %w(id first last email).include? k
     end
+    hash['icon']  = self.avatar.url(:icon)
 
     hash['roles'] = self.roles_for(group).map(&:to_s) if group.is_a? Group
 
