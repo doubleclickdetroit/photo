@@ -4,9 +4,11 @@ describe Project do
   before(:each) { @project = Factory(:project) }
 
   describe '#timeline_json' do
+    it "should dump the json equivalent of #to_hash"
   end
 
   describe '#entities_by_month_and_date' do
+    it "should map the entities months/dates properly"
   end
 
   describe '#to_hash' do

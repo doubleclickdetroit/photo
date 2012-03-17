@@ -10,14 +10,7 @@ class Project < ActiveRecord::Base
     hash = {}
 
     self.entities.each do |ent|
-      date = case ent
-             when Event
-               ent.start
-             when Task
-               ent.due
-             when Embed
-               ent.created_at
-             end
+      date = ent.display_date
       month, day = date.month, date.day
 
       hash[month]      ||= {}

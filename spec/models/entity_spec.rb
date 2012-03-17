@@ -68,6 +68,10 @@ describe Entity do
   end
 
   describe '#to_hash' do
+    it 'should ensure no ruby objects are serialized' do
+      pending 'entity.rb: hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj'
+    end
+
     it 'should have all Entity attributes as keys' do
       attr_keys = @entity.attributes.keys
       hash_keys = @entity.to_hash.keys
@@ -97,4 +101,44 @@ describe Entity do
       end
     end
   end
+
+  describe '#display_date' do
+    it 'should return start time for Event' do
+      ent = Factory(:event, :with_association)
+      ent.display_date.should == ent.start
+    end
+
+    it 'should return the due date for Task' do
+      ent = Factory(:task, :with_association)
+      ent.display_date.should == ent.due
+    end
+
+    it 'should return created_at for Embed' do
+      ent = Factory(:embed, :with_association)
+      ent.display_date.should == ent.created_at
+    end
+  end
+
+  describe '#display_avatar' do
+    it 'should return attendees urls and names for Event' do
+      ent     = Factory(:event, :with_followers)
+      avatars = ent.attendees.map {|a| {:id => a.id, :name => a.name, :icon => a.avatar.url(:icon)} }
+      ent.display_avatars.should == avatars
+    end
+
+    it 'should return attendees urls and names for Task' do
+      ent     = Factory(:task, :with_association)
+      user    = ent.assignee
+      avatars = [{:id => user.id, :name => user.name, :icon => user.avatar.url(:icon)}]
+      ent.display_avatars.should == avatars
+    end
+
+    it 'should return attendees urls and names for Embed' do
+      ent     = Factory(:embed, :with_creator)
+      user    = ent.created_by
+      avatars = [{:id => user.id, :name => user.name, :icon => user.avatar.url(:icon)}]
+      ent.display_avatars.should == avatars
+    end
+  end
+
 end

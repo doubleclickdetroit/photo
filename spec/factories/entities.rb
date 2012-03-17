@@ -1,21 +1,40 @@
 FactoryGirl.define do
   factory :entity do
-    sequence(:title) {|n| "Entity #{n}"}
-    sequence(:text) {|n| "Lorem ipsum #{n}"}
+    trait :with_comments do
+      comments do
+        3.times.inject([]) { |arr| arr << Factory(:comment) }
+      end
+    end
+
+    trait :with_followers do
+      followers do
+        3.times.inject([]) { |arr| arr << Factory(:user) }
+      end
+    end
+
+    trait :with_creator do
+      created_by { Factory(:user) }
+    end
+
+    trait :with_updater do
+      updated_by { Factory(:user) }
+    end
   end
 
-  # subclasses
-  factory :task do
+  ### subclasses ###
+   
+  factory :task, :parent => :entity, :class => "Task" do
     sequence(:title) {|n| "Task #{n}"}
     sequence(:text) {|n| "Lorem ipsum #{n}"}
     type "Task"
 
     trait :with_association do
       deadline { Factory(:deadline) }
+      assignee { Factory(:user) }
     end
   end
 
-  factory :event do
+  factory :event, :parent => :entity, :class => "Event" do
     sequence(:title) {|n| "Event #{n}"}
     sequence(:text) {|n| "Lorem ipsum #{n}"}
     type "Event"
@@ -25,7 +44,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :embed do
+  factory :embed, :parent => :entity, :class => "Embed" do
     sequence(:title) {|n| "Embed #{n}"}
     sequence(:text) {|n| "Lorem ipsum #{n}"}
     type "Embed"
@@ -35,7 +54,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :form do
+  factory :form, :parent => :entity, :class => "Form" do
     sequence(:title) {|n| "Form #{n}"}
     sequence(:text) {|n| "Lorem ipsum #{n}"}
     type "Form"

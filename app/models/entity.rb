@@ -1,11 +1,18 @@
 class Entity < ActiveRecord::Base
-  # todo dynamically
-  TYPES = [Task, Event, Embed, Form]
+  types = {
+    Event => {:date => :start,      :icons => :attendees},
+    Task  => {:date => :due,        :icons => :assignee},
+    Embed => {:date => :created_at, :icons => :created_by}
+  }
+  # types.each {|type| types[type.to_s] = type}
+
+  TYPE_DISPLAY_DATA = types
+  TYPES = TYPE_DISPLAY_DATA.keys 
   TYPES_HASH = Hash[TYPES.map{|i| [i.to_s,i]}]
 
   def self.spawn(*args, &block)
     entity = args.first
-    klass = TYPES_HASH[entity[:type]]
+    klass = subclass_from_string(entity[:type])
     klass.new args.first
   end
 
@@ -21,6 +28,16 @@ class Entity < ActiveRecord::Base
   has_many :watchings
   has_many :followers, :through => :watchings, :source => :user 
 
+  def display_date
+    self.send date_method_for_class(self.class)
+  end
+
+  def display_avatars
+    user_method = users_method_for_class(self.class)
+    users = Array(self.send user_method)
+    users.map {|a| {:id => a.id, :name => a.name, :icon => a.avatar.url(:icon)} }
+  end
+
   def to_hash(*args)
     hash = self.attributes
 
@@ -34,7 +51,7 @@ class Entity < ActiveRecord::Base
     hash
   end
 
-protected
+private
 
   def self.attach(*args)
     attributes = args.shift
@@ -46,7 +63,15 @@ protected
     end
   end
 
-private
+  def subclass_from_string(str)
+    TYPES_HASH[str]
+  end
+  def date_method_for_class(klass)
+    TYPE_DISPLAY_DATA[klass][:date]
+  end
+  def users_method_for_class(klass)
+    TYPE_DISPLAY_DATA[klass][:icons]
+  end
 
   @@super_additional_attributes = %w(comments followers)
   def all_additional_attributes
