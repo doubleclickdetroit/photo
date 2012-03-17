@@ -78,10 +78,15 @@ describe Entity do
       (attr_keys & hash_keys).should == attr_keys
     end
 
+    it 'should contain avatars' do
+      @entity.to_hash[:avatars].should be_a_kind_of(Array)
+    end
+
     it 'should have attributes of associated models' do
       # check to make sure the vals for these keys
       # are Arrays of Hashes
-      keys = %w(comments followers)
+      # keys = %w(comments followers)
+      keys = Entity.class_variable_get(:@@super_additional_attributes).sort
       hash = @entity.to_hash
       all_hashes_in_array = keys.all? do |key|
         hash[key].all? do |array_item|

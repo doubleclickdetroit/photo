@@ -46,6 +46,7 @@ class Entity < ActiveRecord::Base
       # true gives you super's attributes
       obj = self.send(ass)
       hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj
+      hash[:avatars] = display_avatars()
     end
     
     hash
@@ -73,7 +74,8 @@ private
     TYPE_DISPLAY_DATA[klass][:icons]
   end
 
-  @@super_additional_attributes = %w(comments followers)
+  # created_by/updated_by id's already in #attributes
+  @@super_additional_attributes = %w(comments followers) 
   def all_additional_attributes
     subclass_attributes = self.class.class_variable_get :@@own_additional_attributes  
     subclass_attributes + @@super_additional_attributes
