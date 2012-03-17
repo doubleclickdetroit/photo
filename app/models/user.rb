@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   # @user.has_role? :admin, :for => @group
   # @user.has_role? [:owner,:admin], :for => @group
   def has_role?(*args)
-    roles = ([] << args.shift).flatten
+    roles = Array(args.shift) # ([] << args.shift).flatten
     group = args.extract_options![:for]
     raise ArgumentError, "Expected arg :for => group_instance" unless group
     has_role = false

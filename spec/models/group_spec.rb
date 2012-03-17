@@ -22,7 +22,7 @@ describe Group do
     end
 
     it 'should list its #users with roles' do
-      keys = %w(id first last email roles).sort
+      keys = %w(id first last email icon roles).sort
       hash['users'].all? do |u|
         u.keys.sort == keys
       end.should be_true
