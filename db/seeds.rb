@@ -25,6 +25,11 @@ puts "  ** Building/Associating Groups"
 
 @users = @group.members
 
+def random_user
+  @users[rand(@users.size)]
+end
+
+
 
 ##################################
 ########### Project ##############
@@ -51,6 +56,7 @@ events = [
   {
     :title => 'Meet with Client',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
+    :created_by_id => random_user().id,
     :time_place => {  
       :start  => hour_and_minute_for_date(10,00,4.days.ago),
       :finish => hour_and_minute_for_date(14,30,4.days.ago),
@@ -62,6 +68,7 @@ events = [
   {
     :title => 'Discuss Requirements Documentation',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
+    :created_by_id => random_user().id,
     :time_place => {  
       :start  => hour_and_minute_for_date(13,00,3.days.ago),
       :finish => hour_and_minute_for_date(14,00,3.days.ago),
@@ -73,6 +80,7 @@ events = [
   {
     :title => 'Discuss Wireframes & Mockups',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
+    :created_by_id => random_user().id,
     :time_place => {  
       :start  => hour_and_minute_for_date(10,30,Time.now),
       :finish => hour_and_minute_for_date(12,00,Time.now),
@@ -84,6 +92,7 @@ events = [
   {
     :title => 'Discuss questions & assumptions',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
+    :created_by_id => random_user().id,
     :time_place => {  
       :start  => hour_and_minute_for_date(14,00,5.days.from_now),
       :finish => hour_and_minute_for_date(15,00,5.days.from_now),
@@ -95,6 +104,7 @@ events = [
   {
     :title => 'Discuss estimate of hours',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
+    :created_by_id => random_user().id,
     :time_place => {  
       :start  => hour_and_minute_for_date(14,00,9.days.from_now),
       :finish => hour_and_minute_for_date(15,00,9.days.from_now),
@@ -129,6 +139,7 @@ tasks = [
   {
     :title => 'Attach Requirements Documentation',
     :text => nil,
+    :created_by_id => random_user().id,
     :deadline => {  
       :due => 3.days.ago,
       :complete => true
@@ -137,6 +148,7 @@ tasks = [
   {
     :title => 'Attach wireframes and mockups',
     :text => nil,
+    :created_by_id => random_user().id,
     :deadline => {  
       :due => 1.day.ago,
       :complete => true
@@ -166,6 +178,7 @@ embeds = [
   {
     :title => 'Requirements Documentation',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_by_id => random_user().id,
     :created_at => 3.days.ago,
 
     :asset => { :file_path => ['test','fixtures','test.doc'] }
@@ -173,6 +186,7 @@ embeds = [
   {
     :title => 'Wireframes',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_by_id => random_user().id,
     :created_at => 1.day.ago,
 
     :asset => { :file_path => ['test','fixtures','test.pdf'] }
@@ -180,6 +194,7 @@ embeds = [
   {
     :title => 'Mockups',
     :text => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam blandit ornare aliquam. Integer fringilla euismod lacus, sit amet faucibus urna tincidunt ac.',
+    :created_by_id => random_user().id,
     :created_at => 1.day.ago,
 
     :asset => { :file_path => ['test','fixtures','test.pdf'] }
@@ -205,10 +220,6 @@ end
 #####################################
 
 puts "    ** Adding Arbitrary Comments/Followers"
-
-def random_user
-  @users[rand(@users.size)]
-end
 
 def random_text
   @lines ||= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id vulputate leo. Suspendisse vulputate libero eu leo ornare adipiscing. Cras mattis tristique mollis. Aenean et metus neque, nec porta lacus. Sed quis semper nisl. Nunc vel mi sem, vitae imperdiet metus. Suspendisse purus metus, pulvinar ac scelerisque et, rutrum ultrices urna. Sed faucibus placerat turpis, sed luctus odio aliquam nec. Integer justo diam, rhoncus in malesuada ac, eleifend eget libero. Praesent congue suscipit urna eu semper. Vestibulum velit nisl, porta sit amet aliquam faucibus, semper vel eros. Proin arcu massa, iaculis et malesuada dignissim, egestas eu diam. Vestibulum eleifend ante id nisl sollicitudin ac faucibus diam hendrerit. Vivamus vitae ipsum dui, et tincidunt felis. Nullam posuere odio egestas sapien ornare convallis. Nullam eget mi vel lorem mollis gravida. Mauris quam velit, malesuada nec tempor ac, dapibus quis augue. Suspendisse potenti.".split(/\./).map(&:strip)
