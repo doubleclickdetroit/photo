@@ -4,7 +4,7 @@ Photo::Application.routes.draw do
 
     resources :invitations, :only => [:create, :destroy]
 
-    resources :groups do
+    resources :groups, :except => [:new, :edit] do
       resources :users, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
     end
@@ -12,7 +12,7 @@ Photo::Application.routes.draw do
     # does this belong with Groups?
     resources :memberships, :only => [:create, :destroy]
 
-    resources :projects do
+    resources :projects, :except => [:new, :edit] do
       # routes for Task, Event, etc
       Entity::TYPES.each do |subclass|
         str = subclass.to_s
