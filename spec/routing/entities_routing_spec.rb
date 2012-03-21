@@ -8,16 +8,8 @@ describe EntitiesController do
         get("/api/projects/1/tasks").should route_to("entities#index", :type => 'Task', :project_id => "1")
       end
 
-      it "routes to #new" do
-        get("/api/projects/1/tasks/new").should route_to("entities#new", :type => 'Task', :project_id => "1")
-      end
-
       it "routes to #show" do
         get("/api/projects/1/tasks/2").should route_to("entities#show", :id => "2", :type => 'Task', :project_id => "1")
-      end
-
-      it "routes to #edit" do
-        get("/api/projects/1/tasks/2/edit").should route_to("entities#edit", :id => "2", :type => 'Task', :project_id => "1")
       end
 
       it "routes to #create" do
@@ -31,6 +23,14 @@ describe EntitiesController do
       it "routes to #destroy" do
         delete("/api/projects/1/tasks/2").should route_to("entities#destroy", :id => "2", :type => 'Task', :project_id => "1")
       end
+
+      # it "routes to #new" do
+      #   get("/api/projects/1/tasks/new").should route_to("entities#new", :type => 'Task', :project_id => "1")
+      # end
+
+      # it "routes to #edit" do
+      #   get("/api/projects/1/tasks/2/edit").should route_to("entities#edit", :id => "2", :type => 'Task', :project_id => "1")
+      # end
     end
 
     describe 'for Event' do
@@ -38,16 +38,8 @@ describe EntitiesController do
         get("/api/projects/1/events").should route_to("entities#index", :type => 'Event', :project_id => "1")
       end
 
-      it "routes to #new" do
-        get("/api/projects/1/events/new").should route_to("entities#new", :type => 'Event', :project_id => "1")
-      end
-
       it "routes to #show" do
         get("/api/projects/1/events/2").should route_to("entities#show", :id => "2", :type => 'Event', :project_id => "1")
-      end
-
-      it "routes to #edit" do
-        get("/api/projects/1/events/2/edit").should route_to("entities#edit", :id => "2", :type => 'Event', :project_id => "1")
       end
 
       it "routes to #create" do
@@ -61,6 +53,14 @@ describe EntitiesController do
       it "routes to #destroy" do
         delete("/api/projects/1/events/2").should route_to("entities#destroy", :id => "2", :type => 'Event', :project_id => "1")
       end
+
+      # it "routes to #edit" do
+      #   get("/api/projects/1/events/2/edit").should route_to("entities#edit", :id => "2", :type => 'Event', :project_id => "1")
+      # end
+
+      # it "routes to #new" do
+      #   get("/api/projects/1/events/new").should route_to("entities#new", :type => 'Event', :project_id => "1")
+      # end
     end
 
     describe 'for Embed' do
@@ -68,16 +68,8 @@ describe EntitiesController do
         get("/api/projects/1/embeds").should route_to("entities#index", :type => 'Embed', :project_id => "1")
       end
 
-      it "routes to #new" do
-        get("/api/projects/1/embeds/new").should route_to("entities#new", :type => 'Embed', :project_id => "1")
-      end
-
       it "routes to #show" do
         get("/api/projects/1/embeds/2").should route_to("entities#show", :id => "2", :type => 'Embed', :project_id => "1")
-      end
-
-      it "routes to #edit" do
-        get("/api/projects/1/embeds/2/edit").should route_to("entities#edit", :id => "2", :type => 'Embed', :project_id => "1")
       end
 
       it "routes to #create" do
@@ -91,6 +83,14 @@ describe EntitiesController do
       it "routes to #destroy" do
         delete("/api/projects/1/embeds/2").should route_to("entities#destroy", :id => "2", :type => 'Embed', :project_id => "1")
       end
+
+      # it "routes to #new" do
+      #   get("/api/projects/1/embeds/new").should route_to("entities#new", :type => 'Embed', :project_id => "1")
+      # end
+
+      # it "routes to #edit" do
+      #   get("/api/projects/1/embeds/2/edit").should route_to("entities#edit", :id => "2", :type => 'Embed', :project_id => "1")
+      # end
     end
 
     # describe 'vanilla Entity by project' do

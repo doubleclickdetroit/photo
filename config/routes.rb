@@ -2,10 +2,10 @@ Photo::Application.routes.draw do
   scope 'api' do
     devise_for :users
 
-    resources :invitations
+    resources :invitations, :except => [:new, :edit]
 
     resources :groups do
-      resources :users
+      resources :users, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
     end
 
@@ -17,7 +17,7 @@ Photo::Application.routes.draw do
       Entity::TYPES.each do |subclass|
         str = subclass.to_s
         sym = str.downcase.pluralize.intern
-        resources sym, :controller => 'entities', :type => str 
+        resources sym, :controller => 'entities', :type => str, :except => [:new, :edit] 
       end
     end
   end
