@@ -2,7 +2,7 @@ Photo::Application.routes.draw do
   scope 'api' do
     devise_for :users
 
-    resources :invitations, :except => [:new, :edit]
+    resources :invitations, :only => [:create, :destroy]
 
     resources :groups do
       resources :users, :except => [:new, :edit]
