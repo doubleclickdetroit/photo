@@ -21,7 +21,20 @@ class User < ActiveRecord::Base
 
   # todo dependent destroy...
   has_many :memberships
-  has_many :groups, :through => :memberships
+
+  def groups
+    memberships.map do |m|
+      group = m.group
+
+      group.class.instance_eval do
+        define_method :roles do
+          m.roles
+        end
+      end
+
+      group
+    end
+  end
 
   def name
     "#{first} #{last}"

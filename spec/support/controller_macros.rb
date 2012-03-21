@@ -1,9 +1,10 @@
 module ControllerMacros
   def login_admin
     before(:each) do
-      @user  = Factory(:user)
-      @group = Factory(:group)
-      @user.enroll_in @group, :as => :admin
+      @user = Factory(:user)
+      @the_group = Factory(:group)
+      @user.enroll_in @the_group, :as => :admin
+      @other_group = Factory(:group)
 
       # @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user 
@@ -13,8 +14,9 @@ module ControllerMacros
   def login_associate
     before(:each) do
       @user  = Factory(:user)
-      @group = Factory(:group)
-      @user.enroll_in @group, :as => :associate
+      @the_group = Factory(:group)
+      @user.enroll_in @the_group, :as => :associate
+      @other_group = Factory(:group)
 
       # @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user 
@@ -24,6 +26,7 @@ module ControllerMacros
   def login_user
     before(:each) do
       @user  = Factory(:user)
+      @the_group = Factory(:group)
 
       # @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user 

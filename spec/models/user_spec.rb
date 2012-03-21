@@ -135,4 +135,15 @@ describe User do
     end
   end
 
+  describe '#groups' do
+    it 'should return an Array of Groups' do
+      array_of_groups = @user.groups.all? {|g| g.is_a?(Group)}
+      array_of_groups.should be_true
+    end
+
+    it 'should yield Groups which contain roles from Memberships' do
+      @user.groups.first.roles.should == @membership.roles
+    end
+  end
+
 end
