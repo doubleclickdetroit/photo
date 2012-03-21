@@ -1,0 +1,41 @@
+models/controllers: users, groups, memberships, projects, entities
+
+routes scoped by:
+
+
+users
+===================================================
+/api/users/sign_up
+/api/users/sign_in
+/api/users/sign_out
+# etc...
+
+
+groups (users, projects, memberships)
+===================================================
+/api/groups/create
+/api/groups/update
+# etc...
+
+/api/groups/1234/users
+/api/groups/1234/projects
+
+POST /api/groups/1234/memberships/user/1234
+# ...or something like this
+
+
+projects (entities)
+===================================================
+/api/projects/
+/api/projects/1234
+
+/api/projects/1234/entities
+POST /api/projects/1234/tasks
+PUT  /api/projects/1234/events/1234
+
+
+entities (by subclass) (assignments, time_place, assets)
+===================================================
+/api/tasks/1234/assignments/user/1234
+/api/event/1234/time_place/
+/api/embed/1234/asset/

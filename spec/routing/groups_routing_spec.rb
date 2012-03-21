@@ -31,5 +31,45 @@ describe GroupsController do
       delete("/api/groups/1").should route_to("groups#destroy", :id => "1")
     end
 
+    describe 'nested routes' do
+      describe 'users' do
+        pending
+      end
+
+      describe 'projects' do
+        it "routes to #index" do
+          get("/api/groups/1/projects").should route_to("projects#index", :group_id => "1")
+        end
+
+        it "routes to #show" do
+          get("/api/groups/1/projects/2").should route_to("projects#show", :group_id => "1", :id => "2")
+        end
+
+        it "routes to #create" do
+          post("/api/groups/1/projects").should route_to("projects#create", :group_id => "1")
+        end
+
+        it "routes to #update" do
+          put("/api/groups/1/projects/2").should route_to("projects#update", :group_id => "1", :id => "2")
+        end
+
+        it "routes to #destroy" do
+          delete("/api/groups/1/projects/2").should route_to("projects#destroy", :group_id => "1", :id => "2")
+        end
+
+        # it "routes to #new" do
+        #   get("/api/groups/1/projects/new").should_not route_to("groups#new")
+        # end
+
+        # it "routes to #edit" do
+        #   get("/api/groups/1/projects/1/edit").should_not route_to("groups#edit", :id => "1")
+        # end
+      end
+
+      describe 'memberships' do
+        pending
+      end
+    end
+
   end
 end

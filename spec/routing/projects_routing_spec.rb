@@ -38,16 +38,8 @@ describe ProjectsController do
         get("/api/groups/1/projects").should route_to("projects#index", :group_id => "1")
       end
 
-      it "routes to #new" do
-        get("/api/groups/1/projects/new").should route_to("projects#new", :group_id => "1")
-      end
-
       it "routes to #show" do
         get("/api/groups/1/projects/2").should route_to("projects#show", :id => "2", :group_id => "1")
-      end
-
-      it "routes to #edit" do
-        get("/api/groups/1/projects/2/edit").should route_to("projects#edit", :id => "2", :group_id => "1")
       end
 
       it "routes to #create" do
@@ -61,6 +53,14 @@ describe ProjectsController do
       it "routes to #destroy" do
         delete("/api/groups/1/projects/2").should route_to("projects#destroy", :id => "2", :group_id => "1")
       end
+
+      # it "routes to #new" do
+      #   get("/api/groups/1/projects/new").should route_to("projects#new", :group_id => "1")
+      # end
+
+      # it "routes to #edit" do
+      #   get("/api/groups/1/projects/2/edit").should route_to("projects#edit", :id => "2", :group_id => "1")
+      # end
     end
 
   end

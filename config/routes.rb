@@ -4,25 +4,15 @@ Photo::Application.routes.draw do
 
     resources :invitations
 
-    #check
     resources :groups do
-      #todo
       resources :users
-      #check
-      resources :projects
+      resources :projects, :except => [:new, :edit]
     end
 
-    #todo
     # does this belong with Groups?
-    resources :memberships
+    resources :memberships, :only => [:create, :destroy]
 
-
-    #check
     resources :projects do
-      #todo
-      resources :entities
-
-      #todo
       # routes for Task, Event, etc
       Entity::TYPES.each do |subclass|
         str = subclass.to_s
@@ -34,5 +24,5 @@ Photo::Application.routes.draw do
 
   root :to => 'home#index'
 
-  match '/profile/:username', :controller => :profile, :action => :show
+  # match '/profile/:username', :controller => :profile, :action => :show
 end
