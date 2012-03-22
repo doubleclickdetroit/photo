@@ -7,8 +7,9 @@ class GroupsController < ApplicationController
   respond_to :json
 
   def index
-    @groups = current_user.groups.map(&:to_hash) 
-    respond_with @groups
+    @groups = current_user ? current_user.groups : []
+    @hash   = @groups.map(&:to_hash) 
+    respond_with @hash
   end
 
   def show
