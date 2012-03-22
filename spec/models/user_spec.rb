@@ -180,6 +180,8 @@ describe User do
       other_entity
     end
 
+    context "as owner"
+
     context "as admin" do
       before(:each) do
         @user = Factory(:user) 
@@ -201,6 +203,35 @@ describe User do
         it { should_not be_able_to(:manage, other_entity) }
       end
     end
+
+    context "as associate" do
+      before(:each) do
+        @user = Factory(:user) 
+        @user.enroll_in group, :as => :associate 
+      end
+      
+      describe 'for Group' do
+        it { should be_able_to(:read, group) }
+        it { should_not be_able_to(:create, group) }
+        it { should_not be_able_to(:update, group) }
+        it { should_not be_able_to(:destroy, group) }
+      end
+
+      describe 'for Project' do
+        it { should be_able_to(:read, project) }
+        it { should_not be_able_to(:create, project) }
+        it { should_not be_able_to(:update, project) }
+        it { should_not be_able_to(:destroy, project) }
+      end
+
+      describe 'for Entity' do
+        it { should be_able_to(:read, entity) }
+        it { should be_able_to(:create, entity) }
+        it { should be_able_to(:update, entity) }
+        it { should_not be_able_to(:destroy, entity) }
+      end
+    end
+
   end
 
 end
