@@ -189,8 +189,11 @@ describe User do
       end
       
       describe 'for Group' do
-        it { should be_able_to(:manage, group) }
-        it { should_not be_able_to(:manage, other_group) }
+        it { should be_able_to(:read, group) }
+        # todo doesnt need to allow create... right? 
+        # it { should be_able_to(:create, group) }
+        it { should be_able_to(:update, group) }
+        it { should_not be_able_to(:destroy, group) }
       end
 
       describe 'for Project' do

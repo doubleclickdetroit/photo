@@ -4,10 +4,17 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    # OWNER / ADMIN
+    # OWNER
     can :manage, Group do |group|
-      group && user.has_role?([:owner,:admin], :for => group)
+      group && user.has_role?(:owner, :for => group)
     end
+
+    # ADMIN
+    can [:read, :update], Group do |group|
+      group && user.has_role?(:admin, :for => group)
+    end
+
+    # OWNER / ADMIN
     can :manage, Project do |project|
       project && user.has_role?([:owner,:admin], :for => project.group)
     end
