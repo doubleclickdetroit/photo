@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe User do
   before(:each) do
@@ -143,6 +144,62 @@ describe User do
 
     it 'should yield Groups which contain roles from Memberships' do
       @user.groups.first.roles.should == @membership.roles
+    end
+  end
+
+  describe 'abilities' do
+    subject { ability }
+    let(:ability){ Ability.new(@user) }
+
+    let(:group) do
+      group = Factory(:group) 
+      @user.enroll_in group, :as => :admin
+      group
+    end
+    let(:other_group){ Factory(:group) }
+
+    let(:project) do
+      project = Factory(:project) 
+      group.projects << project
+      project
+    end
+    let(:other_project) do
+      other_project = Factory(:project) 
+      other_group.projects << other_project
+      other_project
+    end
+
+    let(:entity) do
+      entity = Factory(:entity) 
+      project.entities << entity
+      entity
+    end
+    let(:other_entity) do
+      other_entity = Factory(:entity) 
+      other_project.entities << other_entity
+      other_entity
+    end
+
+    context "as admin" do
+      before(:each) do
+        @user = Factory(:user) 
+        @user.enroll_in group, :as => :admin 
+      end
+      
+      describe 'for Group' do
+        it { should be_able_to(:manage, group) }
+        it { should_not be_able_to(:manage, other_group) }
+      end
+
+      describe 'for Project' do
+        it { should be_able_to(:manage, project) }
+        it { should_not be_able_to(:manage, other_project) }
+      end
+
+      describe 'for Entity' do
+        it { should be_able_to(:manage, entity) }
+        it { should_not be_able_to(:manage, other_entity) }
+      end
     end
   end
 
