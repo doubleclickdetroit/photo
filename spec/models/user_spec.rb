@@ -180,7 +180,26 @@ describe User do
       other_entity
     end
 
-    context "as owner"
+    context "as owner" do
+      before(:each) do
+        @user = Factory(:user) 
+        @user.enroll_in group, :as => :owner
+      end
+
+      describe 'for Group' do
+        it { should be_able_to(:manage, group) }
+      end
+
+      describe 'for Project' do
+        it { should be_able_to(:manage, project) }
+        it { should_not be_able_to(:manage, other_project) }
+      end
+
+      describe 'for Entity' do
+        it { should be_able_to(:manage, entity) }
+        it { should_not be_able_to(:manage, other_entity) }
+      end
+    end
 
     context "as admin" do
       before(:each) do
