@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
     hash
   end
 
+  def to_json
+    self.to_hash.to_json
+  end
+
   def self.exists_by_email?(email)
     where(:email => email).count > 0
   end

@@ -29,6 +29,13 @@ describe Group do
     end
   end
 
+  describe '#to_json' do
+    it 'should override #to_json, calling #to_hash' do
+      @group.should_receive :to_hash
+      @group.to_json
+    end
+  end
+
   describe '#enroll' do
     it 'should enroll a member in a group with a particular role' do
       @group.enroll @user1, :as => 'owner'

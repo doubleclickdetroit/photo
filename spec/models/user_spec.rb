@@ -126,6 +126,13 @@ describe User do
     end
   end
 
+  describe '#to_json' do
+    it 'should overrive #to_json, calling #to_hash' do
+      @user.should_receive :to_hash
+      @user.to_json
+    end
+  end
+
   describe '#exists_by_email?' do
     it 'should return false if there is no User for the email' do
       User.exists_by_email?(@user.email).should be_true

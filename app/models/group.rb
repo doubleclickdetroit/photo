@@ -28,4 +28,8 @@ class Group < ActiveRecord::Base
 
     hash
   end
+
+  def to_json
+    self.to_hash.to_json
+  end
 end
