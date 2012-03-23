@@ -146,4 +146,10 @@ describe Entity do
     end
   end
 
+  describe '#to_json' do
+    it 'should override #to_json, calling #to_hash' do
+      @entity.should_receive :to_hash
+      @entity.to_json
+    end
+  end
 end

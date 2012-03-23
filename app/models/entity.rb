@@ -52,6 +52,10 @@ class Entity < ActiveRecord::Base
     hash
   end
 
+  def to_json
+    self.to_hash.to_json
+  end
+
 private
 
   def self.attach(*args)
