@@ -151,11 +151,7 @@ describe User do
     subject { ability }
     let(:ability){ Ability.new(@user) }
 
-    let(:group) do
-      group = Factory(:group) 
-      @user.enroll_in group, :as => :admin
-      group
-    end
+    let(:group){ Factory(:group) }
     let(:other_group){ Factory(:group) }
 
     let(:project) do
@@ -250,6 +246,33 @@ describe User do
         it { should be_able_to(:read, entity) }
         it { should be_able_to(:create, entity) }
         it { should be_able_to(:update, entity) }
+        it { should_not be_able_to(:destroy, entity) }
+      end
+    end
+
+    context "as user not in group" do
+      before(:each) do
+        @user = Factory(:user) 
+      end
+      
+      describe 'for Group' do
+        it { should_not be_able_to(:read, group) }
+        it { should_not be_able_to(:create, group) }
+        it { should_not be_able_to(:update, group) }
+        it { should_not be_able_to(:destroy, group) }
+      end
+
+      describe 'for Project' do
+        it { should_not be_able_to(:read, project) }
+        it { should_not be_able_to(:create, project) }
+        it { should_not be_able_to(:update, project) }
+        it { should_not be_able_to(:destroy, project) }
+      end
+
+      describe 'for Entity' do
+        it { should_not be_able_to(:read, entity) }
+        it { should_not be_able_to(:create, entity) }
+        it { should_not be_able_to(:update, entity) }
         it { should_not be_able_to(:destroy, entity) }
       end
     end
