@@ -53,7 +53,6 @@ class Project < ActiveRecord::Base
     hash
   end
 
-  alias :to_json_orig :to_json
   def to_json(*args,&block)
     { :project => self.to_hash }.to_json
   end

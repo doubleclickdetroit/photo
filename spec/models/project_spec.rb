@@ -18,7 +18,12 @@ describe Project do
       hash.has_key?('id').should be_true
       hash.has_key?('name').should be_true
     end
-    
-    # todo more of these tests...
+  end
+
+  describe '#to_json' do
+    it 'should override to_json and call #to_hash' do
+      @project.should_receive :to_hash
+      @project.to_json
+    end
   end
 end
