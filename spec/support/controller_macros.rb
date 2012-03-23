@@ -1,4 +1,33 @@
 module ControllerMacros
+  def arbitrary_projects
+    before(:all) do
+      @project = Factory(:project)
+      @group.projects << @project
+
+      @other_project = Factory(:project)
+      @group.other_projects << @other_project
+    end
+  end
+
+  def arbitrary_entities
+    before(:all) do
+      @event = Factory(:event)
+      @other_event = Factory(:event)
+      @project.entities << @event
+      @other_project.entities << @other_event
+
+      @task = Factory(:task)
+      @other_task = Factory(:task)
+      @project.entities << @task
+      @other_project.entities << @other_task
+
+      @embed = Factory(:embed)
+      @other_embed = Factory(:embed)
+      @project.entities << @embed
+      @other_project.entities << @other_embed
+    end
+  end
+
   def login_owner
     before(:each) do
       @user = Factory(:user)

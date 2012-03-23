@@ -7,6 +7,13 @@ describe Project do
     it "should dump the json equivalent of #to_hash"
   end
 
+  # describe '#phases' do
+  #   it 'should be [] when there are no related Phases' do
+  #     @project.phases.should == []
+  #   end
+  #   it 'should keep track of Entities'
+  # end
+
   describe '#entities' do
     it 'should be [] when there are no related Entities' do
       @project.entities.should == []

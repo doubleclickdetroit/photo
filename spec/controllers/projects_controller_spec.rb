@@ -157,6 +157,7 @@ describe ProjectsController do
 
     describe "GET index" do
       it "assigns all projects as @projects" do
+        pending 'this doesnt scope by group or user'
         project = Factory(:project)
         get :index, {}, valid_session
         assigns(:projects).should eq([project])
