@@ -7,6 +7,24 @@ describe Project do
     it "should dump the json equivalent of #to_hash"
   end
 
+  describe '#entities' do
+    it 'should be [] when there are no related Entities' do
+      @project.entities.should == []
+    end
+
+    it 'should keep track of Entities' do
+      @event = Factory(:event)
+      @task  = Factory(:task)
+      @embed = Factory(:embed)
+
+      @project.entities = [@event]
+      @project.entities << @task 
+      @project.entities << @embed 
+
+      @project.entities.should == [@event,@task,@embed]
+    end
+  end
+
   describe '#entities_by_month_and_date' do
     it "should map the entities months/dates properly"
   end
