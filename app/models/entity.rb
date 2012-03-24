@@ -159,21 +159,9 @@ class Form < Entity
   attach @@own_additional_attributes, :from => :form_data
 
 private
-  # def associate_asset
-  #   self.asset = Asset.new
-  # end
-end
-
-class Form < Entity
-  has_one :form_data, :foreign_key => :entity_id
-
-  @@own_additional_attributes = %w(data)
-  attach @@own_additional_attributes, :from => :form_data
-
-private
-  # def associate_asset
-  #   self.asset = Asset.new
-  # end
+  def associate_asset
+    self.form_data = FormData.new
+  end
 end
 
 class RegistrationForm < Form

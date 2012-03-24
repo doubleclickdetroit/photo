@@ -14,6 +14,6 @@ describe RegistrationForm do
     # @admin.enroll_in @group, :as => :admin
     # @associate.enroll_in @group, :as => :associate
   end
-  
-  it { should be_false } 
+
+  pending 'doesnt even exist yet...'
 end

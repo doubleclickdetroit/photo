@@ -35,9 +35,60 @@ class FormData < AR::BASE
 end
 
 class FormType < AR::BASE
+  belongs_to :form
   has_many :form_data # i think it'll look for 'datum' lol
+
+  # maybe this has some kind of validation on 
+  # the incoming json to make sure its ok?...
 end
 
 
 # this will facilitate aggregate views of responses from
 # form_types as it has_many form_data
+
+
+# tl;dr Form will marry FormData to FormType and in order
+# to serve up the combined json
+
+
+# ok, another thought. both of these proposed types will be
+# storing serialized JSON, so maybe SerializedJSON should be
+# an AR class that these both inherit from and the
+# subclasses can just take care of the #to_hash stuff...
+#
+# also, im pretty sure the Form is going to need to has_one
+# :form_type and then have the FormType do the lookup for
+# an associated FormDatum, because the From will always have
+# a FormType but may or may not have FormData
+#
+# i feel like theres some sort of duck-typing thing we can
+# do here to just let FormType figure this all out on its
+# own
+#
+#
+# so... something like
+
+class Form < Entity
+  has_one :form_type
+  has_one :form_data
+
+  def to_hash
+    something.something.attributes
+    .merge(form_type.to_hash(form_data))
+  end
+end
+
+class FormType < AR::BASE
+  belongs_to :form
+  # this will have to be some stupid polymorphic
+  # association noise due to the use of STI
+  has_many :form_data
+
+  def to_hash(form_data)
+    # merge FormData vals into FormType
+  end
+end
+
+class FormDatum < AR::BASE
+  belongs_to :form
+end
