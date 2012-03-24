@@ -216,6 +216,83 @@ end
 
 
 #####################################
+############# Forms #################
+#####################################
+
+puts "    ** Adding Forms"
+
+@form      = Factory(:form)
+@form_data = Factory(:form_data)
+@form_type = Factory(:form_type)
+
+form = {
+  'form' => [
+		{
+			"Name Information"=> [
+				{
+					:title=>    "First Name",
+					:entity=>   "input",
+					:value=>    "",
+					:attrs=>    { "id"=> "field-fName" },
+					:required=> true,
+					:layout=>   "100%" 
+				},
+				{
+					:title=>    "Last Name",
+					:entity=>   "input",
+					:value=>    "",
+					:attrs=>    { "id"=> "field-lName" },
+					:required=> true,
+					:layout=>   "100%" 
+				}
+			],
+			"Contact Information"=> [
+				{
+					:title=>    "Phone Number",
+					:entity=>   "input",
+					:value=>    "",
+					:attrs=>    { "id"=> "field-phone" },
+					:required=> false,
+					:layout=>   "100%" 
+				}
+			]
+		}
+  ],
+
+  'controls' => [
+  ]
+}
+
+data = {
+  'form' => [
+    "Name Information"=> [
+      {
+        "First Name" => "Brad"
+      },
+      {
+        "Last Name" => "Chase"
+      }
+    ],
+
+    "Contact Information"=> [
+      {
+        "Phone Number" => "(555) 555-5555"
+      }
+    ]
+  ]
+}
+
+@form_data.data = data
+@form_type.data = form
+
+@form.form_data = @form_data
+@form.form_type = @form_type
+
+@project.entities << @form
+
+
+
+#####################################
 ### Random Comments and Followers ###
 #####################################
 
@@ -229,21 +306,25 @@ def random_text
   text
 end
 
-Entity.all.each do |ent|
-  #comments
-  (rand(5)+1).times do
-    comment = Factory(:comment, :user_id => random_user().id, :text => random_text())
-    ent.comments << comment
-  end
 
-  #followers
-  users = @users
-  # rand(@users.size).times do
-  #   # [true,false].sample ? users.shift : users.pop
-  #   rand(2)==1 ? users.shift : users.pop
+Entity.all.each do |ent|
+  # todo unbreak this!!!
+  # #comments
+  # (rand(5)+1).times do
+  #   comment = Comment.new
+  #   comment.text = random_text()
+  #   comment.user = random_user()
+  #   ent.comments << comment
   # end
-  # puts "number of followers: #{users.size}"
-  ent.followers = users
+
+  # #followers
+  # users = @users
+  # # rand(@users.size).times do
+  # #   # [true,false].sample ? users.shift : users.pop
+  # #   rand(2)==1 ? users.shift : users.pop
+  # # end
+  # # puts "number of followers: #{users.size}"
+  # ent.followers = users
 end
 
 

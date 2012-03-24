@@ -156,8 +156,13 @@ class Form < Entity
   has_one :form_type, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
   has_one :form_data, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
 
+  # @@own_additional_attributes = [] 
   # @@own_additional_attributes = %w(data)
   # attach @@own_additional_attributes, :from => :form_data
+
+  def to_hash
+    self.attributes .merge(form_type.to_hash(form_data))
+  end
 
 private
   def associate_asset
@@ -171,4 +176,5 @@ end
 
 class RegistrationForm < Form
 end
-# brad was here
+
+# brad was definitely here

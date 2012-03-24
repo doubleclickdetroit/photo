@@ -14,4 +14,15 @@ describe FormType do
     end
   end
 
+  describe '#to_hash' do
+    it 'should call #data to build its return' do
+      @form_type.should_receive :data
+      @form_type.to_hash
+    end
+
+    it 'should dump vals from the form_data arg' do
+      pending 'this is going to be stupid complicated to test...'
+    end
+  end
+
 end

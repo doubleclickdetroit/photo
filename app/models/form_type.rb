@@ -1,5 +1,22 @@
 class FormType < SerializedJSON 
   belongs_to :entity
+
+  def to_hash(form_data)
+    # todo get rid of the Hash literal after dev?
+    hash = data || {}
+
+    # form = hash['form']
+    # form.map do |header|
+    #   fields = form[header]
+    #   fields.map do |field|
+    #     val = form_data['form'][header][field['title']]
+    #     field['value'] = val
+    #   end
+    #   fields
+    # end
+    
+    hash
+  end
 end
 
 # # ABBREVIATED EXAMPLE OUTPUT
