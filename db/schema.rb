@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315194346) do
+ActiveRecord::Schema.define(:version => 20120324080507) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",        :null => false
@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(:version => 20120315194346) do
     t.text     "text"
   end
 
-  create_table "form_data", :force => true do |t|
-    t.integer  "entity_id"
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -94,6 +87,14 @@ ActiveRecord::Schema.define(:version => 20120315194346) do
     t.integer  "group_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "serialized_jsons", :force => true do |t|
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "entity_id"
+    t.string   "type"
   end
 
   create_table "time_places", :force => true do |t|

@@ -153,16 +153,22 @@ class Correspondence < Entity
 end
 
 class Form < Entity
-  has_one :form_data, :foreign_key => :entity_id
+  has_one :form_type, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
+  has_one :form_data, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
 
-  @@own_additional_attributes = %w(data)
-  attach @@own_additional_attributes, :from => :form_data
+  # @@own_additional_attributes = %w(data)
+  # attach @@own_additional_attributes, :from => :form_data
 
 private
   def associate_asset
+    # todo this has got to be awfully wrong
+    # but its probably going to get left 
+    # here through dev :)
+    self.form_type = FormType.new
     self.form_data = FormData.new
   end
 end
 
 class RegistrationForm < Form
 end
+# brad was here

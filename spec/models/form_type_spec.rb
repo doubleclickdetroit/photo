@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FormData do
+describe FormType do
   # moved this to SerializedJSON
   before(:each) do
     @form      = Factory(:form)
@@ -10,8 +10,8 @@ describe FormData do
 
   describe '#entity' do
     it 'should return the associated Form' do
-      @form_data.entity.should == @form
+      @form_type.entity.should == @form
     end
   end
-  
+
 end

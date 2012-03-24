@@ -1,4 +1,4 @@
-class FormData < SerializedJSON 
+class FormType < SerializedJSON 
   belongs_to :entity
 end
 
