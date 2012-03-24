@@ -35,7 +35,6 @@ describe ProjectWorkflow do
         let(:entities) { project.entities }
 
         it 'should contain one completed Task' do
-          pending 'handling nil for Entity association'
           entities.one? {|e| e.instance_of?(Task)}.should be_true
           task = entities.find {|e| e.instance_of?(Task)}
           task.complete.should be_true

@@ -12,10 +12,13 @@ class ProjectWorkflow < Project
 private
   def self.project_from_invitation(invitation)
     proj = Project.new
-    # task = Task.new title: "#{invitation.inviter.first} invited you to join #{invitation.group.name}", 
-    #                 complete: true, 
-    #                 created_at: invitation.created_at
-    # proj.entities << task
+
+    task = Task.new title: "#{invitation.inviter.first} invited you to join #{invitation.group.name}", 
+                    created_at: invitation.created_at
+    # todo meta-do this in constructor
+    task.complete = true
+    proj.entities << task
+
     proj
   end
 end

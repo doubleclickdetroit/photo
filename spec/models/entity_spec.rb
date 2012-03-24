@@ -13,6 +13,14 @@ describe Entity do
     @entity.deadline = Factory(:deadline)
   end
 
+  # describe '#associate_asset' do
+  #   it 'should be defined for all subclasses' do
+  #     Entity::TYPES.each do |klass|
+  #       klass.new.send(:associate_asset).should_not raise_error
+  #     end
+  #   end
+  # end
+
   describe '#group' do
     it 'should be delegated to #project' do
       @group = Factory(:group)
@@ -22,7 +30,6 @@ describe Entity do
     end
   end
 
-  # provided by ActiveRecord
   describe '#project=/project' do
     it 'should save a project' do
       @entity.project = @project
@@ -30,7 +37,6 @@ describe Entity do
     end
   end
 
-  # provided by ActiveRecord
   describe '#followers' do
     before(:each) do
       @entity = Factory(:entity)

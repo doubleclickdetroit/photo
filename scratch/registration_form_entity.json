@@ -1,0 +1,58 @@
+{
+	form: [
+		{
+			"Personal Information": [
+				{
+					title   : "First Name",
+					entity  : "input",
+					value   : "John",
+					attrs   : { "id": "field-fName" },
+					required: true,
+					layout  : "100%" 
+				},
+				{
+					title   : "Last Name",
+					entity  : "input",
+					value   : "Doe",
+					attrs   : { "id": "field-lName" },
+					required: true,
+					layout  : "100%"
+				},
+
+				{
+					title   : "Email Address",
+					entity  : "input",
+					value   : "bosco87@gmail.com",
+					attrs   : { "id": "field-email" },
+					required: true,
+					layout  : "100%"
+				},
+
+				{
+					title   : "First Name",
+					entity  : "password",
+					value   : "",
+					attrs   : { "id": "field-password" },
+					required: true,
+					layout  : "100%"
+				},
+				{
+					title   : "First Name",
+					entity  : "password",
+					value   : "",
+					attrs   : { "id": "field-passwordConf" },
+					required: true,
+					layout  : "100%" 
+				}
+			]
+		}
+	],
+	controls: [
+		{
+			title : "Create my account",
+			entity: "submit",
+			value : "submit"
+			attrs : { "id": "btn-submit" }
+		}
+	]
+}

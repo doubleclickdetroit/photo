@@ -7,18 +7,20 @@ describe FormData do
     @form.form_data = @form_data
   end
 
-  describe '#entity' do
-    it 'should return the associated Form' do
-      @form_data.entity.should be_a_kind_of(Form)
-      @form_data.entity.should == @form
-    end
-  end
-  
-  describe '#data' do
-    it 'should return a Hash' do
-      @form_data.data.should be_a_kind_of(Hash)
-    end
+  pending 'more thought on this'
 
-    it 'should contain certain keys...'
-  end
+  # describe '#entity' do
+  #   it 'should return the associated Form' do
+  #     @form_data.entity.should be_a_kind_of(Form)
+  #     @form_data.entity.should == @form
+  #   end
+  # end
+  # 
+  # describe '#data' do
+  #   it 'should return a Hash' do
+  #     @form_data.data.should be_a_kind_of(Hash)
+  #   end
+
+  #   it 'should contain certain keys...'
+  # end
 end

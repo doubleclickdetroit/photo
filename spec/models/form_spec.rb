@@ -7,12 +7,14 @@ describe Form do
     @form.form_data = @form_data
   end
 
-  describe '#data' do
-    it 'should be delegated to #form_data' do
-      hash = {'from' => 'spec/models/form_spec'}
-      @form.data = hash 
-      @form.data.should == hash
-      @form_data.data.should == hash
-    end
-  end
+  pending 'more thought on this'
+
+  # describe '#data' do
+  #   it 'should be delegated to #form_data' do
+  #     hash = {'from' => 'spec/models/form_spec'}
+  #     @form.data = hash 
+  #     @form.data.should == hash
+  #     @form_data.data.should == hash
+  #   end
+  # end
 end

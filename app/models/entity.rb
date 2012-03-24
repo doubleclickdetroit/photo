@@ -28,6 +28,8 @@ class Entity < ActiveRecord::Base
   has_many :watchings
   has_many :followers, :through => :watchings, :source => :user 
 
+  after_initialize :associate_asset
+
   def display_date
     self.send date_method_for_class(self.class)
   end
@@ -57,6 +59,9 @@ class Entity < ActiveRecord::Base
   end
 
 private
+  def associate_asset
+    raise NoMethodError, "The instance method #{self.class}.associate_asset is not defined for this subclass of Entity" unless self.instance_of?(Entity)
+  end
 
   def self.attach(*args)
     attributes = args.shift
@@ -101,6 +106,11 @@ class Task < Entity
 
   @@own_additional_attributes = %w(assignee due complete)
   attach %w(due complete), :from => :deadline
+
+private
+  def associate_asset
+    self.deadline = Deadline.new
+  end
 end
 
 class Milestone < Task
@@ -115,12 +125,15 @@ class Event < Entity
 
   @@own_additional_attributes = %w(start finish address1 address2 address3)
   attach @@own_additional_attributes, :from => :time_place
+
+private
+  def associate_asset
+    self.time_place = TimePlace.new
+  end
 end
 
 class Embed < Entity
   has_one :asset, :foreign_key => :entity_id, :dependent => :destroy
-  # after_save :associate_asset
-  after_initialize :associate_asset
 
   @@own_additional_attributes = %w(file_name file_size content_type url)
   attach @@own_additional_attributes, :from => :asset
@@ -144,4 +157,24 @@ class Form < Entity
 
   @@own_additional_attributes = %w(data)
   attach @@own_additional_attributes, :from => :form_data
+
+private
+  # def associate_asset
+  #   self.asset = Asset.new
+  # end
+end
+
+class Form < Entity
+  has_one :form_data, :foreign_key => :entity_id
+
+  @@own_additional_attributes = %w(data)
+  attach @@own_additional_attributes, :from => :form_data
+
+private
+  # def associate_asset
+  #   self.asset = Asset.new
+  # end
+end
+
+class RegistrationForm < Form
 end
