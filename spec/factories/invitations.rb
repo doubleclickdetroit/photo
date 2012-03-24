@@ -4,7 +4,6 @@ FactoryGirl.define do
   factory :invitation do
     sequence(:first) {|n|"InviteeFirst#{n}"}
     sequence(:last) {|n|"InviteeLast#{n}"}
-
     sequence(:email) {|n|"invitee#{n}@example.com"}
 
     group_id nil

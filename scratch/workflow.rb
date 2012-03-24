@@ -34,7 +34,8 @@ end
 
 # i think there still need to be one-offs, like registration
 # ...but they are probably still just unique in that they
-# contain specialized Entities (sign_up)?
+# contain specialized Entities that cant be added by a normal
+# user e.g. sign_up, profile_details
 #
 #
 # registration workflow instantiaties 
@@ -51,3 +52,50 @@ end
 #
 # when a user invites someone else, the "Project" of
 # registration is instantiated, filling in all the values 
+
+
+
+# # - ACTION
+#   L - RESULT
+#
+#
+# 1 - Project is instantiated from ProjectWorkflow resulting in:
+#   a - Task marked completed "you were invited by [[inviter]]"
+#   b - Registration Entity 
+#
+# 2 - Registration Completed resulting in:
+#   a - Milestone creation (marked complete)
+#   b - Profile details Entity
+#
+# 3 - Details complete
+#   a - Milestone creation (marked complete)
+#   b - link to join project
+
+# ^ this implies several things:
+# 1 awareness of completion by Entity
+# 2 Milestones linked to Entity completion
+# 3 creation of other Entities by completion of Entity
+
+# i guess this is sort of about registration too....
+
+# tl;dr a workflow should be able to spit out a Project in the
+# context of a Group/User etc
+# user is prompted for vars that cannot be inferred?
+
+
+
+# ok, so what does this object look like for an Invitation
+
+# current_user  = User that is me
+# current_group = the group context im in?
+
+@invitation = Invitation.new :inviter => current_user, :invitee => {:first => 'First', :last => 'Last', :email => 'a@b.com'}
+
+# smart constructor
+@registration_project = ProjectWorkflow.generate_project_from(@invitation)
+
+@registration_project.entities
+# => [
+#      <#Task title="#{inviter.first} invites #{invitee.first} to #{current_group}">,
+#      <#Registration title="Join #{Rails.appname}">
+#    ]
