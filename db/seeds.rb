@@ -308,8 +308,8 @@ end
 
 
 Entity.all.each do |ent|
-  # todo unbreak this!!!
-  # #comments
+  # # todo unbreak this!!!
+  # # comments
   # (rand(5)+1).times do
   #   comment = Comment.new
   #   comment.text = random_text()
@@ -317,7 +317,7 @@ Entity.all.each do |ent|
   #   ent.comments << comment
   # end
 
-  # #followers
+  # # followers
   # users = @users
   # # rand(@users.size).times do
   # #   # [true,false].sample ? users.shift : users.pop
