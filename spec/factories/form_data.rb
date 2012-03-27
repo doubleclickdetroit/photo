@@ -1,11 +1,20 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :form_data, :parent => :serialized_json
-  # factory :form_data do
-  #   sequence(:data) do |n|
-  #     {'number' => n, 'from' => 'spec/factories/form_data'}
-  #   end
-  #   entity_id nil
-  # end
+  factory :form_data do
+    sequence(:data) do |n|
+      {
+        'form'=> {
+          "Name Information"=> {
+            "First Name" => {
+              'value' => "FirstName#{n}"
+            }
+          },
+          "Location"=> {
+            "Address" => {
+              'value' => "#{n} Main St"
+            }
+          }
+        }
+      }
+    end
+  end
 end

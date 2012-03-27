@@ -1,22 +1,28 @@
 class FormType < SerializedJSON 
   belongs_to :entity
 
-  def to_hash(form_data)
-    # todo get rid of the Hash literal after dev?
-    hash = data || {}
+  def to_hash(form_data_obj=nil)
+    return data if form_data_obj.nil?
 
-    # form = hash['form']
-    # form.map do |header|
-    #   fields = form[header]
-    #   fields.map do |field|
-    #     val = form_data['form'][header][field['title']]
-    #     field['value'] = val
-    #   end
-    #   fields
-    # end
-    
+    hash = data.clone
+    # todo get rid of the Hash literal?
+    form_type = hash['form'] || {}
+    form_data = form_data_obj.data['form']
+
+    # dump 'value's into the FormType 
+    form_type.each do |section_name,fields|
+      fields.each do |field_name,pairs|
+        val = form_data[section_name][field_name]['value']
+        pairs['value'] = val
+      end
+    end
+
+    hash['form'] = form_type
     hash
   end
+
+
+private
 end
 
 # # ABBREVIATED EXAMPLE OUTPUT
@@ -61,19 +67,4 @@ end
 #
 #
 # # FORMDATA CONCERNS ITSELF WITH:
-# 	form: [
-# 		{
-# 			"Name Information": [
-# 				{
-# 					title   : "First Name",
-# 					value   : "John"
-# 				},
-# 			],
-# 			"Location": [
-# 				{
-# 					title   : "Address",
-# 					value   : "123 Main St."
-# 				},
-# 			],
-# 		}
-# 	]
+# everything but 'value'

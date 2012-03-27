@@ -1,11 +1,39 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
-  factory :form_type, :parent => :serialized_json
-  # factory :form_data do
-  #   sequence(:data) do |n|
-  #     {'number' => n, 'from' => 'spec/factories/form_data'}
-  #   end
-  #   entity_id nil
-  # end
+  factory :form_type do
+    sequence(:data) do |n|
+      # todo positions
+      {
+        'form'=> {
+          "Name Information"=> {
+            "First Name" => {
+              'entity'  => "input",
+              'required'=> true
+            }
+          },
+          "Location"=> {
+            "Address" => {
+              'entity'  => "input",
+              'required'=> true
+            }
+          }
+        },
+        'controls'=> [
+          {
+            'title' => "Cancel",
+            'entity'=> "anchor",
+            'attrs' => {
+              'href'=> "/users",
+              'rel' => "external"
+            }
+          },
+          {
+            'title' => "Submit",
+            'entity'=> "submit",
+            'value' => "submit",
+            'attrs' => { "id"=> "btn-submit" }
+          }
+        ]
+      }
+    end
+  end
 end

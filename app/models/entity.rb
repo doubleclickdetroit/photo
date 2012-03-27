@@ -161,7 +161,7 @@ class Form < Entity
   # attach @@own_additional_attributes, :from => :form_data
 
   def to_hash
-    self.attributes .merge(form_type.to_hash(form_data))
+    self.attributes.merge(form_type.to_hash(form_data))
   end
 
 private

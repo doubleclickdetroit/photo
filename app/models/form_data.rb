@@ -44,6 +44,25 @@ end
 #
 #
 # # FORMDATA CONCERNS ITSELF WITH:
+# V2
+# 	form: [
+# 		{
+# 			"Name Information": [
+# 				"First Name" : {
+# 					value   : "John"
+# 				},
+# 			],
+# 			# header
+# 			"Location": [
+# 			  # field
+# 				"address" : {
+# 					value   : "123 Main St."
+# 				},
+# 			],
+# 		}
+# 	]
+#
+# V1
 # 	form: [
 # 		{
 # 			"Name Information": [
@@ -58,24 +77,6 @@ end
 # 				{
 # 					title   : "Address",
 # 					value   : "123 Main St."
-# 				},
-# 			],
-# 		}
-# 	]
-#
-# # TENTATIVELY STARTING WITH THIS:
-# 	form: [
-# 		{
-# 		  # header
-# 			"Name Information": [
-# 				{
-# 				  # field
-# 					"First Name" : "John"
-# 				},
-# 			],
-# 			"Location": [
-# 				{
-# 					"Address" : "123 Main St."
 # 				},
 # 			],
 # 		}
