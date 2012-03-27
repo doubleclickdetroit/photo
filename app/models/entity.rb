@@ -2,7 +2,8 @@ class Entity < ActiveRecord::Base
   types = {
     Event => {:date => :start,      :icons => :attendees},
     Task  => {:date => :due,        :icons => :assignee},
-    Embed => {:date => :created_at, :icons => :created_by}
+    Embed => {:date => :created_at, :icons => :created_by},
+    Form  => {:date => :created_at, :icons => :created_by}
   }
   # types.each {|type| types[type.to_s] = type}
 
@@ -156,12 +157,14 @@ class Form < Entity
   has_one :form_type, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
   has_one :form_data, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
 
-  # @@own_additional_attributes = [] 
+  @@own_additional_attributes = [] 
   # @@own_additional_attributes = %w(data)
   # attach @@own_additional_attributes, :from => :form_data
 
-  def to_hash
-    self.attributes.merge(form_type.to_hash(form_data))
+  def to_hash(whole_entity=true)
+    hash = form_type.to_hash(form_data)
+    return hash unless whole_entity
+    super.merge({'_form' => hash})
   end
 
 private

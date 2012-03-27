@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Form do
   before(:each) do
-    @form      = Factory(:form)
+    @form      = Factory(:form, :with_association)
     @form_type = @form.form_type
     @form_data = @form.form_data
   end

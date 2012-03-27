@@ -60,6 +60,7 @@ FactoryGirl.define do
     type "Form"
 
     trait :with_association do
+      form_type { Factory(:form_type) }
       form_data { Factory(:form_data) }
     end
   end

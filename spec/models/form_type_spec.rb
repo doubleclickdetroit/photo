@@ -3,11 +3,9 @@ require 'spec_helper'
 describe FormType do
   # moved this to SerializedJSON
   before(:each) do
-    @form      = Factory(:form)
-    @form_type = Factory(:form_type)
-    @form_data = Factory(:form_data)
-    @form.form_type = @form_type
-    @form.form_data = @form_data
+    @form      = Factory(:form, :with_association)
+    @form_type = @form.form_type  
+    @form_data = @form.form_data
   end
 
   describe '#entity' do
