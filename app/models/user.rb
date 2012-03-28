@@ -39,6 +39,14 @@ class User < ActiveRecord::Base
   def name
     "#{first} #{last}"
   end
+  
+  def first_name
+    self.send :first
+  end
+
+  def last_name
+    self.send :last
+  end
 
   def membership_for(group)
     Membership.for(self, group)

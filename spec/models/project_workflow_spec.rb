@@ -40,8 +40,8 @@ describe ProjectWorkflow do
           task.complete.should be_true
         end
 
-        it 'should contain a Registration Entity ' do
-          pending 'creation RegistrationEntity'
+        it 'should contain a RegistrationForm' do
+          pending 'creation RegistrationForm'
           entities.one? {|e| e.instance_of?(RegistrationEntity)}.should be_true
         end
       end

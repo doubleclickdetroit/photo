@@ -15,6 +15,18 @@ describe User do
     end
   end
 
+  describe '#first_name' do
+    it 'should be an alias for #first' do
+      @user.first_name.should == @user.first
+    end
+  end
+
+  describe '#last_name' do
+    it 'should be an alias for #last' do
+      @user.last_name.should == @user.last
+    end
+  end
+
   describe '#membership_for' do
     it 'should return nil if user is not member of the group' do
       @membership.delete

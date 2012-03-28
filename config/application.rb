@@ -10,6 +10,8 @@ if defined?(Bundler)
 end
 
 module CRM
+  NAME = 'Timeline CRM'
+
   class Application < Rails::Application
     # testing config
     config.generators do |g|
