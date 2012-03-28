@@ -23,6 +23,7 @@ describe ProjectWorkflow do
 
   describe '#generate_project_from' do
     context 'given an Invitation' do
+
       let(:invitation) { Factory(:invitation, :group_id => @group.id, :inviter_id => @owner.id) }
       let(:project) { ProjectWorkflow.generate_project_from(invitation) }
 
@@ -30,6 +31,7 @@ describe ProjectWorkflow do
 
       it { should be_an_instance_of Project }
       it { should_not be_an_instance_of ProjectWorkflow }
+      it { should_not be_a_new_record }
 
       describe '#entities' do
         let(:entities) { project.entities }

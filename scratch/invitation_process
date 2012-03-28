@@ -4,12 +4,12 @@
         - last name
         - email address
 
-_   2 upon completion of the form, an Invitation is generated at which point the app decides, by the email, that
+X   2 upon completion of the form, an Invitation is generated at which point the app decides, by the email, that
       - that account exists
       - that account does not exist
 
-_   3 if no account, :after_create of the Invitation a Project is instantiated out of ProjectWorkflow creating
-_     - a completed task for "#{inviter.name} has invited you to #{group}"
+    3 if no account, :after_create of the Invitation a Project is instantiated out of ProjectWorkflow creating
+X     - a completed task for "#{inviter.name} has invited you to #{group}"
 _     - a registration form
 
     4 upon completion of the registration form, the following are created
