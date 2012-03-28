@@ -64,6 +64,12 @@ FactoryGirl.define do
       form_data { Factory(:form_data) }
     end
   end
+
+  factory :registration_form do
+    sequence(:title) {|n| "RegistrationForm #{n}"}
+    sequence(:text) {|n| "Lorem ipsum #{n}"}
+    type "RegistrationForm"
+  end
 end
 
 # Factory.define :milestone do |f|

@@ -9,5 +9,13 @@ FactoryGirl.define do
     group_id nil
     inviter_id nil
     message "Invitation message text"
+
+    trait(:with_inviter) do
+      inviter { Factory(:user) }
+    end
+
+    trait(:with_group) do
+      group { Factory(:group) }
+    end
   end
 end

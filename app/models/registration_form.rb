@@ -1,14 +1,25 @@
 class RegistrationForm < Form
-  # the form needs to be persisted for FormData
-  # but the FormType can and should be hardcoded
-  
-  # it also needs to grab the user/group info 
-  # from the associated Invitation, if any
-  
-  
-
+  # overrides AR 
   def form_type
-    FormType.new :data =>
+    FormType.new :data => FORM_HASH
+  end
+
+  def create_form_data_from!(invitation)
+    invitee = invitation.invitee
+    hash    = FORM_HASH['form']['Information']
+
+    hash['First Name']    = invitee.first_name
+    hash['Last Name']     = invitee.last_name
+    hash['Email Address'] = invitee.email
+
+    data = { 'form' => { 'Information' => hash } }
+    
+    form_data = FormData.new :data => data
+    self.form_data = form_data
+  end
+
+private
+  FORM_HASH = 
     {
       'form'=> {
         "Information"=> {
@@ -46,6 +57,4 @@ class RegistrationForm < Form
         }
       ]
     }
-  end
 end
-

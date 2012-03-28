@@ -38,10 +38,11 @@ describe Invitation do
   describe '#instantiate_workflow' do
     it 'should create a Project' do
       expect {
-        inv = Factory.build(:invitation)
-        inv.inviter = Factory(:user)
-        inv.group   = Factory(:group)
-        inv.save
+        FactoryGirl.create(:invitation,:with_inviter,:with_group)
+        # inv = Factory.build(:invitation)
+        # inv.inviter = Factory(:user)
+        # inv.group   = Factory(:group)
+        # inv.save
       }.to change(Project, :count).by(1)
     end
   end
@@ -81,7 +82,16 @@ describe Invitation do
     end
   end
 
+  describe '#invitee' do
+    let(:invitation) { FactoryGirl.build(:invitation,:with_inviter,:with_group) }
+    let(:invitee) { invitation.invitee }
+    subject { invitee }
+    it { should be_a_kind_of(User) }
+    
+    it 'should have the information from the Invitation' do
+      invitee.first.should == invitation.first
+      invitee.last.should == invitation.last
+      invitee.email.should == invitation.email
+    end
+  end
 end
-
-# describe_internally Invitation do
-# end

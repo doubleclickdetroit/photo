@@ -43,8 +43,7 @@ describe ProjectWorkflow do
         end
 
         it 'should contain a RegistrationForm' do
-          pending 'creation RegistrationForm'
-          entities.one? {|e| e.instance_of?(RegistrationEntity)}.should be_true
+          entities.one? {|e| e.instance_of?(RegistrationForm)}.should be_true
         end
       end
     end

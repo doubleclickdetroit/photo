@@ -21,12 +21,14 @@ private
     task.complete = true
     proj.entities << task
 
-    # # add registration form
-    # # should this be added by Invitation?
-    # form = RegistrationForm.new title: "Join #{CRM::NAME}", text: "Then be part of #{invitation.group}"
+    # add registration form
+    form = RegistrationForm.new title: "Join #{CRM::NAME}", text: "Then be part of #{invitation.group}"
+    form.create_form_data_from!(invitation)
+    proj.entities << form
     
     # add milestone 
     # add profile details form
+    
     # add milestone
     # add link to project
 

@@ -4,6 +4,10 @@ class Invitation < ActiveRecord::Base
   belongs_to :group
   belongs_to :inviter, :foreign_key => :inviter_id, :class_name => 'User'
 
+  def invitee
+    User.new :first => first, :last => last, :email => email
+  end
+
   def invitee_exists?
     !!User.find_by_email(email)
   end
