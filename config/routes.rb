@@ -1,4 +1,4 @@
-Photo::Application.routes.draw do
+CRM::Application.routes.draw do
   scope 'api' do
     devise_for :users
 

@@ -9,7 +9,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Photo
+module CRM
   class Application < Rails::Application
     # testing config
     config.generators do |g|
