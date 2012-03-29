@@ -57,5 +57,21 @@ describe Entity do
       end
     end
 
+    describe 'associated models including' do
+      it 'Deadline should be destroyed on Task#destroy' do
+        expect {
+          @task.destroy
+        }.to change(Deadline,:count).by(-1)
+      end
+
+      it 'Assignment should be destroyed on Task#destroy' do
+        @task.assignment = Factory(:assignment)
+
+        expect {
+          @task.destroy
+        }.to change(Assignment,:count).by(-1)
+      end
+
+    end
   end
 end

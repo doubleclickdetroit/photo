@@ -94,9 +94,9 @@ private
 end
 
 class Task < Entity
-  has_one :deadline, :foreign_key => :entity_id
+  has_one :deadline, :foreign_key => :entity_id, :dependent => :destroy
 
-  has_one :assignment, :foreign_key => :entity_id
+  has_one :assignment, :foreign_key => :entity_id, :dependent => :destroy
   has_one :assignee, :through => :assignment, :source => :user 
 
   def unassign!
@@ -122,7 +122,7 @@ class Event < Entity
   alias :attendees :followers
   alias :attendees= :followers=
 
-  has_one :time_place, :foreign_key => :entity_id
+  has_one :time_place, :foreign_key => :entity_id, :dependent => :destroy
 
   @@own_additional_attributes = %w(start finish address1 address2 address3)
   attach @@own_additional_attributes, :from => :time_place
@@ -155,7 +155,7 @@ end
 
 class Form < Entity
   has_one :form_type, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
-  has_one :form_data, :foreign_key => :entity_id, :class_name => 'SerializedJSON'
+  has_one :form_data, :foreign_key => :entity_id, :class_name => 'SerializedJSON', :dependent => :destroy
 
   @@own_additional_attributes = [] 
   # @@own_additional_attributes = %w(data)

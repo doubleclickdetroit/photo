@@ -33,5 +33,13 @@ describe Entity do
       end
     end
 
+    describe 'associated models including' do
+      it 'Asset should be destroyed on Embed#destroy' do
+        expect {
+          @embed.destroy
+        }.to change(Asset,:count).by(-1)
+      end
+    end
+
   end
 end

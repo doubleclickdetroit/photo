@@ -19,4 +19,18 @@ describe Form do
     end
   end
 
+  describe 'associated model' do
+    it 'FormData should be destroyed on Form#destroy' do
+      expect {
+        @form.destroy
+      }.to change(FormData,:count).by(-1)
+    end
+
+    it 'FormType should NOT be destroyed on Form#destroy' do
+      expect {
+        @form.destroy
+      }.to change(FormType,:count).by(0)
+    end
+  end
+
 end
