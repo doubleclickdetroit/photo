@@ -177,7 +177,4 @@ private
   end
 end
 
-class RegistrationForm < Form
-end
-
 # brad was definitely here

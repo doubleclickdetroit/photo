@@ -23,7 +23,7 @@ private
 
     # add registration form
     form = RegistrationForm.new title: "Join #{CRM::NAME}", text: "Then be part of #{invitation.group}"
-    form.create_form_data_from!(invitation)
+    form.generate_form_data_from(invitation)
     proj.entities << form
     
     # add milestone 

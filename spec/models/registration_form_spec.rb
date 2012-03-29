@@ -13,15 +13,21 @@ describe RegistrationForm do
   #   # @associate.enroll_in @group, :as => :associate
   # end
 
-  describe '#create_form_data_from!' do
+  describe '#generate_form_data_from' do
     let(:form) { FactoryGirl.create(:registration_form) }
     let(:invitation) { FactoryGirl.build(:invitation,:with_inviter,:with_group) }
 
     it 'should create one FormData' do
-      pending 'after_initialize is blowing this up (increases by 2), definitely need to fix that'
       expect {
-        form.create_form_data_from!(invitation)
+        form.generate_form_data_from(invitation)
       }.to change(FormData, :count).by(1)
+    end
+
+    it 'should not create any FormTypes' do
+      pending 'puts this where it belongs'
+      expect {
+        form.generate_form_data_from(invitation)
+      }.to change(FormType, :count).by(0)
     end
 
     it 'should create the proper FormData' do

@@ -23,9 +23,21 @@ describe ProjectWorkflow do
 
   describe '#generate_project_from' do
     context 'given an Invitation' do
-
       let(:invitation) { Factory(:invitation, :group_id => @group.id, :inviter_id => @owner.id) }
       let(:project) { ProjectWorkflow.generate_project_from(invitation) }
+
+      it 'should call #project_from_invitation' do
+        pending 'wtf, receiving twice?'
+        ProjectWorkflow.should_receive :project_from_invitation
+        ProjectWorkflow.generate_project_from(invitation)
+      end
+
+      it 'should call RegistrationForm#generate_form_data_from' do
+        pending 'wtf'
+        RegistrationForm.any_instance.should_receive :generate_form_data_from
+        ProjectWorkflow.generate_project_from(invitation)
+      end
+
 
       subject { project }
 

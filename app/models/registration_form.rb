@@ -4,7 +4,7 @@ class RegistrationForm < Form
     FormType.new :data => FORM_HASH
   end
 
-  def create_form_data_from!(invitation)
+  def generate_form_data_from(invitation)
     invitee = invitation.invitee
     hash    = FORM_HASH['form']['Information']
 
@@ -16,9 +16,14 @@ class RegistrationForm < Form
     
     form_data = FormData.new :data => data
     self.form_data = form_data
+    self.save
   end
 
 private
+  # def associate_asset
+  #   # overrides super
+  # end
+
   FORM_HASH = 
     {
       'form'=> {

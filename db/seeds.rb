@@ -219,76 +219,105 @@ end
 ############# Forms #################
 #####################################
 
-puts "    ** Adding Forms"
+# puts "    ** Adding Forms"
+# @form      = Factory(:form)
+# @form_data = Factory(:form_data)
+# @form_type = Factory(:form_type)
+# 
+# form = {
+#   'form' => [
+# 		{
+# 			"Name Information"=> [
+# 				{
+# 					:title=>    "First Name",
+# 					:entity=>   "input",
+# 					:value=>    "",
+# 					:attrs=>    { "id"=> "field-fName" },
+# 					:required=> true,
+# 					:layout=>   "100%" 
+# 				},
+# 				{
+# 					:title=>    "Last Name",
+# 					:entity=>   "input",
+# 					:value=>    "",
+# 					:attrs=>    { "id"=> "field-lName" },
+# 					:required=> true,
+# 					:layout=>   "100%" 
+# 				}
+# 			],
+# 			"Contact Information"=> [
+# 				{
+# 					:title=>    "Phone Number",
+# 					:entity=>   "input",
+# 					:value=>    "",
+# 					:attrs=>    { "id"=> "field-phone" },
+# 					:required=> false,
+# 					:layout=>   "100%" 
+# 				}
+# 			]
+# 		}
+#   ],
+# 
+#   'controls' => [
+#   ]
+# }
+# 
+# data = {
+#   'form' => [
+#     "Name Information"=> [
+#       {
+#         "First Name" => "Brad"
+#       },
+#       {
+#         "Last Name" => "Chase"
+#       }
+#     ],
+# 
+#     "Contact Information"=> [
+#       {
+#         "Phone Number" => "(555) 555-5555"
+#       }
+#     ]
+#   ]
+# }
+# 
+# @form_data.data = data
+# @form_type.data = form
+# 
+# @form.form_data = @form_data
+# @form.form_type = @form_type
+# 
+# @project.entities << @form
 
-@form      = Factory(:form)
-@form_data = Factory(:form_data)
-@form_type = Factory(:form_type)
 
-form = {
-  'form' => [
-		{
-			"Name Information"=> [
-				{
-					:title=>    "First Name",
-					:entity=>   "input",
-					:value=>    "",
-					:attrs=>    { "id"=> "field-fName" },
-					:required=> true,
-					:layout=>   "100%" 
-				},
-				{
-					:title=>    "Last Name",
-					:entity=>   "input",
-					:value=>    "",
-					:attrs=>    { "id"=> "field-lName" },
-					:required=> true,
-					:layout=>   "100%" 
-				}
-			],
-			"Contact Information"=> [
-				{
-					:title=>    "Phone Number",
-					:entity=>   "input",
-					:value=>    "",
-					:attrs=>    { "id"=> "field-phone" },
-					:required=> false,
-					:layout=>   "100%" 
-				}
-			]
-		}
-  ],
 
-  'controls' => [
-  ]
-}
+#####################################
+#### Invitation/RegistrationForm ####
+#####################################
 
-data = {
-  'form' => [
-    "Name Information"=> [
-      {
-        "First Name" => "Brad"
-      },
-      {
-        "Last Name" => "Chase"
-      }
-    ],
+puts "    ** Invitations and RegistrationForms (in Project via Workflow)"
 
-    "Contact Information"=> [
-      {
-        "Phone Number" => "(555) 555-5555"
-      }
-    ]
-  ]
-}
-
-@form_data.data = data
-@form_type.data = form
-
-@form.form_data = @form_data
-@form.form_type = @form_type
-
-@project.entities << @form
+info = [
+  {
+    :first => 'Ralphie',
+    :last  => 'Parker',
+    :email => 'youllshoot@youreyeout.com'
+  },
+  {
+    :first => 'Flick',
+    :last  => 'FlickWho',
+    :email => 'thatsallillsay@aboutpoorflick.com'
+  },
+  {
+    :first => 'Scut',
+    :last  => 'Farkus',
+    :email => 'sohelpmegod@yelloweyes.com'
+  }
+]
+info.each do |invitee|
+  Invitation.create invitee.merge({:inviter => random_user(), :group => @group})
+  # churns out Project for registration via callbacks
+end
 
 
 
