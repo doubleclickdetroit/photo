@@ -57,6 +57,17 @@ describe ProjectWorkflow do
         it 'should contain a RegistrationForm' do
           entities.one? {|e| e.instance_of?(RegistrationForm)}.should be_true
         end
+
+        it 'test' do
+          puts (entities.find{|e| e.instance_of?(RegistrationForm)}).form_data.data.inspect
+        end
+
+        subject { entities.find {|e| e.instance_of?(RegistrationForm)}.form_data.data }
+        it { should_not be_empty }
+
+        # it 'has one RegistrationForm whose !FormData.data.empty?' do
+        #   # entities.
+        # end
       end
     end
   end

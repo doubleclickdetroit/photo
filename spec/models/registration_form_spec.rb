@@ -17,10 +17,16 @@ describe RegistrationForm do
     let(:form) { FactoryGirl.create(:registration_form) }
     let(:invitation) { FactoryGirl.build(:invitation,:with_inviter,:with_group) }
 
-    it 'should create one FormData' do
+    it 'creates one FormData' do
       expect {
         form.generate_form_data_from(invitation)
       }.to change(FormData, :count).by(1)
+    end
+
+    it 'should not have FormData.data be empty' do
+      # since it's given an Invitation
+      form.generate_form_data_from(invitation)
+      form.form_data.data.should_not be_empty
     end
 
     it 'should not create any FormTypes' do

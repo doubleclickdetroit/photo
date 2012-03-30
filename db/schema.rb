@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(:version => 20120324080507) do
     t.text     "text"
   end
 
-  create_table "form_data", :force => true do |t|
-    t.integer  "entity_id"
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false

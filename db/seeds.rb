@@ -1,5 +1,31 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+def random_user
+  @users[rand(@users.size)]
+end
+
+def random_text
+  @lines ||= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id vulputate leo. Suspendisse vulputate libero eu leo ornare adipiscing. Cras mattis tristique mollis. Aenean et metus neque, nec porta lacus. Sed quis semper nisl. Nunc vel mi sem, vitae imperdiet metus. Suspendisse purus metus, pulvinar ac scelerisque et, rutrum ultrices urna. Sed faucibus placerat turpis, sed luctus odio aliquam nec. Integer justo diam, rhoncus in malesuada ac, eleifend eget libero. Praesent congue suscipit urna eu semper. Vestibulum velit nisl, porta sit amet aliquam faucibus, semper vel eros. Proin arcu massa, iaculis et malesuada dignissim, egestas eu diam. Vestibulum eleifend ante id nisl sollicitudin ac faucibus diam hendrerit. Vivamus vitae ipsum dui, et tincidunt felis. Nullam posuere odio egestas sapien ornare convallis. Nullam eget mi vel lorem mollis gravida. Mauris quam velit, malesuada nec tempor ac, dapibus quis augue. Suspendisse potenti.".split(/\./).map(&:strip)
+
+  text = ''
+  (rand(4)+1).times { text << (@lines[rand(@lines.size)]+". ") }
+  text
+end
+
+def add_arbitrary_comments_and_followers_to(ent)
+  # comments
+  (rand(5)+1).times do
+    ent.comments << Factory(:comment, {:user => random_user(), :text => random_text()})
+  end
+
+  # followers
+  users = @users
+  rand(@users.size).times do
+    # rand(2)==1 ? users.shift : users.pop
+    [true,false].sample ? users.shift : users.pop
+  end
+  ent.followers = users
+end
+
+
 
 puts "** Begin Seeding"
 
@@ -15,7 +41,7 @@ puts "  ** Building Users"
 @brad = Factory(:user, :first => 'Brad', :last => 'Chase')
 @josh  = Factory(:user, :first => 'Josh', :last => 'Yurich')
 
-puts "  ** Building/Associating Groups"
+puts "  ** Building/Associating Groups\n"
 
 @group = Factory(:group, :name => 'DoubleClick Detroit')
 
@@ -25,8 +51,34 @@ puts "  ** Building/Associating Groups"
 
 @users = @group.members
 
-def random_user
-  @users[rand(@users.size)]
+
+
+#####################################
+#### Invitation/RegistrationForm ####
+#####################################
+
+puts "  ** Invitations and RegistrationForms (in Project via Workflow)\n"
+
+info = [
+  {
+    :first => 'Ralphie',
+    :last  => 'Parker',
+    :email => 'youllshoot@youreyeout.com'
+  },
+  {
+    :first => 'Flick',
+    :last  => 'FlickWho',
+    :email => 'thatsallillsay@aboutpoorflick.com'
+  },
+  {
+    :first => 'Scut',
+    :last  => 'Farkus',
+    :email => 'sohelpmegod@yelloweyes.com'
+  }
+]
+info.each do |invitee|
+  # churns out Project for registration via callbacks
+  inv = Invitation.create invitee.merge({:inviter => random_user(), :group => @group})
 end
 
 
@@ -125,6 +177,8 @@ events.each do |event|
 
   @event.time_place = @time_place
   @project.entities << @event
+
+  add_arbitrary_comments_and_followers_to @event
 end
 
 
@@ -164,6 +218,8 @@ tasks.each do |task|
 
   @task.deadline = @deadline
   @project.entities << @task
+
+  add_arbitrary_comments_and_followers_to @task
 end
 
 
@@ -211,6 +267,8 @@ embeds.each do |embed|
   @embed.asset = @asset
 
   @project.entities << @embed
+
+  add_arbitrary_comments_and_followers_to @embed
 end
 
 
@@ -288,73 +346,8 @@ end
 # @form.form_type = @form_type
 # 
 # @project.entities << @form
-
-
-
-#####################################
-#### Invitation/RegistrationForm ####
-#####################################
-
-puts "    ** Invitations and RegistrationForms (in Project via Workflow)"
-
-info = [
-  {
-    :first => 'Ralphie',
-    :last  => 'Parker',
-    :email => 'youllshoot@youreyeout.com'
-  },
-  {
-    :first => 'Flick',
-    :last  => 'FlickWho',
-    :email => 'thatsallillsay@aboutpoorflick.com'
-  },
-  {
-    :first => 'Scut',
-    :last  => 'Farkus',
-    :email => 'sohelpmegod@yelloweyes.com'
-  }
-]
-info.each do |invitee|
-  Invitation.create invitee.merge({:inviter => random_user(), :group => @group})
-  # churns out Project for registration via callbacks
-end
-
-
-
-#####################################
-### Random Comments and Followers ###
-#####################################
-
-puts "    ** Adding Arbitrary Comments/Followers"
-
-def random_text
-  @lines ||= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam id vulputate leo. Suspendisse vulputate libero eu leo ornare adipiscing. Cras mattis tristique mollis. Aenean et metus neque, nec porta lacus. Sed quis semper nisl. Nunc vel mi sem, vitae imperdiet metus. Suspendisse purus metus, pulvinar ac scelerisque et, rutrum ultrices urna. Sed faucibus placerat turpis, sed luctus odio aliquam nec. Integer justo diam, rhoncus in malesuada ac, eleifend eget libero. Praesent congue suscipit urna eu semper. Vestibulum velit nisl, porta sit amet aliquam faucibus, semper vel eros. Proin arcu massa, iaculis et malesuada dignissim, egestas eu diam. Vestibulum eleifend ante id nisl sollicitudin ac faucibus diam hendrerit. Vivamus vitae ipsum dui, et tincidunt felis. Nullam posuere odio egestas sapien ornare convallis. Nullam eget mi vel lorem mollis gravida. Mauris quam velit, malesuada nec tempor ac, dapibus quis augue. Suspendisse potenti.".split(/\./).map(&:strip)
-
-  text = ''
-  (rand(4)+1).times { text << (@lines[rand(@lines.size)]+". ") }
-  text
-end
-
-
-Entity.all.each do |ent|
-  # # todo unbreak this!!!
-  # # comments
-  # (rand(5)+1).times do
-  #   comment = Comment.new
-  #   comment.text = random_text()
-  #   comment.user = random_user()
-  #   ent.comments << comment
-  # end
-
-  # # followers
-  # users = @users
-  # # rand(@users.size).times do
-  # #   # [true,false].sample ? users.shift : users.pop
-  # #   rand(2)==1 ? users.shift : users.pop
-  # # end
-  # # puts "number of followers: #{users.size}"
-  # ent.followers = users
-end
+#
+# add_arbitrary_comments_and_followers_to @form
 
 
 

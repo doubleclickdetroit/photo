@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :comment do
     entity nil
+    user nil
     text "MyText"
   end
 end
