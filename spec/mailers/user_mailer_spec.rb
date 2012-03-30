@@ -54,7 +54,7 @@ describe UserMailer do
       @email.body.should include(@inviter.avatar.url(:small))
     end
 
-    it 'should show no message if none exists' do
+    it 'should shows no message if none exists' do
       ActionMailer::Base.deliveries = []
       @invitation_hash.delete(:message)
       Invitation.create @invitation_hash

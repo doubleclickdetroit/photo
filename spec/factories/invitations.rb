@@ -17,5 +17,10 @@ FactoryGirl.define do
     trait(:with_group) do
       group { Factory(:group) }
     end
+
+    trait(:with_inviter_and_group) do
+      inviter { Factory(:user) }
+      group { Factory(:group) }
+    end
   end
 end

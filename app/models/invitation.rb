@@ -19,20 +19,21 @@ private
   end
 
   def send_invitation
-    if invitee_exists?
-      send_non_registration_email
-    else
-      send_registration_email
-    end
+    UserMailer.send_invitation(self).deliver
+    # if invitee_exists?
+    #   send_non_registration_email
+    # else
+    #   send_registration_email
+    # end
   end
   
-  def send_registration_email
-    UserMailer.send_invitation(self).deliver
-  end
+  # def send_registration_email
+  #   UserMailer.send_invitation(self).deliver
+  # end
 
-  def send_non_registration_email
-    # todo
-  end
+  # def send_non_registration_email
+  #   # todo
+  # end
 
   def instantiate_workflow
     ProjectWorkflow.generate_project_from(self)

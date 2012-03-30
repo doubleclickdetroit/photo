@@ -29,8 +29,8 @@ describe RegistrationForm do
       form.form_data.data.should_not be_empty
     end
 
+    pending 'puts this where it belongs'
     it 'should not create any FormTypes' do
-      pending 'puts this where it belongs'
       expect {
         form.generate_form_data_from(invitation)
       }.to change(FormType, :count).by(0)
