@@ -23,22 +23,20 @@ describe ProjectWorkflow do
 
   describe '#generate_project_from' do
     context 'given an Invitation' do
-      let(:invitation) { Factory(:invitation, :group_id => @group.id, :inviter_id => @owner.id) }
-      let(:project) { ProjectWorkflow.generate_project_from(invitation) }
-
       it 'should call #project_from_invitation' do
-        pending 'wtf, receiving twice?'
+        ProjectWorkflow.stub :project_from_invitation
         ProjectWorkflow.should_receive :project_from_invitation
-        ProjectWorkflow.generate_project_from(invitation)
+        ProjectWorkflow.generate_project_from(Invitation.new)
       end
 
       it 'should call RegistrationForm#generate_form_data_from' do
-        pending 'wtf'
+        invitation = Factory.build(:invitation, :group_id => @group.id, :inviter_id => @owner.id)
         RegistrationForm.any_instance.should_receive :generate_form_data_from
         ProjectWorkflow.generate_project_from(invitation)
       end
 
-
+      let(:invitation) { Factory(:invitation, :group_id => @group.id, :inviter_id => @owner.id) }
+      let(:project) { ProjectWorkflow.generate_project_from(invitation) }
       subject { project }
 
       it { should be_an_instance_of Project }
@@ -58,16 +56,8 @@ describe ProjectWorkflow do
           entities.one? {|e| e.instance_of?(RegistrationForm)}.should be_true
         end
 
-        it 'test' do
-          puts (entities.find{|e| e.instance_of?(RegistrationForm)}).form_data.data.inspect
-        end
-
         subject { entities.find {|e| e.instance_of?(RegistrationForm)}.form_data.data }
         it { should_not be_empty }
-
-        # it 'has one RegistrationForm whose !FormData.data.empty?' do
-        #   # entities.
-        # end
       end
     end
   end
