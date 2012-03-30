@@ -6,23 +6,21 @@ class RegistrationForm < Form
 
   def generate_form_data_from(invitation)
     invitee = invitation.invitee
-    hash    = FORM_HASH['form']['Information']
+    hash    = {} 
 
     hash['First Name']    = invitee.first_name
     hash['Last Name']     = invitee.last_name
     hash['Email Address'] = invitee.email
 
     data = { 'form' => { 'Information' => hash } }
-    
-    form_data = FormData.new :data => data
-    self.form_data = form_data
+    self.form_data = FormData.new :data => data
     self.save
   end
 
 private
-  # def associate_asset
-  #   # overrides super
-  # end
+  def associate_asset
+    # overrides super
+  end
 
   FORM_HASH = 
     {
