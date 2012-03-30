@@ -214,6 +214,11 @@ describe User do
         it { should be_able_to(:manage, entity) }
         it { should_not be_able_to(:manage, other_entity) }
       end
+
+      describe 'for Invitation' do
+        it { should be_able_to(:create, Factory(:invitation,:inviter => @user, :group => group)) }
+        it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
+      end
     end
 
     context "as admin" do
@@ -238,6 +243,11 @@ describe User do
       describe 'for Entity' do
         it { should be_able_to(:manage, entity) }
         it { should_not be_able_to(:manage, other_entity) }
+      end
+
+      describe 'for Invitation' do
+        it { should be_able_to(:create, Factory(:invitation,:inviter => @user, :group => group)) }
+        it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
       end
     end
 
@@ -267,6 +277,10 @@ describe User do
         it { should be_able_to(:update, entity) }
         it { should_not be_able_to(:destroy, entity) }
       end
+
+      describe 'for Invitation' do
+        it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
+      end
     end
 
     context "as user not in group" do
@@ -293,6 +307,10 @@ describe User do
         it { should_not be_able_to(:create, entity) }
         it { should_not be_able_to(:update, entity) }
         it { should_not be_able_to(:destroy, entity) }
+      end
+
+      describe 'for Invitation' do
+        it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
       end
     end
 

@@ -21,6 +21,9 @@ class Ability
     can :manage, Entity do |entity|
       entity && user.has_role?([:owner,:admin], :for => entity.group)
     end
+    can :create, Invitation do |invitation|
+      invitation && user.has_role?([:owner,:admin], :for => invitation.group)
+    end
 
     # ASSOCIATE
     can :read, Group do |group|
