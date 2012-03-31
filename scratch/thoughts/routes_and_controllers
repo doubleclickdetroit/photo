@@ -1,11 +1,60 @@
-group
+Routes for API, comments (#) indicate that the HTTP verb is not used
 
-user
+Group
+  C POST    /api/groups/
+  R GET     /api/groups/:id
+  U PUT     /api/groups/:id
+  D DELETE  /api/groups/:id
 
-membership
+User
+  C POST    /api/users/
+  R GET     /api/users/:id
+  U PUT     /api/users/:id
+  D DELETE  /api/users/:id
 
-project
+Invitation (creates Memberships)
+  C POST    /api/invitations/
+  R GET     /api/invitations/:id
+# U PUT     /api/invitations/:id
+  D DELETE  /api/invitations/:id
 
-entity
+Project
+  C POST    /api/groups/:group_id/projects/
+  R GET     /api/groups/:group_id/projects/:id
+  U PUT     /api/groups/:group_id/projects/:id
+  D DELETE  /api/groups/:group_id/projects/:id
 
-entity associations
+  Entity, required keys => :type
+    C POST    /api/projects/:project_id/entities/
+    R GET     /api/projects/:project_id/entities/:id
+    U PUT     /api/projects/:project_id/entities/:id
+    D DELETE  /api/projects/:project_id/entities/:id
+
+    Comment
+      C POST    /api/entities/:entity_id/comments/
+      R GET     /api/entities/:entity_id/comments/:id
+      U PUT     /api/entities/:entity_id/comments/:id
+      D DELETE  /api/entities/:entity_id/comments/:id
+
+    Watching
+      C POST    /api/entities/:entity_id/watchings/
+    # R GET     /api/entities/:entity_id/watchings/:id
+    # U PUT     /api/entities/:entity_id/watchings/:id
+      D DELETE  /api/entities/:entity_id/watchings/:id
+
+Questions:
+  - Can Invitations be deleted? (GET/DELETE included above for that hypothetical process)
+
+Models to be dealt with:
+  Simple:
+    assignment.rb  
+    deadline.rb  
+    time_place.rb
+  Involved:
+    asset.rb       
+    form_type.rb   
+    form_data.rb  
+    project_workflow.rb # inherits from Project, handled by ProjectController?
+  Not Started:
+    suggestion.rb  
+    correspondence.rb  

@@ -1,16 +1,15 @@
 CRM::Application.routes.draw do
+  root :to => 'home#index'
+
   scope 'api' do
     devise_for :users
 
-    resources :invitations, :only => [:create, :destroy]
+    resources :invitations, :only => [:show, :create, :destroy]
 
     resources :groups, :except => [:new, :edit] do
       resources :users, :except => [:new, :edit]
       resources :projects, :except => [:new, :edit]
     end
-
-    # does this belong with Groups?
-    resources :memberships, :only => [:create, :destroy]
 
     resources :projects, :except => [:new, :edit] do
       # routes for Task, Event, etc
@@ -21,8 +20,6 @@ CRM::Application.routes.draw do
       end
     end
   end
-
-  root :to => 'home#index'
 
   # match '/profile/:username', :controller => :profile, :action => :show
 end
