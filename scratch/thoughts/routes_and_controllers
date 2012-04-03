@@ -1,12 +1,12 @@
 Routes for API, comments (#) indicate that the HTTP verb is not used
 
-Group
+Group IMPLEMENTED
   C POST    /api/groups/
   R GET     /api/groups/:id
   U PUT     /api/groups/:id
   D DELETE  /api/groups/:id
 
-User
+User IMPLEMENTED
   C POST    /api/users/
   R GET     /api/users/:id
   U PUT     /api/users/:id
@@ -18,13 +18,13 @@ Invitation (creates Memberships)
 # U PUT     /api/invitations/:id
   D DELETE  /api/invitations/:id
 
-Project
+Project IMPLEMENTED
   C POST    /api/groups/:group_id/projects/
   R GET     /api/groups/:group_id/projects/:id
   U PUT     /api/groups/:group_id/projects/:id
   D DELETE  /api/groups/:group_id/projects/:id
 
-  Entity, required keys => :type
+  Entity, required keys => :type IMPLEMENTED BUT DOESNT CHECK TYPE
     C POST    /api/projects/:project_id/entities/
     R GET     /api/projects/:project_id/entities/:id
     U PUT     /api/projects/:project_id/entities/:id
