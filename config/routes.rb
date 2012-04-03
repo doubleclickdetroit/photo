@@ -19,6 +19,10 @@ CRM::Application.routes.draw do
         resources sym, :controller => 'entities', :type => str, :except => [:new, :edit] 
       end
     end
+
+    resources :entities, :except => [:new, :edit] do
+      resources :comments, :except => [:new, :edit]
+    end
   end
 
   # match '/profile/:username', :controller => :profile, :action => :show
