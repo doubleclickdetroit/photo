@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     Membership.for(self, group)
   end
 
+  def belongs_to?(group)
+    !!membership_for(group)
+  end
+
   def roles_for(group)
     membership_for(group).try(:roles) || []
   end
@@ -75,6 +79,10 @@ class User < ActiveRecord::Base
     m = self.membership_for(group)
     m.roles = [role]
     m.save
+  end
+
+  def remove_from(group)
+    membership_for(group).destroy
   end
 
   def to_hash(group=nil)

@@ -34,7 +34,18 @@ describe User do
     end
 
     it 'should be able to be find membership for a given group' do
-      @membership.should == @user.membership_for(@group)
+      @user.membership_for(@group).should == @membership
+    end
+  end
+
+  describe '#belongs_to?' do
+    it 'should return false if a User does not have Membership in the Group' do
+      @membership.delete
+      @user.belongs_to?(@group).should be_false
+    end
+
+    it 'should return true if a User has Membership in the Group' do
+      @user.belongs_to?(@group).should be_true
     end
   end
 
@@ -56,6 +67,13 @@ describe User do
 
     it 'should enroll a member in a group with a particular role' do
       @user.enroll_in @group, :as => :owner
+    end
+  end
+
+  describe '#remove_from' do
+    it 'should destroy the Membership for the User in the Group' do
+      @user.remove_from(@group)
+      @user.membership_for(@group).should be_nil
     end
   end
 

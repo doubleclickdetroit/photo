@@ -8,8 +8,8 @@ describe User do
   end
 
   describe 'abilities' do
-    subject { ability }
     let(:ability){ Ability.new(@user) }
+    subject { ability }
 
     let(:group){ Factory(:group) }
     let(:other_group){ Factory(:group) }
@@ -59,6 +59,46 @@ describe User do
       describe 'for Invitation' do
         it { should be_able_to(:create, Factory(:invitation,:inviter => @user, :group => group)) }
         it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
+      end
+
+      describe 'for Comment' do
+        before(:each) do
+          project = Factory(:project)
+          group.projects << project
+
+          entity = Factory(:entity)
+          project.entities << entity
+
+          @other_comment = Factory(:comment)
+          entity.comments << @other_comment
+
+          @own_comment = Factory(:comment, :user_id => @user.id)
+          entity.comments << @own_comment
+
+          project = Factory(:project)
+          other_group.projects << project
+
+          entity = Factory(:entity)
+          project.entities << entity
+
+          @other_group_comment = Factory(:comment)
+          entity.comments << @other_group_comment
+        end
+
+        it { should be_able_to(:create, @own_comment) }
+
+        it { should be_able_to(:read, @own_comment) }
+        it { should be_able_to(:update, @own_comment) }
+        it { should be_able_to(:destroy, @own_comment) }
+
+        it { should be_able_to(:read, @other_comment) }
+        it { should_not be_able_to(:update, @other_comment) }
+        it { should_not be_able_to(:destroy, @other_comment) }
+
+        it { should_not be_able_to(:create, @other_group_comment) }
+        it { should_not be_able_to(:read, @other_group_comment) }
+        it { should_not be_able_to(:update, @other_group_comment) }
+        it { should_not be_able_to(:destroy, @other_group_comment) }
       end
     end
 

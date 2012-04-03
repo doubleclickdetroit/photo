@@ -4,6 +4,16 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+
+    can [:read,:create], Comment do |comment|
+      group = comment.entity.project.group
+      comment && user.belongs_to?(group)
+    end
+    can [:update,:destroy], Comment do |comment|
+      comment && user == comment.user
+    end
+
+
     # OWNER
     can :manage, Group do |group|
       group && user.has_role?(:owner, :for => group)
@@ -24,6 +34,9 @@ class Ability
     can :create, Invitation do |invitation|
       invitation && user.has_role?([:owner,:admin], :for => invitation.group)
     end
+    # can :destroy, Comment do |comment|
+    #   comment && user.has_role?([:owner,:admin], :for => comment.project.group)
+    # end
 
     # ASSOCIATE
     can :read, Group do |group|
