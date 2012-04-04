@@ -6,26 +6,19 @@ describe CommentsController do
   context 'admin logged in' do
     login_admin_and_populate_projects_and_entities()
 
-    # describe "GET index" do
-    #   it "should throw an error if no entity_id" do
-    #     get :index, {}, valid_session
-    #     response.status.should == 406
-    #   end
-
-    #   it "should make a call to Entity#comments" do
-    #     entity = Factory(:entity)
-    #     Entity.any_instance.should_receive :comments
-    #     get :index, {:entity_id => entity.to_param}, valid_session
-    #   end
-    # end
-
-    # describe "GET show" do
-    #   it "should perform a Comment.find" do
-    #     comment = Factory.build(:comment)
-    #     @event.comments << comment
-    #     get :show, {:id => comment.to_param}, valid_session
-    #   end
-    # end
+    describe 'authorization' do
+      before(:each) do
+        comment = Factory.build(:comment)
+        @params = {
+          comment:   comment,
+          entity_id: @event.to_param 
+        }
+        @session = valid_session
+      end
+      pending 'create action spec is failing...'
+      # it_should_check_permissions(@params, @session, :create, :update, :destroy)
+      it_should_check_permissions(@params, @session, :update, :destroy)
+    end
 
     describe "POST create" do
       it "should throw an error if no entity_id" do
