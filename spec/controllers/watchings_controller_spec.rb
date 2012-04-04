@@ -14,7 +14,6 @@ describe WatchingsController do
 
       it "should create a Watching" do
         watching = Factory.build(:watching)
-        # @event.watchings << watching
         expect{
           post :create, {:entity_id => @event.to_param, :watching => watching.to_hash}, valid_session
         }.to change(Watching, :count).by(1)
