@@ -21,13 +21,13 @@ describe WatchingsController do
     end
 
     describe "DELETE destroy" do
-      # it "destroy the Watching" do
-      #   watching = Factory(:watching, :user_id => @user.id)
-      #   @event.watchings << watching
-      #   expect{
-      #     delete :destroy, {:id => watching.to_param}, valid_session
-      #   }.to change(Watching, :count).by(-1)
-      # end
+      it "destroy the Watching" do
+        watching = Factory(:watching, :user_id => @user.id)
+        @event.watchings << watching
+        expect{
+          delete :destroy, {:id => watching.to_param}, valid_session
+        }.to change(Watching, :count).by(-1)
+      end
     end
 
   end

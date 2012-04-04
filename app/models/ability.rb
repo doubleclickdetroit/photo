@@ -14,7 +14,7 @@ class Ability
 
     # Watchings
     can [:create,:destroy], Watching do |watching|
-      watching && user.belongs_to(watching.entity.project.group)
+      watching && user.belongs_to?(watching.entity.project.group)
     end
 
 

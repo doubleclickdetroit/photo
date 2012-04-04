@@ -130,7 +130,8 @@ describe User do
       describe 'for Watching' do
         before_each_watching_spec()
 
-        it { should be_able_to([:create,:destroy], @watching)}
+        it { should be_able_to(:create, @watching)}
+        it { should be_able_to(:destroy, @watching)}
         it { should_not be_able_to([:create,:destroy], @other_watching)}
       end
     end
