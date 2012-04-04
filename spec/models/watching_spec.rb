@@ -21,6 +21,12 @@ describe Watching do
     end
   end
 
+  describe '#to_hash' do
+    it 'should simply return #attributes' do
+      @watching.to_hash.should == @watching.attributes
+    end
+  end
+
   # describe '#assign!' do
   #   it 'should set assigned=true' do
   #     @watching1 = Factory(:watching, :assigned => false)

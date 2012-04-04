@@ -5,42 +5,49 @@ Group IMPLEMENTED
   R GET     /api/groups/:id
   U PUT     /api/groups/:id
   D DELETE  /api/groups/:id
+  I GET     /api/groups/
 
 User IMPLEMENTED
   C POST    /api/users/
   R GET     /api/users/:id
   U PUT     /api/users/:id
   D DELETE  /api/users/:id
+# I GET     /api/users/
 
 Invitation (creates Memberships)
   C POST    /api/invitations/
   R GET     /api/invitations/:id
 # U PUT     /api/invitations/:id
   D DELETE  /api/invitations/:id
+  I GET     /api/invitations/
 
 Project IMPLEMENTED
   C POST    /api/groups/:group_id/projects/
   R GET     /api/groups/:group_id/projects/:id
   U PUT     /api/groups/:group_id/projects/:id
   D DELETE  /api/groups/:group_id/projects/:id
+  I GET     /api/groups/:group_id/projects/
 
   Entity, required keys => :type IMPLEMENTED BUT DOESNT CHECK TYPE
     C POST    /api/projects/:project_id/entities/
-    R GET     /api/projects/:project_id/entities/:id
+  # R GET     /api/projects/:project_id/entities/:id
     U PUT     /api/projects/:project_id/entities/:id
     D DELETE  /api/projects/:project_id/entities/:id
+  # I GET     /api/projects/:project_id/entities/
 
     Comment
       C POST    /api/entities/:entity_id/comments/
     # R GET     /api/entities/:entity_id/comments/:id
       U PUT     /api/entities/:entity_id/comments/:id
       D DELETE  /api/entities/:entity_id/comments/:id
+    # I GET     /api/entities/:entity_id/comments/
 
     Watching
       C POST    /api/entities/:entity_id/watchings/
     # R GET     /api/entities/:entity_id/watchings/:id
     # U PUT     /api/entities/:entity_id/watchings/:id
       D DELETE  /api/entities/:entity_id/watchings/:id
+    # I GET     /api/entities/:entity_id/watchings/
 
 Questions:
   - Can Invitations be deleted? (GET/DELETE included above for that hypothetical process)

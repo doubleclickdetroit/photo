@@ -31,6 +31,8 @@ private
   def check_for_entity_id
     if not @entity_id = params[:entity_id]
       respond_with :bad_request
+    else
+      params[:comment][:entity_id] = @entity_id if params[:comment]
     end
   end
 end

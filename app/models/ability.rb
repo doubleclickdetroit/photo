@@ -4,9 +4,18 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    can [:read,:create], Comment do |comment|
-      group = comment.entity.project.group
-      comment && user.belongs_to?(group)
+    # can [:read,:create], Comment do |comment|
+    can [:read], Comment do |comment|
+      if comment
+        group = comment.entity.project.group
+        user.belongs_to?(group)
+      end
+    end
+    can [:create], Comment do |comment|
+      if comment
+        group = Entity.find(comment.entity_id).project.group
+        user.belongs_to?(group)
+      end
     end
     can [:update,:destroy], Comment do |comment|
       comment && user == comment.user
