@@ -6,6 +6,20 @@ describe WatchingsController do
   context 'admin logged in' do
     login_admin_and_populate_projects_and_entities()
 
+    describe 'authorization' do
+      before(:each) do
+        watching = Factory.build(:watching)
+        @params = {
+          watching:   watching,
+          entity_id: @event.to_param 
+        }
+        @session = valid_session
+      end
+      pending 'create action spec is failing...'
+      # it_should_check_permissions(@params, @session, :create, :destroy)
+      it_should_check_permissions(@params, @session, :destroy)
+    end
+
     describe "POST create" do
       it "should throw an error if no entity_id" do
         post :create, {:watching => Factory.build(:watching).to_hash}, valid_session
