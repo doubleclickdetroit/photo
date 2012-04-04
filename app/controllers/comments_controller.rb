@@ -1,5 +1,9 @@
 class CommentsController < ApplicationController
-  before_filter :check_for_entity_id, :only => :index
+  before_filter :check_for_entity_id, :only => [:index,:create]
+
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+
   respond_to :json
 
   def index

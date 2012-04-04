@@ -4,7 +4,6 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-
     can [:read,:create], Comment do |comment|
       group = comment.entity.project.group
       comment && user.belongs_to?(group)
