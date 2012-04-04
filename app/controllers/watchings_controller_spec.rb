@@ -1,5 +1,5 @@
 class WatchingsController < ApplicationController
-  before_filter :check_for_entity_id, :only => [:index,:create]
+  before_filter :check_for_entity_id, :only => :create
 
   before_filter :authenticate_user!
   load_and_authorize_resource

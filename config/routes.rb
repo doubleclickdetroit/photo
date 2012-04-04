@@ -21,7 +21,8 @@ CRM::Application.routes.draw do
     end
 
     resources :entities, :except => [:new, :edit] do
-      resources :comments, :except => [:new, :edit]
+      resources :comments, :only => [:create, :update, :destroy]
+      resources :watchings, :only => [:create, :destroy]
     end
   end
 

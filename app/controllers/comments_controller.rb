@@ -1,18 +1,10 @@
 class CommentsController < ApplicationController
-  before_filter :check_for_entity_id, :only => [:index,:create]
+  before_filter :check_for_entity_id, :only => :create
 
   before_filter :authenticate_user!
   load_and_authorize_resource
 
   respond_to :json
-
-  # def index
-  #   respond_with Entity.find(@entity_id).comments.to_json
-  # end
-
-  # def show
-  #   respond_with Comment.find(params[:id]).to_json
-  # end
 
   def create
     respond_with Comment.create(params[:comment]).to_json
