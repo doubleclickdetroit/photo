@@ -6,18 +6,18 @@ describe CommentsController do
   context 'admin logged in' do
     login_admin_and_populate_projects_and_entities()
 
-    describe "GET index" do
-      it "should throw an error if no entity_id" do
-        get :index, {}, valid_session
-        response.status.should == 406
-      end
+    # describe "GET index" do
+    #   it "should throw an error if no entity_id" do
+    #     get :index, {}, valid_session
+    #     response.status.should == 406
+    #   end
 
-      it "should make a call to Entity#comments" do
-        entity = Factory(:entity)
-        Entity.any_instance.should_receive :comments
-        get :index, {:entity_id => entity.to_param}, valid_session
-      end
-    end
+    #   it "should make a call to Entity#comments" do
+    #     entity = Factory(:entity)
+    #     Entity.any_instance.should_receive :comments
+    #     get :index, {:entity_id => entity.to_param}, valid_session
+    #   end
+    # end
 
     # describe "GET show" do
     #   it "should perform a Comment.find" do

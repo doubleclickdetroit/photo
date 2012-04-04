@@ -6,9 +6,9 @@ class CommentsController < ApplicationController
 
   respond_to :json
 
-  def index
-    respond_with Entity.find(@entity_id).comments.to_json
-  end
+  # def index
+  #   respond_with Entity.find(@entity_id).comments.to_json
+  # end
 
   # def show
   #   respond_with Comment.find(params[:id]).to_json
