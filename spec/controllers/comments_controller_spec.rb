@@ -19,13 +19,13 @@ describe CommentsController do
       end
     end
 
-    describe "GET show" do
-      it "should perform a Comment.find" do
-        comment = Factory.build(:comment)
-        @event.comments << comment
-        get :show, {:id => comment.to_param}, valid_session
-      end
-    end
+    # describe "GET show" do
+    #   it "should perform a Comment.find" do
+    #     comment = Factory.build(:comment)
+    #     @event.comments << comment
+    #     get :show, {:id => comment.to_param}, valid_session
+    #   end
+    # end
 
     describe "POST create" do
       it "should throw an error if no entity_id" do

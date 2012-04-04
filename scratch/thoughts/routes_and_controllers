@@ -32,7 +32,7 @@ Project IMPLEMENTED
 
     Comment
       C POST    /api/entities/:entity_id/comments/
-      R GET     /api/entities/:entity_id/comments/:id
+    # R GET     /api/entities/:entity_id/comments/:id
       U PUT     /api/entities/:entity_id/comments/:id
       D DELETE  /api/entities/:entity_id/comments/:id
 
@@ -44,6 +44,7 @@ Project IMPLEMENTED
 
 Questions:
   - Can Invitations be deleted? (GET/DELETE included above for that hypothetical process)
+  - Can Comments only be read through Entities?
 
 Models to be dealt with:
   Simple:
