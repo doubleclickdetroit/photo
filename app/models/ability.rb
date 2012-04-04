@@ -4,14 +4,17 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    # Comments
     can [:read,:create], Comment do |comment|
-      if comment
-        group = comment.entity.project.group
-        user.belongs_to?(group)
-      end
+      comment && user.belongs_to?(comment.entity.project.group)
     end
     can [:update,:destroy], Comment do |comment|
       comment && user == comment.user
+    end
+
+    # Watchings
+    can [:create,:destroy], Watching do |watching|
+      watching && user.belongs_to(watching.entity.project.group)
     end
 
 

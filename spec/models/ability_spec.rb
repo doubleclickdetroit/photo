@@ -26,6 +26,28 @@ def before_each_comment_spec
   end
 end
 
+def before_each_watching_spec
+  before(:each) do
+    project = Factory(:project)
+    group.projects << project
+
+    entity = Factory(:entity)
+    project.entities << entity
+
+    @watching = Factory(:watching, :user_id => @user.id)
+    entity.watchings << @watching
+
+    project = Factory(:project)
+    other_group.projects << project
+
+    entity = Factory(:entity)
+    project.entities << entity
+
+    @other_watching = Factory(:watching)
+    entity.watchings << @other_watching
+  end
+end
+
 describe User do
   before(:each) do
     @user  = Factory(:user)
@@ -103,6 +125,13 @@ describe User do
         it { should_not be_able_to(:read, @other_group_comment) }
         it { should_not be_able_to(:update, @other_group_comment) }
         it { should_not be_able_to(:destroy, @other_group_comment) }
+      end
+
+      describe 'for Watching' do
+        before_each_watching_spec()
+
+        it { should be_able_to([:create,:destroy], @watching)}
+        it { should_not be_able_to([:create,:destroy], @other_watching)}
       end
     end
 
@@ -186,7 +215,6 @@ describe User do
         it { should_not be_able_to(:create, Factory(:invitation,:inviter => @user, :group => other_group)) }
       end
 
-      pending 'all roles have the same Comment abilities, is this right?'
       describe 'for Comment' do
         before_each_comment_spec()
 
