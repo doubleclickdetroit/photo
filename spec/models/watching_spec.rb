@@ -21,6 +21,14 @@ describe Watching do
     end
   end
 
+  describe '#group' do
+    it 'should be delegated to #entity' do
+      @watching.stub(:entity).and_return(Factory(:entity))
+      @watching.entity.should_receive(:group)
+      @watching.group
+    end
+  end
+
   describe '#to_hash' do
     it 'should simply return #attributes' do
       @watching.to_hash.should == @watching.attributes

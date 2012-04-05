@@ -1,56 +1,52 @@
 class Ability
   include CanCan::Ability
 
+  def if_user_has_roles(user, roles)
+    Proc.new do |instance|
+      group = instance.instance_of?(Group) ? instance : instance.group
+      instance && user.has_role?(roles, :for => group)
+    end
+  end
+  alias :if_user_has_role :if_user_has_roles
+
+  def if_user_is_a_member(user)
+    Proc.new do |instance|
+      instance && user.belongs_to?(instance.group)
+    end
+  end
+
+  def if_user_owns_instance(user)
+    Proc.new do |instance|
+      instance && instance.user == user 
+    end
+  end
+
   def initialize(user)
     user ||= User.new
 
     # Comments
-    can [:read,:create], Comment do |comment|
-      comment && user.belongs_to?(comment.entity.project.group)
-    end
-    can [:update,:destroy], Comment do |comment|
-      comment && user == comment.user
-    end
+    can [:read,:create], Comment, &if_user_is_a_member(user)
+    can [:update,:destroy], Comment, &if_user_owns_instance(user)
 
     # Watchings
-    can [:create,:destroy], Watching do |watching|
-      watching && user.belongs_to?(watching.entity.project.group)
-    end
+    can [:create,:destroy], Watching, &if_user_is_a_member(user)
 
 
     # OWNER
-    can :manage, Group do |group|
-      group && user.has_role?(:owner, :for => group)
-    end
+    can :manage, Group, &if_user_has_roles(user, :owner)
 
     # ADMIN
-    can [:read, :update], Group do |group|
-      group && user.has_role?(:admin, :for => group)
-    end
+    can [:read, :update], Group, &if_user_has_role(user, :admin)
 
     # OWNER / ADMIN
-    can :manage, Project do |project|
-      project && user.has_role?([:owner,:admin], :for => project.group)
-    end
-    can :manage, Entity do |entity|
-      entity && user.has_role?([:owner,:admin], :for => entity.group)
-    end
-    can :create, Invitation do |invitation|
-      invitation && user.has_role?([:owner,:admin], :for => invitation.group)
-    end
-    # can :destroy, Comment do |comment|
-    #   comment && user.has_role?([:owner,:admin], :for => comment.project.group)
-    # end
+    can :manage, Project, &if_user_has_roles(user, [:owner,:admin]) 
+    can :manage, Entity, &if_user_has_roles(user, [:owner,:admin])
+    can :create, Invitation, &if_user_has_roles(user, [:owner,:admin]) 
+    # can :destroy, Comment, &if_user_has_roles(user, [:owner,:admin])
 
     # ASSOCIATE
-    can :read, Group do |group|
-      group && user.has_role?(:associate, :for => group)
-    end
-    can :read, Project do |project|
-      project && user.has_role?(:associate, :for => project.group)
-    end
-    can [:read, :create, :update], Entity do |entity|
-      entity && user.has_role?(:associate, :for => entity.group)
-    end
+    can :read, Group, &if_user_has_role(user, :associate)
+    can :read, Project, &if_user_has_role(user, :associate)
+    can [:read, :create, :update], Entity, &if_user_has_role(user, :associate)
   end
 end

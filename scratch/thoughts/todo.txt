@@ -1,0 +1,28 @@
+things yet to do
+
+form handling (controller)
+invitation controller
+registration
+TimePlace normalization
+Phase
+State
+Milestone
+Comment by email
+Correspondence
+Correspondence email parsing
+created_by/updated_by
+Workflow, date offset
+
+Controllers (/scratch/thoughts/routes_and_controllers):
+  Simple:
+    assignment.rb  
+    deadline.rb  
+    time_place.rb
+  Involved:
+    asset.rb       
+    form_type.rb   
+    form_data.rb  
+    project_workflow.rb # inherits from Project, handled by ProjectController?
+  Not Started:
+    suggestion.rb  
+    correspondence.rb  

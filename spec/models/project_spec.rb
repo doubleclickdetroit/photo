@@ -3,6 +3,12 @@ require 'spec_helper'
 describe Project do
   before(:each) { @project = Factory(:project) }
 
+  describe '#group' do
+    before(:each) { @project.group = Factory(:group) } 
+    subject { @project.group }
+    it { should be_a_kind_of(Group) }
+  end
+
   describe '#timeline_json' do
     it "should dump the json equivalent of #to_hash"
   end
@@ -51,4 +57,5 @@ describe Project do
       @project.to_json
     end
   end
+
 end

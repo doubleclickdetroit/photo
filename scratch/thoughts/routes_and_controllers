@@ -35,14 +35,14 @@ Project IMPLEMENTED
     D DELETE  /api/projects/:project_id/entities/:id
   # I GET     /api/projects/:project_id/entities/
 
-    Comment
+    Comment IMPLEMENTED
       C POST    /api/entities/:entity_id/comments/
     # R GET     /api/entities/:entity_id/comments/:id
       U PUT     /api/entities/:entity_id/comments/:id
       D DELETE  /api/entities/:entity_id/comments/:id
     # I GET     /api/entities/:entity_id/comments/
 
-    Watching
+    Watching IMPLEMENTED
       C POST    /api/entities/:entity_id/watchings/
     # R GET     /api/entities/:entity_id/watchings/:id
     # U PUT     /api/entities/:entity_id/watchings/:id
@@ -52,6 +52,7 @@ Project IMPLEMENTED
 Questions:
   - Can Invitations be deleted? (GET/DELETE included above for that hypothetical process)
   - Can Comments only be read through Entities?
+  - Should Project/Entity paths be shallow as well?
 
 Models to be dealt with:
   Simple:
