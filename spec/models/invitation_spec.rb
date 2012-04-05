@@ -104,4 +104,7 @@ describe Invitation do
       invitee.email.should == invitation.email
     end
   end
+
+  pending 'to_hash'
+  pending 'to_json'
 end

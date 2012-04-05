@@ -41,4 +41,22 @@ describe Group do
       @group.enroll @user1, :as => 'owner'
     end
   end
+
+
+  describe '#invitations' do
+    before(:each) do
+      Invitation.class_eval do
+        def after_create_processing
+          # oh private stubs ;)
+        end
+      end
+      3.times { @group.invitations << Factory(:invitation) }
+    end
+    it 'should return an array of invitations' do
+      @group.invitations.all?{|i| i.instance_of?(Invitation)}.should be_true
+    end
+  end
+
+  pending '#users'
+
 end

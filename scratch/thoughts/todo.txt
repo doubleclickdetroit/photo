@@ -1,4 +1,4 @@
-things yet to do
+<ul> of things yet to do
 
 form handling (controller)
 invitation controller
@@ -26,3 +26,40 @@ Controllers (/scratch/thoughts/routes_and_controllers):
   Not Started:
     suggestion.rb  
     correspondence.rb  
+
+
+<ol> todo
+
+Models
+  - TimePlace (normalize)
+  - Phase
+  - Milestone
+
+Controllers (/scratch/thoughts/routes_and_controllers):
+  Simple:
+    invitation.rb
+    assignment.rb  
+    deadline.rb  
+    time_place.rb
+  Involved:
+    form_type.rb   
+    form_data.rb  
+    project_workflow.rb # inherits from Project, handled by ProjectController?
+    asset.rb       
+  Not Started:
+    suggestion.rb  
+    correspondence.rb  
+
+Models/Controllers:
+  - Correspondence
+  - Workflow
+
+Email Processing
+  - Comment by email
+  - Correspondence parsing
+
+Misc
+  - State
+  - Registration
+  - created_by/updated_by
+  - validations

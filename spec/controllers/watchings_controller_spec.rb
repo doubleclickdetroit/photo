@@ -22,7 +22,7 @@ describe WatchingsController do
 
     describe "POST create" do
       it "should throw an error if no entity_id" do
-        post :create, {:watching => Factory.build(:watching).to_hash}, valid_session
+        post :create, { :watching => {} }, valid_session
         response.status.should == 406
       end
 

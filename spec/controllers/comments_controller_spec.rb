@@ -22,7 +22,7 @@ describe CommentsController do
 
     describe "POST create" do
       it "should throw an error if no entity_id" do
-        post :create, {:comment => Factory.build(:comment).to_hash}, valid_session
+        post :create, { :comment => {} }, valid_session
         response.status.should == 406
       end
 

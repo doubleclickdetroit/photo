@@ -4,11 +4,12 @@ CRM::Application.routes.draw do
   scope 'api' do
     devise_for :users
 
-    resources :invitations, :only => [:show, :create, :destroy]
-
     resources :groups, :except => [:new, :edit] do
+      # todo these probably dont go where they should
       resources :users, :except => [:new, :edit]
+
       resources :projects, :except => [:new, :edit]
+      resources :invitations, :only => [:index, :show, :create, :destroy]
     end
 
     resources :projects, :except => [:new, :edit] do

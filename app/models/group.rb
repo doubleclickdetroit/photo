@@ -5,6 +5,7 @@ class Group < ActiveRecord::Base
 
   # project associations
   has_many :projects
+  has_many :invitations
 
   def enroll(*args)
     user = args.shift
