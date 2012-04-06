@@ -37,7 +37,7 @@ Models
 
 Controllers (/scratch/thoughts/routes_and_controllers):
   Simple:
-    invitation.rb
+    (THE FOLLOWING should probably be handled by the entity controller)
     assignment.rb  
     deadline.rb  
     time_place.rb

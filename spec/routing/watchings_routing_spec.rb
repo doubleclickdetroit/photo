@@ -1,4 +1,5 @@
 require "spec_helper"
+require Rails.root.join('app','controllers','watchings_controller.rb')
 
 describe WatchingsController do
   describe "routing" do

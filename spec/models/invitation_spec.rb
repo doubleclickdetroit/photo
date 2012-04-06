@@ -4,6 +4,7 @@ describe Invitation do
 
   describe 'callbacks' do
     let(:invitation) { Factory.build(:invitation) }
+
     describe 'after_create' do
       it 'should call #send_invitation' do
         invitation.stub(:instantiate_workflow)

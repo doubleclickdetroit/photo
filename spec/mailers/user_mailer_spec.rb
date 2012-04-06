@@ -20,6 +20,8 @@ describe UserMailer do
 
       @invitation = Invitation.create @invitation_hash
 
+      UserMailer.send_invitation(@invitation)
+
       @email = ActionMailer::Base.deliveries.last
     end
 
