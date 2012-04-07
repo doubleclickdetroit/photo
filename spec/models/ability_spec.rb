@@ -3,11 +3,15 @@ require 'cancan/matchers'
 
 def before_each_comment_spec
   before(:each) do
+    # own group
     project = Factory(:project)
     group.projects << project
 
+    phase = Factory(:phase)
+    project.phases << phase
+
     entity = Factory(:entity)
-    project.entities << entity
+    phase.entities << entity
 
     @other_comment = Factory(:comment)
     entity.comments << @other_comment
@@ -15,36 +19,50 @@ def before_each_comment_spec
     @own_comment = Factory(:comment, :user_id => @user.id)
     entity.comments << @own_comment
 
-    project = Factory(:project)
-    other_group.projects << project
 
-    entity = Factory(:entity)
-    project.entities << entity
+    # other group
+    other_project = Factory(:project)
+    other_group.projects << other_project
+
+    other_phase = Factory(:phase)
+    other_project.phases << other_phase
+
+    other_entity = Factory(:entity)
+    other_phase.entities << other_entity
 
     @other_group_comment = Factory(:comment)
-    entity.comments << @other_group_comment
+    other_entity.comments << @other_group_comment
   end
 end
 
 def before_each_watching_spec
   before(:each) do
+    # own group
     project = Factory(:project)
     group.projects << project
 
+    phase = Factory(:phase)
+    project.phases << phase
+
     entity = Factory(:entity)
-    project.entities << entity
+    phase.entities << entity
 
     @watching = Factory(:watching, :user_id => @user.id)
     entity.watchings << @watching
 
-    project = Factory(:project)
-    other_group.projects << project
 
-    entity = Factory(:entity)
-    project.entities << entity
+    # other group
+    other_project = Factory(:project)
+    other_group.projects << other_project
+
+    other_phase = Factory(:phase)
+    other_project.phases << other_phase
+
+    other_entity = Factory(:entity)
+    other_phase.entities << other_entity
 
     @other_watching = Factory(:watching)
-    entity.watchings << @other_watching
+    other_entity.watchings << @other_watching
   end
 end
 
@@ -72,14 +90,25 @@ describe User do
       other_project
     end
 
+    let(:phase) do
+      phase = Factory(:phase) 
+      project.phases << phase
+      phase
+    end
+    let(:other_phase) do
+      other_phase = Factory(:phase) 
+      other_project.phases << other_phase
+      other_phase
+    end
+
     let(:entity) do
       entity = Factory(:entity) 
-      project.entities << entity
+      phase.entities << entity
       entity
     end
     let(:other_entity) do
       other_entity = Factory(:entity) 
-      other_project.entities << other_entity
+      other_phase.entities << other_entity
       other_entity
     end
 

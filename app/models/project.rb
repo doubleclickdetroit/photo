@@ -2,11 +2,12 @@ class Project < ActiveRecord::Base
   belongs_to :group
 
   has_many :phases
-  has_many :entities
 
-  def tasks
-    entities.where :type => 'Task'
-  end
+  # # todo this dynamically for each subclass of
+  # # Entity with scopes 
+  # def tasks
+  #   entities.where :type => 'Task'
+  # end
 
   def entities_by_month_and_date
     hash = {}

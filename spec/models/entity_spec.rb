@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Entity do
   before(:each) do
     @user = Factory(:user)
+
     @project = Factory(:project)
+    @phase   = Factory(:phase)
 
     # todo Entity must be of a subclass type
     # for #to_hash to function properly, Task
@@ -22,18 +24,16 @@ describe Entity do
   # end
 
   describe '#group' do
-    it 'should be delegated to #project' do
-      @group = Factory(:group)
-      @group.projects << @project
-      @project.entities << @entity
-      @entity.group.should == @project.group
+    it 'should be delegated to #phase' do
+      @entity.phase.should_receive :group
+      @entity.group
     end
   end
 
   describe '#project=/project' do
-    it 'should save a project' do
-      @entity.project = @project
-      @entity.project.should == @project
+    it 'should let it belong_to a Project' do
+      @entity.phase = @phase
+      @entity.phase.should == @phase
     end
   end
 

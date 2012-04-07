@@ -42,9 +42,10 @@ describe ProjectWorkflow do
       it { should be_an_instance_of Project }
       it { should_not be_an_instance_of ProjectWorkflow }
       it { should_not be_a_new_record }
+      it 'should contain one phase'
 
       describe '#entities' do
-        let(:entities) { project.entities }
+        let(:entities) { project.phases.first.entities }
 
         it 'should contain one completed Task' do
           entities.one? {|e| e.instance_of?(Task)}.should be_true

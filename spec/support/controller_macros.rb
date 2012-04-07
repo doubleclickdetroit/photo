@@ -31,25 +31,29 @@ module ControllerMacros
       @other_group = Factory(:group)
 
       @project = Factory(:project)
+      @phase = Factory(:phase)
+      @project.phases << @phase
       @the_group.projects << @project
 
       @other_project = Factory(:project)
+      @other_phase = Factory(:phase)
+      @other_project.phases << @other_phase
       @other_group.projects << @other_project
 
       @event = Factory(:event)
       @other_event = Factory(:event)
-      @project.entities << @event
-      @other_project.entities << @other_event
+      @phase.entities << @event
+      @other_phase.entities << @other_event
 
       @task = Factory(:task)
       @other_task = Factory(:task)
-      @project.entities << @task
-      @other_project.entities << @other_task
+      @phase.entities << @task
+      @other_phase.entities << @other_task
 
       @embed = Factory(:embed)
       @other_embed = Factory(:embed)
-      @project.entities << @embed
-      @other_project.entities << @other_embed
+      @phase.entities << @embed
+      @other_phase.entities << @other_embed
 
       # @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in @user 

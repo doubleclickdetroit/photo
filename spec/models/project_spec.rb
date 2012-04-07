@@ -24,35 +24,16 @@ describe Project do
     end
   end
 
-  describe '#entities' do
-    it 'should be [] when there are no related Entities' do
-      @project.entities.should == []
-    end
-
-    it 'should keep track of Entities' do
-      @event = Factory(:event)
-      @task  = Factory(:task)
-      @embed = Factory(:embed)
-
-      @project.entities = [@event]
-      @project.entities << @task 
-      @project.entities << @embed 
-
-      @project.entities.should == [@event,@task,@embed]
-    end
-  end
-
-  describe '#entities_by_month_and_date' do
-    it "should map the entities months/dates properly"
-  end
-
   describe '#to_hash' do
-    let(:hash) { @project.to_hash }
+    pending 'transition to phase'
+    # let(:hash) { @project.to_hash }
 
-    it 'should contain the project #id and #name' do
-      hash.has_key?('id').should be_true
-      hash.has_key?('name').should be_true
-    end
+    # it 'should contain the project #id and #name' do
+    #   hash.has_key?('id').should be_true
+    #   hash.has_key?('name').should be_true
+    # end
+
+    # it 'should call .to_hash on all associated Phases'
   end
 
   describe '#to_json' do
