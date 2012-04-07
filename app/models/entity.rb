@@ -65,12 +65,22 @@ private
   end
 
   def self.attach(*args)
-    attributes = args.shift
-    from = args.extract_options![:from]
+    args_hash = args.extract_options!
 
-    attributes.each do |att|
-      getter, setter = att, att+"="
-      delegate getter, setter, :to => from
+    if from = args_hash[:from]
+      attributes = args.shift
+
+      attributes.each do |att|
+        getter, setter = att, att+"="
+        delegate getter, setter, :to => from
+      end
+    else
+      args_hash.each do |model, attrs|
+        attrs.each do |att|
+          getter, setter = att, att+"="
+          delegate getter, setter, :to => model
+        end
+      end
     end
   end
 
@@ -125,11 +135,19 @@ class Event < Entity
   has_one :time_place, :foreign_key => :entity_id, :dependent => :destroy
   has_one :duration, :foreign_key => :entity_id, :dependent => :destroy
   has_one :location, :foreign_key => :entity_id, :dependent => :destroy
+
+  # @@own_additional_attributes = {
+  #   duration: %w(start finish),
+  #   location: %w(address1 address2 address3)
+  # }
+  # attach @@own_additional_attributes
+
   duration_attr = %w(start finish)
   location_attr = %w(address1 address2 address3)
 
   attach duration_attr, :from => :duration
   attach location_attr, :from => :location
+
   @@own_additional_attributes = duration_attr | location_attr
 
 private
