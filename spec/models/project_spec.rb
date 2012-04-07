@@ -13,12 +13,16 @@ describe Project do
     it "should dump the json equivalent of #to_hash"
   end
 
-  # describe '#phases' do
-  #   it 'should be [] when there are no related Phases' do
-  #     @project.phases.should == []
-  #   end
-  #   it 'should keep track of Entities'
-  # end
+  describe '#phases' do
+    before(:each) do
+      @phase = Factory(:phase)
+      @project.phases << @phase
+    end
+
+    it 'should contain an array of Phases' do
+      @project.phases.should == [@phase]
+    end
+  end
 
   describe '#entities' do
     it 'should be [] when there are no related Entities' do

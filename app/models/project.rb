@@ -1,5 +1,7 @@
 class Project < ActiveRecord::Base
   belongs_to :group
+
+  has_many :phases
   has_many :entities
 
   def tasks
