@@ -1,2 +1,5 @@
 ideas:
-notes added during a meeting time by members of the meeting are added to the meeting entity?
+
+Q: notes added during a meeting time by members of the meeting are added to the meeting entity?
+A1: Not sure how the UI might look. :? Perhaps it's just a separate entity that shares the same label? Okay, that's a cop-out and i realize it. Especially because we've worked so hard to have a different approach to these sort of things.
+A2: Maybe how we have the action buttons (Associations | Comments) that display to the right of the entity, for the meeting we have a third that is for notes? That might be pretty cool. Not sure though. :P Thoughts?
