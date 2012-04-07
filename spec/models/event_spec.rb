@@ -3,8 +3,10 @@ require 'spec_helper'
 describe Entity do
   describe Event do
     before(:each) do
-      @event      = Factory(:event)
+      @event      = Factory(:event, :with_association)
       @time_place = @event.time_place
+      @duration   = @event.duration
+      @location   = @event.location
     end
 
     describe '#attendees methods' do
@@ -15,66 +17,54 @@ describe Entity do
       end
     end
 
-    describe '.time_place' do
-      subject { @event.time_place }
-      it { should be_an_instance_of TimePlace }
+    describe '.duration' do
+      subject { @event.duration }
+      it { should be_an_instance_of Duration }
 
       it 'should be destroyed on Event#destroy' do
         expect {
           @event.destroy
-        }.to change(TimePlace,:count).by(-1)
+        }.to change(Duration,:count).by(-1)
       end
 
       describe '#start' do
-        it 'should be delegated to TimePlace' do
+        it 'should be delegated to Duration' do
           time = Time.new
+          @duration.should_receive :start=
           @event.start = time
-          @event.start.should == time
         end
       end
 
       describe '#finish' do
-        it 'should be delegated to TimePlace' do
+        it 'should be delegated to Duration' do
           time = Time.new
+          @duration.should_receive :finish=
           @event.finish = time
-          @event.finish.should == time
-        end
-      end
-
-      describe '#address[1/2/3]' do
-        it 'should delegate r/w to #time_place' do
-          @event.address1.should == @time_place.address1
-          @event.address2.should == @time_place.address2
-          @event.address3.should == @time_place.address3
         end
       end
     end
 
-    # describe '.duration' do
-    #   subject { @event.time_place }
-    #   it { should be_an_instance_of Duration }
+    describe '.location' do
+      subject { @event.location }
+      it { should be_an_instance_of Location }
 
-    #   it 'should be destroyed on Event#destroy' do
-    #     expect {
-    #       @event.destroy
-    #     }.to change(Duration,:count).by(-1)
-    #   end
+      it 'should be destroyed on Event#destroy' do
+        expect {
+          @event.destroy
+        }.to change(Location,:count).by(-1)
+      end
 
-    #   # describe '#start' do
-    #   #   it 'should be delegated to TimePlace' do
-    #   #     time = Time.new
-    #   #     @event.start = time
-    #   #     @event.start.should == time
-    #   #   end
-    #   # end
+      describe '#address[1/2/3]' do
+        it 'should be delegated to #location' do
+          @location.should_receive :address1
+          @location.should_receive :address2
+          @location.should_receive :address3
 
-    #   # describe '#finish' do
-    #   #   it 'should be delegated to TimePlace' do
-    #   #     time = Time.new
-    #   #     @event.finish = time
-    #   #     @event.finish.should == time
-    #   #   end
-    #   # end
-    # end
+          @event.address1
+          @event.address2
+          @event.address3
+        end
+      end
+    end
   end
 end

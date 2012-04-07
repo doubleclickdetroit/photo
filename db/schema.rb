@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120324080507) do
+ActiveRecord::Schema.define(:version => 20120407021404) do
 
   create_table "assets", :force => true do |t|
     t.datetime "created_at",        :null => false
@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(:version => 20120324080507) do
 
   add_index "deadlines", ["entity_id"], :name => "index_deadlines_on_entity_id"
 
+  create_table "durations", :force => true do |t|
+    t.datetime "start"
+    t.datetime "finish"
+    t.integer  "entity_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "durations", ["entity_id"], :name => "index_durations_on_entity_id"
+
   create_table "entities", :force => true do |t|
     t.string   "title"
     t.string   "type"
@@ -70,6 +80,17 @@ ActiveRecord::Schema.define(:version => 20120324080507) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "locations", :force => true do |t|
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "address3"
+    t.integer  "entity_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "locations", ["entity_id"], :name => "index_locations_on_entity_id"
 
   create_table "memberships", :force => true do |t|
     t.integer  "group_id"

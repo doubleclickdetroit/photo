@@ -123,9 +123,14 @@ class Event < Entity
   alias :attendees= :followers=
 
   has_one :time_place, :foreign_key => :entity_id, :dependent => :destroy
+  has_one :duration, :foreign_key => :entity_id, :dependent => :destroy
+  has_one :location, :foreign_key => :entity_id, :dependent => :destroy
+  duration_attr = %w(start finish)
+  location_attr = %w(address1 address2 address3)
 
-  @@own_additional_attributes = %w(start finish address1 address2 address3)
-  attach @@own_additional_attributes, :from => :time_place
+  attach duration_attr, :from => :duration
+  attach location_attr, :from => :location
+  @@own_additional_attributes = duration_attr | location_attr
 
 private
   def associate_asset

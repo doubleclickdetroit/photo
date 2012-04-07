@@ -1,9 +1,10 @@
 class CreateLocations < ActiveRecord::Migration
   def change
     create_table :locations do |t|
+      t.string :address1
+      t.string :address2
+      t.string :address3
       t.references :entity
-      t.string :line1
-      t.string :line2
 
       t.timestamps
     end

@@ -41,6 +41,9 @@ FactoryGirl.define do
 
     trait :with_association do
       time_place { Factory(:time_place) }
+
+      duration { Factory(:duration) }
+      location { Factory(:location) }
     end
   end
 
