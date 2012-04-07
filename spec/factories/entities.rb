@@ -2,13 +2,13 @@ FactoryGirl.define do
   factory :entity do
     trait :with_comments do
       comments do
-        3.times.inject([]) { |arr| arr << Factory(:comment) }
+        [Factory(:comment)]*3
       end
     end
 
     trait :with_followers do
       followers do
-        3.times.inject([]) { |arr| arr << Factory(:user) }
+        [Factory(:user)]*3
       end
     end
 

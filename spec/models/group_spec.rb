@@ -45,12 +45,7 @@ describe Group do
 
   describe '#invitations' do
     before(:each) do
-      Invitation.class_eval do
-        def after_create_processing
-          # oh private stubs ;)
-        end
-      end
-      3.times { @group.invitations << Factory(:invitation) }
+      3.times { @group.invitations << Factory(:invitation, :with_inviter_and_group) }
     end
     it 'should return an array of invitations' do
       @group.invitations.all?{|i| i.instance_of?(Invitation)}.should be_true

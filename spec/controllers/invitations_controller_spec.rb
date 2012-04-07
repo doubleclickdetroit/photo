@@ -3,23 +3,19 @@ require 'spec_helper'
 describe InvitationsController do
   attr_accessor :valid_attributes, :valid_session
 
+  before(:each) do
+    # UserMailer.stub_chain(:send_invitation) { mock_model(UserMailer) }
+    # Invitation.class_eval do
+    #   private
+    #   alias :after_create_processing_orig :after_create_processing 
+    #   def after_create_processing
+    #     # wish i could cleanly stub private methods
+    #   end
+    # end
+  end
+
   context 'admin logged in' do
     login_admin()
-
-    # describe 'authorization' do
-    #   before(:each) do
-    #     invitation = Factory.build(:invitation)
-    #     @params = {
-    #       comment:   comment,
-    #       entity_id: @event.to_param 
-    #     }
-    #     @session = valid_session
-    #   end
-    #   pending 'create action spec is failing...'
-    #   # it_should_check_permissions(@params, @session, :create, :update, :destroy)
-    #   it_should_check_permissions(@params, @session, :update, :destroy)
-    # end
-
 
     describe "POST create" do
       it "should throw an error if no entity_id" do
@@ -28,15 +24,15 @@ describe InvitationsController do
       end
 
       it "should create a Invitation" do
-        invitation = Factory.build(:invitation)
-        Invitation.class_eval do
-          def after_create_processing
-            # wish i could cleanly stub private methods
-          end
-        end
-        expect{
-          post :create, {:group_id => @the_group.to_param, :invitation => invitation}, valid_session
-        }.to change(Invitation, :count).by(1)
+        invitation = Factory.build(:invitation, :with_inviter_and_group)
+        # # todo maybe try to get this to work instead...
+        # expect{
+        #   post :create, {:group_id => @the_group.to_param, :invitation => invitation}, valid_session
+        # }.to change(Invitation, :count).by(1)
+
+        Invitation.stub(:create)
+        Invitation.should_receive(:create)
+        post :create, {:group_id => @the_group.to_param, :invitation => invitation}, valid_session
       end
     end
 
@@ -54,7 +50,7 @@ describe InvitationsController do
 
     describe "GET show" do
       it "should call Invitation#find" do
-        invitation = Factory(:invitation)
+        invitation = Factory(:invitation, :with_inviter_and_group)
         Invitation.should_receive(:find).with(invitation.to_param)
         get :show, { :id => invitation.to_param }, valid_session
       end
@@ -63,12 +59,22 @@ describe InvitationsController do
 
     describe "DELETE destroy" do
       it "destroy the Invitation" do
-        invitation = Factory(:invitation)
+        invitation = Factory(:invitation, :with_inviter_and_group)
         expect{
           delete :destroy, {:id => invitation.to_param}, valid_session
         }.to change(Invitation, :count).by(-1)
       end
     end
 
+  end
+
+  after(:all) do
+    # Invitation.class_eval do
+    #   private
+    #   alias :after_create_processing :after_create_processing_orig
+    #   def after_create_processing
+    #     # wish i could cleanly stub private methods
+    #   end
+    # end
   end
 end
