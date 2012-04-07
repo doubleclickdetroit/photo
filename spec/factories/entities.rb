@@ -40,8 +40,6 @@ FactoryGirl.define do
     type "Event"
 
     trait :with_association do
-      time_place { Factory(:time_place) }
-
       duration { Factory(:duration) }
       location { Factory(:location) }
     end

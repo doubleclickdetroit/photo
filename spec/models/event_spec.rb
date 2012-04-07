@@ -4,7 +4,6 @@ describe Entity do
   describe Event do
     before(:each) do
       @event      = Factory(:event, :with_association)
-      @time_place = @event.time_place
       @duration   = @event.duration
       @location   = @event.location
     end

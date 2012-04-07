@@ -132,7 +132,6 @@ class Event < Entity
   alias :attendees :followers
   alias :attendees= :followers=
 
-  has_one :time_place, :foreign_key => :entity_id, :dependent => :destroy
   has_one :duration, :foreign_key => :entity_id, :dependent => :destroy
   has_one :location, :foreign_key => :entity_id, :dependent => :destroy
 
@@ -152,7 +151,8 @@ class Event < Entity
 
 private
   def associate_asset
-    self.time_place = TimePlace.new
+    self.duration = Duration.new
+    self.location = Location.new
   end
 end
 

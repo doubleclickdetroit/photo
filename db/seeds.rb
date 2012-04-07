@@ -109,9 +109,11 @@ events = [
     :title => 'Meet with Client',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
     :created_by_id => random_user().id,
-    :time_place => {  
+    :duration => {  
       :start  => hour_and_minute_for_date(10,00,4.days.ago),
       :finish => hour_and_minute_for_date(14,30,4.days.ago),
+    },
+    :location => {  
       :address1 => 'ACME CO',
       :address2 => '1776 Independence St',
       :address3 => 'Commerce, MI 48382'
@@ -121,9 +123,11 @@ events = [
     :title => 'Discuss Requirements Documentation',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
     :created_by_id => random_user().id,
-    :time_place => {  
+    :duration => {  
       :start  => hour_and_minute_for_date(13,00,3.days.ago),
       :finish => hour_and_minute_for_date(14,00,3.days.ago),
+    },
+    :location => {  
       :address1 => 'War Room',
       :address2 => '2nd Floor',
       :address3 => nil
@@ -133,9 +137,11 @@ events = [
     :title => 'Discuss Wireframes & Mockups',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
     :created_by_id => random_user().id,
-    :time_place => {  
+    :duration => {  
       :start  => hour_and_minute_for_date(10,30,Time.now),
       :finish => hour_and_minute_for_date(12,00,Time.now),
+    },
+    :location => {  
       :address1 => 'Green Room',
       :address2 => '1st Floor',
       :address3 => nil
@@ -145,9 +151,11 @@ events = [
     :title => 'Discuss questions & assumptions',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
     :created_by_id => random_user().id,
-    :time_place => {  
+    :duration => {  
       :start  => hour_and_minute_for_date(14,00,5.days.from_now),
       :finish => hour_and_minute_for_date(15,00,5.days.from_now),
+    },
+    :location => {  
       :address1 => 'Starbucks Coffee',
       :address2 => '1983 Cheshire Ln',
       :address3 => 'Commerce, MI 48382'
@@ -157,9 +165,11 @@ events = [
     :title => 'Discuss estimate of hours',
     :text => 'Lorem ipsum dolor sit amet elictar, visit their website www.example.com',
     :created_by_id => random_user().id,
-    :time_place => {  
+    :duration => {  
       :start  => hour_and_minute_for_date(14,00,9.days.from_now),
       :finish => hour_and_minute_for_date(15,00,9.days.from_now),
+    },
+    :location => {  
       :address1 => 'Conference Call',
       :address2 => '(866) 555-5555',
       :address3 => 'www.example.com'
@@ -170,12 +180,17 @@ events = [
 events.each do |event| 
   # todo: this is all super-stupid
   # get nested attributes to work
-  time_place  = event.delete :time_place
+  duration = event.delete :duration
+  location = event.delete :location
 
-  @time_place = Factory(:time_place, time_place)
+  @duration = Factory(:duration, duration)
+  @location = Factory(:location, location)
+
   @event      = Factory(:event, event)
 
-  @event.time_place = @time_place
+  @event.duration = @duration
+  @event.location = @location
+
   @project.entities << @event
 
   add_arbitrary_comments_and_followers_to @event
