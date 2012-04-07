@@ -9,25 +9,6 @@ class Project < ActiveRecord::Base
   #   entities.where :type => 'Task'
   # end
 
-  def entities_by_month_and_date
-    hash = {}
-
-    self.entities.each do |ent|
-      date = ent.display_date
-      month, day = date.month, date.day
-
-      hash[month]      ||= {}
-      hash[month][day] ||= []
-      hash[month][day] << ent.to_hash(:associations => true)
-    end
-
-    hash
-  end
-
-  def timeline_hash
-    entities_by_month_and_date 
-  end
-
   def to_hash
     # project
     #   id
@@ -49,9 +30,10 @@ class Project < ActiveRecord::Base
     #       day
     #         ...
     
-    hash             = {'name'=>self.name,'id'=>self.id}
-    hash['group']    = self.group.try(:to_hash)
-    hash['timeline'] = self.timeline_hash
+    # todo pretty sure the .try's shouldnt be here...
+    hash           = {'name'=>self.name,'id'=>self.id}
+    hash['group']  = self.group.try(:to_hash)
+    hash['phases'] = self.phases.map(&:to_hash) 
 
     hash
   end

@@ -26,14 +26,20 @@ describe Project do
 
   describe '#to_hash' do
     pending 'transition to phase'
-    # let(:hash) { @project.to_hash }
+    let(:hash) { @project.to_hash }
 
-    # it 'should contain the project #id and #name' do
-    #   hash.has_key?('id').should be_true
-    #   hash.has_key?('name').should be_true
-    # end
+    it 'should contain the project #id and #name' do
+      hash.has_key?('id').should be_true
+      hash.has_key?('name').should be_true
+    end
 
-    # it 'should call .to_hash on all associated Phases'
+    it 'should call .to_hash on all associated Phases' do
+      @project.phases << Factory(:phase) 
+      @project.phases.each do |phase|
+        phase.should_receive(:to_hash)
+      end
+      @project.to_hash
+    end
   end
 
   describe '#to_json' do

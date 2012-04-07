@@ -33,8 +33,19 @@ describe Phase do
     end
   end
 
+  describe '.timeline_hash' do
+    it "should simply call .entities_by_month_and_date" do
+      @phase.stub(:entities_by_month_and_date)
+      @phase.should_receive(:entities_by_month_and_date)
+      @phase.timeline_hash
+    end
+  end
+
   describe '#entities_by_month_and_date' do
     it "should map the entities months/dates properly"
   end
+
+  pending 'to_hash'
+  pending 'to_json'
 
 end
