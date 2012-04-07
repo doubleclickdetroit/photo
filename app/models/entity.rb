@@ -120,7 +120,7 @@ class Task < Entity
 
 private
   def associate_asset
-    self.deadline = Deadline.new
+    self.deadline ||= Deadline.new
   end
 end
 
@@ -151,8 +151,8 @@ class Event < Entity
 
 private
   def associate_asset
-    self.duration = Duration.new
-    self.location = Location.new
+    self.duration ||= Duration.new
+    self.location ||= Location.new
   end
 end
 
@@ -164,7 +164,7 @@ class Embed < Entity
 
 private
   def associate_asset
-    self.asset = Asset.new
+    self.asset ||= Asset.new
   end
 end
 
@@ -195,8 +195,8 @@ private
     # todo this has got to be awfully wrong
     # but its probably going to get left 
     # here through dev :)
-    self.form_type = FormType.new
-    self.form_data = FormData.new
+    self.form_type ||= FormType.new
+    self.form_data ||= FormData.new
   end
 end
 

@@ -8,7 +8,9 @@ class Phase < ActiveRecord::Base
     hash = {}
 
     self.entities.each do |ent|
+      puts "####################{ent.inspect}"
       date = ent.display_date
+      puts "####################{date}"
       month, day = date.month, date.day
 
       hash[month]      ||= {}
@@ -24,12 +26,10 @@ class Phase < ActiveRecord::Base
   end
 
   def to_hash
-    # project
+    # phase
     #   id
     #   name 
-    #
-    #   group
-    #     users
+    #   state
     #
     #   timeline
     #     month
@@ -44,8 +44,11 @@ class Phase < ActiveRecord::Base
     #       day
     #         ...
     
-    hash             = {'name'=>self.name,'id'=>self.id}
-    hash['group']    = self.group.try(:to_hash)
+    hash = {
+      # 'id'=>self.id,
+      # 'name'=>self.name,
+      # 'state'=>self.state
+    }
     hash['timeline'] = self.timeline_hash
 
     hash

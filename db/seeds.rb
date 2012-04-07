@@ -197,10 +197,12 @@ events.each do |event|
   @duration = Factory(:duration, duration)
   @location = Factory(:location, location)
 
-  @event      = Factory(:event, event)
+  @event    = Factory(:event, event)
 
   @event.duration = @duration
   @event.location = @location
+  puts "################{@event.duration.inspect}"
+  puts "################{@event.location.inspect}"
 
   @phase.entities << @event
 

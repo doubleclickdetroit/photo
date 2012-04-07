@@ -14,20 +14,31 @@ class Project < ActiveRecord::Base
     #   id
     #   name 
     #
+    #
     #   group
     #     users
     #
-    #   timeline
-    #     month
-    #       day
-    #         entity
-    #           comments
-    #           ...
-    #         entity
-    #           comments
-    #           ...
-    #     month
-    #       day
+    #
+    #   phases
+    #
+    #     phase
+    #       name
+    #       state
+    #
+    #       timeline
+    #         month
+    #           day
+    #             entity
+    #               comments
+    #               ...
+    #             entity
+    #               comments
+    #               ...
+    #         month
+    #           day
+    #             ...
+    #  
+    #       phase
     #         ...
     
     # todo pretty sure the .try's shouldnt be here...
