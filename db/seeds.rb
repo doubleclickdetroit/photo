@@ -92,9 +92,16 @@ puts "  ** Building Project"
 @project = Factory(:project, :name => 'Timeline CRM')
 @group.projects << @project
 
-def hour_and_minute_for_date(hour, minute, date)
-  DateTime.new date.year, date.month, date.day, hour, minute
-end
+
+
+##################################
+############ Project ##############
+###################################
+
+puts "    ** Adding Phase"
+
+@phase = Factory(:phase)
+@project.phases << @phase
 
 
 
@@ -102,7 +109,11 @@ end
 ############ Events ##############
 ##################################
 
-puts "    ** Adding Events"
+puts "      ** Adding Events"
+
+def hour_and_minute_for_date(hour, minute, date)
+  DateTime.new date.year, date.month, date.day, hour, minute
+end
 
 events = [
   {
@@ -191,7 +202,7 @@ events.each do |event|
   @event.duration = @duration
   @event.location = @location
 
-  @project.entities << @event
+  @phase.entities << @event
 
   add_arbitrary_comments_and_followers_to @event
 end
@@ -202,7 +213,7 @@ end
 ############# Tasks ##############
 ##################################
 
-puts "    ** Adding Tasks"
+puts "      ** Adding Tasks"
 
 tasks = [
   {
@@ -232,7 +243,7 @@ tasks.each do |task|
   @deadline = Factory(:deadline, deadline)
 
   @task.deadline = @deadline
-  @project.entities << @task
+  @phase.entities << @task
 
   add_arbitrary_comments_and_followers_to @task
 end
@@ -243,7 +254,7 @@ end
 ############ Embeds ##############
 ##################################
 
-puts "    ** Adding Embeds"
+puts "      ** Adding Embeds"
 
 embeds = [
   {
@@ -281,7 +292,7 @@ embeds.each do |embed|
   @embed = Factory(:embed, embed)
   @embed.asset = @asset
 
-  @project.entities << @embed
+  @phase.entities << @embed
 
   add_arbitrary_comments_and_followers_to @embed
 end
@@ -292,7 +303,7 @@ end
 ############# Forms #################
 #####################################
 
-# puts "    ** Adding Forms"
+# puts "      ** Adding Forms"
 # @form      = Factory(:form)
 # @form_data = Factory(:form_data)
 # @form_type = Factory(:form_type)
@@ -360,7 +371,7 @@ end
 # @form.form_data = @form_data
 # @form.form_type = @form_type
 # 
-# @project.entities << @form
+# @phase.entities << @form
 #
 # add_arbitrary_comments_and_followers_to @form
 
