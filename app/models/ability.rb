@@ -40,6 +40,7 @@ class Ability
 
     # OWNER / ADMIN
     can :manage, Project, &if_user_has_roles(user, [:owner,:admin]) 
+    can :manage, Phase, &if_user_has_roles(user, [:owner,:admin]) 
     can :manage, Entity, &if_user_has_roles(user, [:owner,:admin])
     can :create, Invitation, &if_user_has_roles(user, [:owner,:admin]) 
     # can :destroy, Comment, &if_user_has_roles(user, [:owner,:admin])
@@ -47,6 +48,7 @@ class Ability
     # ASSOCIATE
     can :read, Group, &if_user_has_role(user, :associate)
     can :read, Project, &if_user_has_role(user, :associate)
+    can :read, Phase, &if_user_has_role(user, :associate)
     can [:read, :create, :update], Entity, &if_user_has_role(user, :associate)
   end
 end

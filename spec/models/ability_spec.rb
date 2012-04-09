@@ -127,6 +127,11 @@ describe User do
         it { should_not be_able_to(:manage, other_project) }
       end
 
+      describe 'for Phase' do
+        it { should be_able_to(:manage, phase) }
+        it { should_not be_able_to(:manage, other_phase) }
+      end
+
       describe 'for Entity' do
         it { should be_able_to(:manage, entity) }
         it { should_not be_able_to(:manage, other_entity) }
@@ -184,6 +189,11 @@ describe User do
         it { should_not be_able_to(:manage, other_project) }
       end
 
+      describe 'for Phase' do
+        it { should be_able_to(:manage, phase) }
+        it { should_not be_able_to(:manage, other_phase) }
+      end
+
       describe 'for Entity' do
         it { should be_able_to(:manage, entity) }
         it { should_not be_able_to(:manage, other_entity) }
@@ -232,6 +242,13 @@ describe User do
         it { should_not be_able_to(:create, project) }
         it { should_not be_able_to(:update, project) }
         it { should_not be_able_to(:destroy, project) }
+      end
+
+      describe 'for Phase' do
+        it { should be_able_to(:read, phase) }
+        it { should_not be_able_to(:create, phase) }
+        it { should_not be_able_to(:update, phase) }
+        it { should_not be_able_to(:destroy, phase) }
       end
 
       describe 'for Entity' do
