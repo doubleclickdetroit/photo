@@ -84,7 +84,7 @@ module ControllerMacros
 
   def it_should_check_permissions(params, session, *actions)
     actions.each do |action|
-      it "#{action} action should authorize user to do this action" do
+      it "#{action} action should authorize user to call this action" do
         ability = Object.new
         ability.extend(CanCan::Ability)
         controller.stub!(:current_ability).and_return(ability)
