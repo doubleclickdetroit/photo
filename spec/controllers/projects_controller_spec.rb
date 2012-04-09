@@ -28,6 +28,8 @@ describe ProjectsController do
         @group_id = @the_group.to_param
       end
 
+      pending 'this calls Project.to_hash on all Projects, way to expensive'
+
       it 'should call Group.find(param[:group_id]) and call .projects on the result' do
         Group.should_receive(:find).with(@group_id)
         get :index, { :group_id => @group_id }

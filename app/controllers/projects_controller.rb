@@ -7,7 +7,8 @@ class ProjectsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Group.find(params[:group_id]).projects
+    projects = Group.find(params[:group_id]).projects
+    respond_with projects.map(&:to_hash).to_json
   end
 
   def show

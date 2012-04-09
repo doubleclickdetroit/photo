@@ -25,7 +25,6 @@ describe Project do
   end
 
   describe '#to_hash' do
-    pending 'transition to phase'
     let(:hash) { @project.to_hash }
 
     it 'should contain the project #id and #name' do

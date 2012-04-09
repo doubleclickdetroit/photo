@@ -20,13 +20,13 @@ describe PhasesController do
       it_should_check_permissions(@params, @session, :show, :update, :destroy)
     end
 
-    # describe 'GET index' do
-    #   it 'should call Phase.by_project(param[:project_id])' do
-    #     project_id = '1'
-    #     Phase.should_receive(:by_project).with(project_id)
-    #     get :index, { :project_id => project_id }
-    #   end
-    # end
+    describe 'GET index' do
+      it 'should call Phase.by_project(param[:project_id])' do
+        project_id = '1'
+        Phase.should_receive(:by_project).with(project_id)
+        get :index, { :project_id => project_id }
+      end
+    end
 
     # describe 'GET show' do
     #   it 'should call Phase.find(param[:id])' do
