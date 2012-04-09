@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
   before_filter :check_for_group_id, :only => [:index,:create]
 
-  before_filter :authenticate_user! #, :roles_to_current_user
+  before_filter :authenticate_user!
   load_and_authorize_resource
 
   respond_to :json
 
   def index
-    respond_with Project.by_group(params[:group_id])
+    respond_with Group.find(params[:group_id]).projects
   end
 
   def show

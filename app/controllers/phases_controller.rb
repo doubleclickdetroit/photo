@@ -1,10 +1,25 @@
 class PhasesController < ApplicationController
   before_filter :check_for_project_id, :only => [:index,:create]
 
-  before_filter :authenticate_user! #, :roles_to_current_user
+  before_filter :authenticate_user! 
   load_and_authorize_resource
 
   respond_to :json
+
+  def index
+  end
+
+  def show
+  end
+
+  def create
+  end
+
+  def update
+  end
+
+  def destroy
+  end
 
   # def index
   #   respond_with Phase.by_project(params[:project_id])

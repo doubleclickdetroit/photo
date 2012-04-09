@@ -23,10 +23,14 @@ describe ProjectsController do
     end
 
     describe 'GET index' do
-      it 'should call Project.by_group(param[:group_id])' do
-        group_id = '1'
-        Project.should_receive(:by_group).with(group_id)
-        get :index, { :group_id => group_id }
+      before(:each) do
+        Group.stub(:find).and_return(@the_group)
+        @group_id = @the_group.to_param
+      end
+
+      it 'should call Group.find(param[:group_id]) and call .projects on the result' do
+        Group.should_receive(:find).with(@group_id)
+        get :index, { :group_id => @group_id }
       end
     end
 

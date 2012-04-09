@@ -15,7 +15,9 @@ describe PhasesController do
         }
         @session = valid_session
       end
-      # it_should_check_permissions(@params, @session, :update, :destroy)
+      pending 'index and create dont appear to check Ability...?'
+      # it_should_check_permissions(@params, @session, :index, :show, :create, :update, :destroy)
+      it_should_check_permissions(@params, @session, :show, :update, :destroy)
     end
 
     # describe 'GET index' do
