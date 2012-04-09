@@ -4,87 +4,153 @@ describe ProjectsController do
   attr_accessor :valid_attributes, :valid_session
 
 
-  describe 'user logged in, not a group member' do
-    # should not be able to PUT or DELETE @the_group
-    #
-    # login_user()
-    # describe "GET index" do
-    #   it "redirects to sign_in" do
-    #     project = Factory(:project)
-    #     get :index, {}, valid_session
-    #     flash = 'You need to sign in or sign up before continuing.'
-    #     response.should redirect_to(new_user_session_path)
-    #   end
-    # end
-  end
+  context 'admin logged in' do
+    login_admin()
 
+    describe 'authorization' do
+      before(:each) do
+        project = Factory.build(:project)
+        @params = {
+          project:   project,
+          group_id: @the_group.to_param 
+        }
+        @session = valid_session
+      end
+      # it_should_check_permissions(@params, @session, :create, :update, :destroy)
+      it_should_check_permissions(@params, @session, :update, :destroy)
+    end
 
-  context 'user not logged in' do
-    let(:sign_in_alert) {'You need to sign in or sign up before continuing.'}
-
-    describe "GET index" do
-      it "redirects to sign_in with flash alert" do
-        get :index, {}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
+    describe 'GET index' do
+      it 'should call Project.by_group(param[:group_id])' do
+        # pending 'receiving message twice...'
+        group_id = '1'
+        Project.should_receive(:by_group).with(group_id)
+        get :index, { :group_id => group_id }
       end
     end
 
-    describe "GET show" do
-      it "redirects to sign_in with flash alert" do
-        project = Factory(:project)
-        get :show, {:id => project.to_param}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
-      end
-    end
-
-    describe "GET new" do
-      it "redirects to sign_in with flash alert" do
-        pending 'excepted this in the controller i think...'
-        get :new, {:group_id => @the_group.id}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
-      end
-    end
-
-    describe "GET edit" do
-      it "redirects to sign_in with flash alert" do
-        project = Factory(:project)
-        get :edit, {:id => project.to_param}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
+    describe 'GET show' do
+      it 'should call Project.find(param[:id])' do
+        pending 'receiving message twice...'
+        id = '1'
+        Project.should_receive(:find).with(id)
+        get :show, { :id => id }
       end
     end
 
     describe "POST create" do
-      it "redirects to sign_in with flash alert" do
-        post :create, {:project => {}}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
+      it "should throw an error if no group_id" do
+        post :create, { :project => {} }, valid_session
+        response.status.should == 406
+      end
+
+      it "should create a Project" do
+        project = Factory.build(:project)
+        expect{
+          post :create, {:group_id => @the_group.to_param, :project => project.attributes}, valid_session
+        }.to change(Project, :count).by(1)
       end
     end
 
     describe "PUT update" do
-      it "redirects to sign_in with flash alert" do
+      it "should call Project#update_attributes" do
         project = Factory(:project)
-        put :update, {:id => project.to_param, :project => {}}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
+        @the_group.projects << project
+        Project.any_instance.should_receive :update
+        put :update, {:id => project.to_param, :project => {:name => 'PUT update'}}, valid_session
       end
     end
 
     describe "DELETE destroy" do
-      it "redirects to sign_in with flash alert" do
+      it "destroy the Project" do
         project = Factory(:project)
-        delete :destroy, {:id => project.to_param}, valid_session
-        response.should redirect_to(new_user_session_path)
-        flash[:alert].should == sign_in_alert
+        @the_group.projects << project
+        expect{
+          delete :destroy, {:id => project.to_param}, valid_session
+        }.to change(Project, :count).by(-1)
       end
     end
+
   end
 
-  pending 'controller needs converted...'
+  # describe 'user logged in, not a group member' do
+  #   # should not be able to PUT or DELETE @the_group
+  #   #
+  #   # login_user()
+  #   # describe "GET index" do
+  #   #   it "redirects to sign_in" do
+  #   #     project = Factory(:project)
+  #   #     get :index, {}, valid_session
+  #   #     flash = 'You need to sign in or sign up before continuing.'
+  #   #     response.should redirect_to(new_user_session_path)
+  #   #   end
+  #   # end
+  # end
+
+  # context 'user not logged in' do
+  #   let(:sign_in_alert) {'You need to sign in or sign up before continuing.'}
+
+  #   describe "GET index" do
+  #     it "redirects to sign_in with flash alert" do
+  #       get :index, {}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "GET show" do
+  #     it "redirects to sign_in with flash alert" do
+  #       project = Factory(:project)
+  #       get :show, {:id => project.to_param}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "GET new" do
+  #     it "redirects to sign_in with flash alert" do
+  #       pending 'excepted this in the controller i think...'
+  #       get :new, {:group_id => @the_group.id}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "GET edit" do
+  #     it "redirects to sign_in with flash alert" do
+  #       project = Factory(:project)
+  #       get :edit, {:id => project.to_param}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "POST create" do
+  #     it "redirects to sign_in with flash alert" do
+  #       post :create, {:project => {}}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "PUT update" do
+  #     it "redirects to sign_in with flash alert" do
+  #       project = Factory(:project)
+  #       put :update, {:id => project.to_param, :project => {}}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+
+  #   describe "DELETE destroy" do
+  #     it "redirects to sign_in with flash alert" do
+  #       project = Factory(:project)
+  #       delete :destroy, {:id => project.to_param}, valid_session
+  #       response.should redirect_to(new_user_session_path)
+  #       flash[:alert].should == sign_in_alert
+  #     end
+  #   end
+  # end
 
   # context 'associate for group logged in' do
   #   let(:access_denied_alert) { 'You are not authorized to access this page.' }

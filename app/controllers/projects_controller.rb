@@ -1,11 +1,13 @@
 class ProjectsController < ApplicationController
+  before_filter :check_for_group_id, :only => [:index,:create]
+
   before_filter :authenticate_user! #, :roles_to_current_user
   load_and_authorize_resource
 
   respond_to :json
 
   def index
-    # respond_with Project.by_group(params[:group_id])
+    respond_with Project.by_group(params[:group_id])
   end
 
   def show
@@ -24,7 +26,15 @@ class ProjectsController < ApplicationController
     respond_with Project.destroy(params[:id]).to_json
   end
 
-# private
+private
+  def check_for_group_id
+    if not @group_id = params[:group_id]
+      respond_with :bad_request
+    else
+      params[:comment][:group_id] = @group_id if params[:comment]
+    end
+  end
+
 #   def roles_to_current_user
 #     user = current_user
 # 
