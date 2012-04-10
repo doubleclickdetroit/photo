@@ -10,7 +10,9 @@ if defined?(Bundler)
 end
 
 module CRM
-  NAME = 'Timeline CRM'
+  NAME     = 'Timeline CRM'
+  HOSTNAME = 'hostname'
+  HOSTPATH = 'hostname.com'
 
   class Application < Rails::Application
     # testing config

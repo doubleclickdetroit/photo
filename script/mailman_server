@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+require 'mailman'
+load File.join(File.dirname(__FILE__),'..','app','mailers','mailman_mailer.rb')
+
+Mailman::Application.run &MailmanMailer::PROC 
