@@ -17,16 +17,16 @@ describe PhasesController do
       end
       pending 'index and create dont appear to check Ability...?'
       # it_should_check_permissions(@params, @session, :index, :show, :create, :update, :destroy)
-      it_should_check_permissions(@params, @session, :show, :update, :destroy)
+      it_should_check_permissions(@params, @session, :update, :destroy)
     end
 
-    describe 'GET index' do
-      it 'should call Phase.by_project(param[:project_id])' do
-        project_id = '1'
-        Phase.should_receive(:by_project).with(project_id)
-        get :index, { :project_id => project_id }
-      end
-    end
+    # describe 'GET index' do
+    #   it 'should call Project.find(param[:project_id]) and .phases on the return' do
+    #     project_id = '1'
+    #     Project.should_receive(:find).with(project_id)
+    #     get :index, { :project_id => project_id }
+    #   end
+    # end
 
     # describe 'GET show' do
     #   it 'should call Phase.find(param[:id])' do
@@ -37,38 +37,39 @@ describe PhasesController do
     #   end
     # end
 
-    # describe "POST create" do
-    #   it "should throw an error if no project_id" do
-    #     post :create, { :phase => {} }, valid_session
-    #     response.status.should == 406
-    #   end
+    describe "POST create" do
+      it "should throw an error if no project_id" do
+        post :create, { :phase => {} }, valid_session
+        response.status.should == 406
+      end
 
-    #   it "should create a Phase" do
-    #     phase = Factory.build(:phase)
-    #     expect{
-    #       post :create, {:project_id => @project.to_param, :phase => phase.attributes}, valid_session
-    #     }.to change(Phase, :count).by(1)
-    #   end
-    # end
+      it "should create a Phase" do
+        phase = Factory.build(:phase)
+        expect{
+          post :create, {:project_id => @project.to_param, :phase => phase.attributes}, valid_session
+        }.to change(Phase, :count).by(1)
+      end
+    end
 
-    # describe "PUT update" do
-    #   it "should call Phase#update_attributes" do
-    #     phase = Factory(:phase)
-    #     @project.phases << phase
-    #     Phase.any_instance.should_receive :update
-    #     put :update, {:id => phase.to_param, :phase => {:name => 'PUT update'}}, valid_session
-    #   end
-    # end
+    describe "PUT update" do
+      it "should call Phase#update_attributes" do
+        phase = Factory(:phase)
+        @project.phases << phase
+        Phase.any_instance.should_receive :update
+        # todo better param...
+        put :update, {:id => phase.to_param, :phase => {:project_id => '1'}}, valid_session
+      end
+    end
 
-    # describe "DELETE destroy" do
-    #   it "destroy the Phase" do
-    #     phase = Factory(:phase)
-    #     @project.phases << phase
-    #     expect{
-    #       delete :destroy, {:id => phase.to_param}, valid_session
-    #     }.to change(Phase, :count).by(-1)
-    #   end
-    # end
+    describe "DELETE destroy" do
+      it "destroy the Phase" do
+        phase = Factory(:phase)
+        @project.phases << phase
+        expect{
+          delete :destroy, {:id => phase.to_param}, valid_session
+        }.to change(Phase, :count).by(-1)
+      end
+    end
 
   end
 

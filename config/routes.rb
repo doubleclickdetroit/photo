@@ -13,6 +13,10 @@ CRM::Application.routes.draw do
     end
 
     resources :projects, :except => [:new, :edit] do
+      resources :phases, :only => [:create, :update, :destroy]
+    end
+
+    resources :phases, :only => [:create, :update, :destroy] do
       # routes for Task, Event, etc
       Entity::TYPES.each do |subclass|
         str = subclass.to_s

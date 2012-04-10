@@ -28,26 +28,42 @@ Project IMPLEMENTED
   D DELETE  /api/groups/:group_id/projects/:id
   I GET     /api/groups/:group_id/projects/
 
-  Entity, required keys => :type IMPLEMENTED BUT DOESNT CHECK TYPE
-    C POST    /api/projects/:project_id/entities/
-  # R GET     /api/projects/:project_id/entities/:id
-    U PUT     /api/projects/:project_id/entities/:id
-    D DELETE  /api/projects/:project_id/entities/:id
-  # I GET     /api/projects/:project_id/entities/
+  ALTERNATIVE 
+    - only create and index require group id
+    - perhaps both nested/unnested are available, but nested may be awkward (unnecessary) for some actions (e.g. update. record already exists, why are we specifying its parent_id?)
+  C POST    /api/groups/:group_id/projects/ | /api/projects/?group_id=required
+  R GET     /api/projects/:id
+  U PUT     /api/projects/:id
+  D DELETE  /api/projects/:id
+  I GET     /api/groups/:group_id/projects/ | /api/projects/?group_id=required
 
-    Comment IMPLEMENTED
-      C POST    /api/entities/:entity_id/comments/
-    # R GET     /api/entities/:entity_id/comments/:id
-      U PUT     /api/entities/:entity_id/comments/:id
-      D DELETE  /api/entities/:entity_id/comments/:id
-    # I GET     /api/entities/:entity_id/comments/
+  Phase IMPLEMENTED
+    C POST    /api/projects/:project_id/phases/
+    R GET     /api/projects/:project_id/phases/:id
+    U PUT     /api/projects/:project_id/phases/:id
+    D DELETE  /api/projects/:project_id/phases/:id
+    I GET     /api/projects/:project_id/phases/
 
-    Watching IMPLEMENTED
-      C POST    /api/entities/:entity_id/watchings/
-    # R GET     /api/entities/:entity_id/watchings/:id
-    # U PUT     /api/entities/:entity_id/watchings/:id
-      D DELETE  /api/entities/:entity_id/watchings/:id
-    # I GET     /api/entities/:entity_id/watchings/
+    Entity, required keys => :type IMPLEMENTED BUT DOESNT CHECK TYPE
+      C POST    /api/projects/:project_id/entities/
+    # R GET     /api/projects/:project_id/entities/:id
+      U PUT     /api/projects/:project_id/entities/:id
+      D DELETE  /api/projects/:project_id/entities/:id
+    # I GET     /api/projects/:project_id/entities/
+
+      Comment IMPLEMENTED
+        C POST    /api/entities/:entity_id/comments/
+      # R GET     /api/entities/:entity_id/comments/:id
+        U PUT     /api/entities/:entity_id/comments/:id
+        D DELETE  /api/entities/:entity_id/comments/:id
+      # I GET     /api/entities/:entity_id/comments/
+
+      Watching IMPLEMENTED
+        C POST    /api/entities/:entity_id/watchings/
+      # R GET     /api/entities/:entity_id/watchings/:id
+      # U PUT     /api/entities/:entity_id/watchings/:id
+        D DELETE  /api/entities/:entity_id/watchings/:id
+      # I GET     /api/entities/:entity_id/watchings/
 
 Questions:
   - Can Invitations be deleted? (GET/DELETE included above for that hypothetical process)
