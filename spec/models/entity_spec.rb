@@ -25,6 +25,7 @@ describe Entity do
 
   describe '#group' do
     it 'should be delegated to #phase' do
+      @entity.phase = @phase
       @entity.phase.should_receive :group
       @entity.group
     end

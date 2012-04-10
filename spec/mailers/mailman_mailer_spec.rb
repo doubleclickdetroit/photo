@@ -5,6 +5,8 @@ describe MailmanMailer do
   before(:all) do
     mailman_app &MailmanMailer::PROC
   end
+  
+  pending 'security'
 
   it 'should add a Comment to an Entity' do
     text = 'text from spec'
