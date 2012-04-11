@@ -1,0 +1,49 @@
+registering user
+creating group
+inviting user to group
+joining group
+
+creating a project
+
+adding phases to project
+phase state
+tying entities to phase state
+
+adding entities to a phase
+adding followers to a entity
+commenting on an entity
+notifying users by email of comment on entity
+commenting by email to an entity
+
+tasks
+assigning tasks
+reminding users of tasks
+marking tasks complete
+setting deadlines for tasks
+managing sets of tasks
+
+events
+allowing locations to be saved and reused
+setting times for events
+sending reminders for events
+managing events
+
+embeds
+uploading files
+managing files
+
+forms
+registration by timeline form
+collection of data by form
+displaying form results
+
+correspondence
+cleanly and unobtrusively collecting digital correspondence
+displaying conversations
+starting conversation
+
+milestones
+creation on entity completion
+setting of phase state
+
+displaying the timeline
