@@ -23,6 +23,21 @@ describe Entity do
   #   end
   # end
 
+  describe '#spawn' do
+    Entity::TYPES.each do |klass|
+      it "should return a #{klass.to_s} for :type => '#{klass.to_s}'" do
+        entity = Entity.spawn(:type => klass.to_s)
+        entity.should be_an_instance_of(klass)
+      end
+        
+      it "should set attributes of the #{klass.to_s} from the passed in Hash" do
+        title = "Title for #{klass.to_s} from #{__FILE__}"
+        entity = Entity.spawn({:type => klass.to_s, :title => title})
+        entity.title.should == title
+      end
+    end
+  end
+
   describe '#group' do
     it 'should be delegated to #phase' do
       @entity.phase = @phase

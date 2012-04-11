@@ -32,23 +32,7 @@ private
     if not @group_id = params[:group_id]
       respond_with :bad_request
     else
-      params[:comment][:group_id] = @group_id if params[:comment]
+      params[:project][:group_id] = @group_id if params[:project]
     end
   end
-
-#   def roles_to_current_user
-#     user = current_user
-# 
-#     group = Project.find(params[:id]).try(:group)
-#     roles = group ? current_user.roles_for(group) : []
-# 
-#     user.instance_eval do
-#       @roles = lambda{roles}.call
-#       def roles
-#         @roles
-#       end
-#     end
-# 
-#     current_user = user
-#   end
 end

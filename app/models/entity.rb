@@ -84,7 +84,7 @@ private
     end
   end
 
-  def subclass_from_string(str)
+  def self.subclass_from_string(str)
     TYPES_HASH[str]
   end
   def date_method_for_class(klass)
