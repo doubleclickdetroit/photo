@@ -37,9 +37,9 @@ puts "** Begin Seeding"
 
 puts "  ** Building Users"
 
-@ben  = Factory(:user, :first => 'Ben', :last => 'Babics')
-@brad = Factory(:user, :first => 'Brad', :last => 'Chase')
-@josh  = Factory(:user, :first => 'Josh', :last => 'Yurich')
+@ben  = Factory(:user, :first => 'Ben', :last => 'Babics', :email => 'ben@babics.com', :password => 'benbabics')
+@brad = Factory(:user, :first => 'Brad', :last => 'Chase', :email => 'brad@chase.com', :password => 'bradchase')
+@josh = Factory(:user, :first => 'Josh', :last => 'Yurich', :email => 'josh@yurich.com', :password => 'joshyurich')
 
 puts "  ** Building/Associating Groups\n"
 
@@ -201,8 +201,6 @@ events.each do |event|
 
   @event.duration = @duration
   @event.location = @location
-  puts "################{@event.duration.inspect}"
-  puts "################{@event.location.inspect}"
 
   @phase.entities << @event
 
