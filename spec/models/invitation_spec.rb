@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Invitation do
+  pending 'should be added to a Group for CanCan?'
 
   describe 'callbacks' do
     let(:invitation) { Factory.build(:invitation) }

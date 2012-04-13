@@ -72,6 +72,8 @@ describe User do
     @group = Factory(:group)
   end
 
+  pending 'if_user_has_roles should ensure Group or raise...'
+
   describe 'abilities' do
     let(:ability){ Ability.new(@user) }
     subject { ability }

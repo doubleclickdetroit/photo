@@ -21,7 +21,7 @@ class Project < ActiveRecord::Base
     #       ...
     
     hash           = {'name'=>self.name,'id'=>self.id}
-    # todo this in Group
+    # todo this in Group?
     hash['group']  = {'name'=>group.name,'id'=>group.id}
     hash['phases'] = self.phases.map(&:simple_hash) if with_phases
 

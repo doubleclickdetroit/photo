@@ -45,11 +45,22 @@ puts "  ** Building/Associating Groups\n"
 
 @group = Factory(:group, :name => 'DoubleClick Detroit')
 
-@ben.enroll_in @group, :as => :owner
+@ben.enroll_in  @group, :as => :owner
 @josh.enroll_in @group, :as => :admin
 @brad.enroll_in @group, :as => :associate
 
 @users = @group.members
+
+
+
+##################################
+########### Project ##############
+##################################
+
+puts "  ** Building Project"
+
+@project = Factory(:project, :name => 'Timeline CRM')
+@group.projects << @project
 
 
 
@@ -83,19 +94,8 @@ end
 
 
 
-##################################
-########### Project ##############
-##################################
-
-puts "  ** Building Project"
-
-@project = Factory(:project, :name => 'Timeline CRM')
-@group.projects << @project
-
-
-
-##################################
-############ Project ##############
+###################################
+############  Phase  ##############
 ###################################
 
 puts "    ** Adding Phase"

@@ -13,7 +13,7 @@ class Phase < ActiveRecord::Base
 
       hash[month]      ||= {}
       hash[month][day] ||= []
-      hash[month][day] << ent.to_hash(:associations => true)
+      hash[month][day] << ent.simple_hash
     end
 
     hash

@@ -26,7 +26,7 @@ describe Project do
 
   describe '.simple_hash' do
     let(:hash) do
-      @project.group  = Factory(:group)
+      @project.group = Factory(:group)
       @project.phases = [Factory(:phase)]
       @project.simple_hash
     end
@@ -37,6 +37,7 @@ describe Project do
     end
 
     it 'should call .simple_hash on all associated Phases' do
+      @project.group = Factory(:group)
       @project.phases << Factory(:phase) 
       @project.phases.each do |phase|
         phase.should_receive(:simple_hash)
@@ -47,13 +48,13 @@ describe Project do
 
   describe '.to_hash' do
     let(:hash) do
-      @project.group = Factory(:group)
       @project.to_hash
     end
     
     pending 'needs more testing'
 
     it 'should call .to_hash on all associated Phases' do
+      @project.group  = Factory(:group)
       @project.phases << Factory(:phase) 
       @project.phases.each do |phase|
         phase.should_receive(:to_hash)

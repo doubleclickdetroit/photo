@@ -85,23 +85,30 @@ class User < ActiveRecord::Base
     membership_for(group).destroy
   end
 
-  def to_hash(group=nil)
+  def self.exists_by_email?(email)
+    where(:email => email).count > 0
+  end
+  
+  def simple_hash
     hash = self.attributes.select do |k,v|
       %w(id first last email).include? k
     end
     hash['icon']  = self.avatar.url(:icon)
 
-    hash['roles'] = self.roles_for(group).map(&:to_s) if group.is_a? Group
+    hash
+  end
+
+  def to_hash(group=nil)
+    hash = simple_hash
+
+    hash['groups'] = groups # .groups mixes in roles 
 
     hash
   end
 
-  def to_json
-    self.to_hash.to_json
-  end
-
-  def self.exists_by_email?(email)
-    where(:email => email).count > 0
+  def to_json(full=false)
+    hash = full ? to_hash : simple_hash
+    hash.to_json
   end
 
 end

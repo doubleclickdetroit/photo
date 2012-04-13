@@ -16,11 +16,6 @@ describe Group do
       @group.simple_hash
     end
 
-    it 'should contain the group #id and #name' do
-      hash.has_key?('id').should be_true
-      hash.has_key?('name').should be_true
-    end
-
     keys = Group.new.attributes.keys
     keys << 'projects'
     keys << 'users'
@@ -32,20 +27,13 @@ describe Group do
     end
   end
 
-  describe '.to_hash' do
-    let(:hash) do
-      @group.enroll @user1, :as => 'owner'
-      @group.enroll @user2, :as => 'admin'
-      @group.to_hash
-    end
-
-    it 'should list its #users with roles' do
-      keys = %w(id first last email icon roles).sort
-      hash['users'].all? do |u|
-        u.keys.sort == keys
-      end.should be_true
-    end
-  end
+  # describe '.to_hash' do
+  #   let(:hash) do
+  #     @group.enroll @user1, :as => 'owner'
+  #     @group.enroll @user2, :as => 'admin'
+  #     @group.to_hash
+  #   end
+  # end
 
   describe '.to_json' do
     it 'should call .simple_hash with no args' do
