@@ -8,9 +8,7 @@ class Phase < ActiveRecord::Base
     hash = {}
 
     self.entities.each do |ent|
-      puts "####################{ent.inspect}"
       date = ent.display_date
-      puts "####################{date}"
       month, day = date.month, date.day
 
       hash[month]      ||= {}
@@ -23,6 +21,14 @@ class Phase < ActiveRecord::Base
 
   def timeline_hash
     entities_by_month_and_date 
+  end
+
+  def simple_hash
+    # phase
+    #   id
+    #   name 
+    #   state
+    hash = self.attributes
   end
 
   def to_hash
@@ -52,6 +58,11 @@ class Phase < ActiveRecord::Base
     hash['timeline'] = self.timeline_hash
 
     hash
+  end
+
+  def to_json(full=false)
+    hash = full ? to_hash : simple_hash
+    hash.to_json
   end
 
 end

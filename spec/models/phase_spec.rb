@@ -45,7 +45,39 @@ describe Phase do
     it "should map the entities months/dates properly"
   end
 
-  pending 'to_hash'
-  pending 'to_json'
+  describe '.simple_hash' do
+    before(:each) { @phase.project = Factory(:project) }
+
+    # todo should probably define these keys better
+    keys = Phase.new.attributes.keys
+
+    subject { @phase.simple_hash }
+    keys.each do |key|
+      it { should include(key) }
+    end
+
+    it 'should not include any other keys' do
+      simple_keys = @phase.simple_hash.keys
+      anded_keys = keys & simple_keys
+      simple_keys.should == anded_keys
+    end
+  end
+
+  describe '.to_hash' do
+    pending '...'
+  end
+
+  describe '.to_json' do
+    it 'should call .simple_hash with no args' do
+      @phase.should_receive :simple_hash
+      @phase.should_not_receive :to_hash
+      @phase.to_json
+    end
+
+    it 'should call .full_hash when passed true' do
+      @phase.should_receive :to_hash
+      @phase.to_json(true)
+    end
+  end
 
 end

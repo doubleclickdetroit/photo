@@ -41,22 +41,35 @@ class Entity < ActiveRecord::Base
     users.map {|a| {:id => a.id, :name => a.name, :icon => a.avatar.url(:icon)} }
   end
 
-  def to_hash(*args)
+  def simple_hash
+    # id
+    # title
+    # text
+    # ...
+    # avatars
+    #   [avatar,avatar]
+    
     hash = self.attributes
+    hash['avatars'] = display_avatars()
+    hash['phase']   = phase.simple_hash
+    hash
+  end
+
+  def to_hash
+    hash = self.simple_hash 
 
     # haha... ass(ociation)...
     all_additional_attributes.each do |ass|
-      # true gives you super's attributes
       obj = self.send(ass)
       hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj
-      hash[:avatars] = display_avatars()
     end
     
     hash
   end
 
-  def to_json
-    self.to_hash.to_json
+  def to_json(full=false)
+    hash = full ? to_hash : simple_hash
+    hash.to_json
   end
 
 private
@@ -184,10 +197,12 @@ class Form < Entity
   # @@own_additional_attributes = %w(data)
   # attach @@own_additional_attributes, :from => :form_data
 
-  def to_hash(whole_entity=true)
-    hash = form_type.to_hash(form_data)
-    return hash unless whole_entity
-    super.merge({'_form' => hash})
+  def form_hash
+    form_type.to_hash(form_data)
+  end
+
+  def to_hash
+    super.merge({'_form' => form_hash})
   end
 
 private

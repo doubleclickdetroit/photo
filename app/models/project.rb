@@ -4,6 +4,7 @@ class Project < ActiveRecord::Base
   has_many :phases
 
   def to_hash
+    # # todo implement the following:
     # project
     #   id
     #   name 

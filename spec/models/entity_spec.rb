@@ -89,19 +89,30 @@ describe Entity do
     end
   end
 
+  describe '.simple_hash' do
+    before(:each) { @entity.phase = Factory(:phase) }
+
+    # todo should probably define these keys better
+    keys = Entity.new.attributes.keys 
+    keys << 'avatars'
+    keys << 'phase'
+
+    subject { @entity.simple_hash.keys }
+    keys.each do |key|
+      it { should include(key) }
+    end
+
+    it 'should not include any other keys' do
+      simple_keys = @entity.simple_hash.keys
+      anded_keys = keys & simple_keys
+      simple_keys.should == anded_keys
+    end
+  end
+
   describe '#to_hash' do
+    before(:each) { @entity.phase = (@phase = Factory(:phase)) }
     it 'should ensure no ruby objects are serialized' do
       pending 'entity.rb: hash[ass] = obj.is_a?(Array) ? obj.map(&:to_hash) : obj'
-    end
-
-    it 'should have all Entity attributes as keys' do
-      attr_keys = @entity.attributes.keys
-      hash_keys = @entity.to_hash.keys
-      (attr_keys & hash_keys).should == attr_keys
-    end
-
-    it 'should contain avatars' do
-      @entity.to_hash[:avatars].should be_a_kind_of(Array)
     end
 
     it 'should have attributes of associated models' do
@@ -119,12 +130,17 @@ describe Entity do
     end
 
     Entity::TYPES.each do |subclass|
-      class_sym = subclass.to_s.downcase.intern
-      attrs     = subclass.class_variable_get(:@@own_additional_attributes).sort
+      describe "for subclass #{subclass.to_s}" do
+        class_sym = subclass.to_s.downcase.intern
+        attrs     = subclass.class_variable_get(:@@own_additional_attributes).sort
 
-      it "should have #{attrs.inspect} as keys for type:#{subclass.to_s}" do
-        @entity = Factory(class_sym, :with_association)
-        (@entity.to_hash.keys & attrs).sort.should == attrs.sort
+        attrs.each do |att|
+          it "should have #{att.inspect} as a key" do
+            @entity = Factory(class_sym, :with_association)
+            @entity.phase = @phase
+            @entity.to_hash.keys.should include(att.to_s)
+          end
+        end
       end
     end
   end
@@ -168,10 +184,16 @@ describe Entity do
     end
   end
 
-  describe '#to_json' do
-    it 'should override #to_json, calling #to_hash' do
-      @entity.should_receive :to_hash
+  describe '.to_json' do
+    it 'should call .simple_hash with no args' do
+      @entity.should_receive :simple_hash
+      @entity.should_not_receive :to_hash
       @entity.to_json
+    end
+
+    it 'should call .full_hash when passed true' do
+      @entity.should_receive :to_hash
+      @entity.to_json(true)
     end
   end
 end
