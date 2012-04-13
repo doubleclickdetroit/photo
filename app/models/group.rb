@@ -16,21 +16,25 @@ class Group < ActiveRecord::Base
     m.save
   end
 
-  def to_hash
-    hash = {
-      'id' => self.id,
-      'name' => self.name
-    }
+  def simple_hash
+    hash = attributes
 
-    hash['users'] = self.members.map do |u|
-      # u.to_hash.merge 'roles' => u.roles_for(self).map(&:to_s)
-      u.to_hash(self)
+    hash['users'] = members.map do |u|
+      u.to_hash(self) # self allows roles to be defined
     end
+    hash['projects'] = projects.map(&:simple_hash)
 
     hash
   end
 
-  def to_json
-    self.to_hash.to_json
+  # todo may not be necessary
+  def to_hash
+    hash = simple_hash
+    hash
+  end
+
+  def to_json(full=false)
+    hash = full ? to_hash : simple_hash
+    hash.to_json
   end
 end

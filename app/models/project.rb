@@ -35,7 +35,6 @@ class Project < ActiveRecord::Base
   end
 
   def to_json(full=false)
-    # { :project => self.to_hash }.to_json
     hash = full ? to_hash : simple_hash
     hash.to_json
   end

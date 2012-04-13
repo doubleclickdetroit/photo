@@ -9,16 +9,34 @@ describe Group do
     # @membership = Membership.find_by_user_id_and_group_id @user1.id, @group.id
   end
 
-  describe '#to_hash' do
+  describe '.simple_hash' do
     let(:hash) do
       @group.enroll @user1, :as => 'owner'
       @group.enroll @user2, :as => 'admin'
-      @group.to_hash
+      @group.simple_hash
     end
 
     it 'should contain the group #id and #name' do
       hash.has_key?('id').should be_true
       hash.has_key?('name').should be_true
+    end
+
+    keys = Group.new.attributes.keys
+    keys << 'projects'
+    keys << 'users'
+
+    keys.each do |key|
+      it "should include the key #{key}" do
+        hash.should include(key)
+      end
+    end
+  end
+
+  describe '.to_hash' do
+    let(:hash) do
+      @group.enroll @user1, :as => 'owner'
+      @group.enroll @user2, :as => 'admin'
+      @group.to_hash
     end
 
     it 'should list its #users with roles' do
@@ -29,10 +47,16 @@ describe Group do
     end
   end
 
-  describe '#to_json' do
-    it 'should override #to_json, calling #to_hash' do
-      @group.should_receive :to_hash
+  describe '.to_json' do
+    it 'should call .simple_hash with no args' do
+      @group.should_receive :simple_hash
+      @group.should_not_receive :to_hash
       @group.to_json
+    end
+
+    it 'should call .full_hash when passed true' do
+      @group.should_receive :to_hash
+      @group.to_json(true)
     end
   end
 
