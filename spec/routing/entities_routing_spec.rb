@@ -9,7 +9,6 @@ describe EntitiesController do
         let(:type_str) { klass.to_s }
 
         it "routes to #index" do
-          puts "get('/api/phases/1/#{klass_str}').should route_to('entities#index', :type => type_str, :phase_id => '1')"
           get("/api/phases/1/#{klass_str}").should route_to("entities#index", :type => type_str, :phase_id => "1")
         end
 

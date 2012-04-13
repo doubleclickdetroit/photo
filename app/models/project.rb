@@ -3,47 +3,25 @@ class Project < ActiveRecord::Base
 
   has_many :phases
 
-  # # todo this dynamically for each subclass of
-  # # Entity with scopes 
-  # def tasks
-  #   entities.where :type => 'Task'
-  # end
-
   def to_hash
     # project
     #   id
     #   name 
     #
-    #
     #   group
-    #     users
-    #
+    #     id
+    #     name
     #
     #   phases
-    #
     #     phase
+    #       id
     #       name
     #       state
-    #
-    #       timeline
-    #         month
-    #           day
-    #             entity
-    #               comments
-    #               ...
-    #             entity
-    #               comments
-    #               ...
-    #         month
-    #           day
-    #             ...
-    #  
-    #       phase
-    #         ...
+    #     phase
+    #       ...
     
-    # todo pretty sure the .try's shouldnt be here...
     hash           = {'name'=>self.name,'id'=>self.id}
-    hash['group']  = self.group.try(:to_hash)
+    hash['group']  = self.group.to_hash
     hash['phases'] = self.phases.map(&:to_hash) 
 
     hash

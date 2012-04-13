@@ -25,7 +25,10 @@ describe Project do
   end
 
   describe '#to_hash' do
-    let(:hash) { @project.to_hash }
+    let(:hash) do
+      @project.group = Factory(:group)
+      @project.to_hash
+    end
 
     it 'should contain the project #id and #name' do
       hash.has_key?('id').should be_true
