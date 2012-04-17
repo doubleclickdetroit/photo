@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.0'
 
+gem 'backbone-on-rails'
+
 gem 'thin'
 
 gem 'mailman', :require => false
