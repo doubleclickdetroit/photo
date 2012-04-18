@@ -4,7 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-CRM::Application.load_tasks
+App::Application.load_tasks
 
 # hack for requirejs-rails on Heroku
 ENV['RAILS_GROUPS'] = nil # trick asset rake file into shelling out
