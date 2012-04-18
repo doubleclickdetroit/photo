@@ -1,16 +1,16 @@
 define ['backbone'], (Backbone) ->
-  CRM = {
+  App = {
     Models: {}
     Collections: {}
     Views: {}
     Routers: {}
-    name: "DoubleClick Detroit CRM"
+    name: "Timeline CRM"
     version: "0.1.dev"
   }
 
-  CRM.initialize = ->
+  App.initialize = ->
     # do Router.initialize
-    new CRM.Routers.Projects()
+    new App.Routers.Projects()
     Backbone.history.start()
 
-  CRM
+  App

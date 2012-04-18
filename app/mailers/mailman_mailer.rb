@@ -1,6 +1,6 @@
 class MailmanMailer
   #todo hmm...
-  hostpath = defined?(CRM) ? CRM::HOSTPATH : 'appname.com'
+  hostpath = defined?(App) ? App::HOSTPATH : 'appname.com'
 
   PROC = Proc.new do
     to("entity-%entity_id%@#{hostpath}") do

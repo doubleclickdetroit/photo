@@ -1,4 +1,4 @@
-CRM::Application.routes.draw do
+App::Application.routes.draw do
   root :to => 'home#index'
 
   scope 'api' do

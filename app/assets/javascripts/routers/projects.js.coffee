@@ -1,8 +1,8 @@
 define (require) ->
   Backbone = require 'backbone'
-  CRM      = require 'crm'
+  App      = require 'crm'
 
-  class CRM.Routers.Projects extends Backbone.Router
+  class App.Routers.Projects extends Backbone.Router
     routes:
       'projects':'index'
       'projects/:id':'show'

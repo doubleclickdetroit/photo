@@ -1,1 +1,1 @@
-class CRM.Models.Project extends Backbone.Model
+class App.Models.Project extends Backbone.Model

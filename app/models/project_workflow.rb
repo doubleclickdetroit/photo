@@ -24,7 +24,7 @@ private
     phase.entities << task
 
     # add registration form
-    form = RegistrationForm.new title: "Join #{CRM::NAME}", text: "Then be part of #{invitation.group}"
+    form = RegistrationForm.new title: "Join #{App::NAME}", text: "Then be part of #{invitation.group}"
     form.generate_form_data_from(invitation)
     phase.entities << form
     

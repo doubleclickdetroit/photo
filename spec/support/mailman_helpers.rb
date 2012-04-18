@@ -28,7 +28,7 @@ module Mailman::SpecHelpers
     entity.stub(:group).and_return(group)
 
     mail = {
-      :to   => "entity-#{entity.to_param}@#{CRM::HOSTPATH}",
+      :to   => "entity-#{entity.to_param}@#{App::HOSTPATH}",
       :from => user.email,
       :body => "Entity Comment text from #{__FILE__}"
     }

@@ -1,3 +1,3 @@
-class CRM.Collections.Projects extends Backbone.Collection
+class App.Collections.Projects extends Backbone.Collection
 
-  model: CRM.Models.Project
+  model: App.Models.Project

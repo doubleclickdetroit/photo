@@ -9,7 +9,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module CRM
+module App
   NAME     = 'Timeline CRM'
   HOSTNAME = 'hostname'
   HOSTPATH = 'hostname.com'
