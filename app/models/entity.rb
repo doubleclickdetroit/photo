@@ -36,6 +36,7 @@ class Entity < ActiveRecord::Base
   end
 
   def display_avatars
+    return [] if self.instance_of?(RegistrationForm)
     user_method = users_method_for_class(self.class)
     users = Array(self.send user_method)
     users.map {|a| {:id => a.id, :name => a.name, :icon => a.avatar.url(:icon)} }
