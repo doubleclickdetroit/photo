@@ -12,7 +12,7 @@ class FormType < SerializedJSON
     # dump 'value's into the FormType 
     form_type.each do |section_name,fields|
       fields.each do |field_name,pairs|
-        val = form_data[section_name][field_name]['value']
+        val = form_data[section_name][field_name].fetch('value') rescue ''
         pairs['value'] = val
       end
     end

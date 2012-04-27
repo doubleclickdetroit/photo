@@ -1,7 +1,7 @@
 class RegistrationForm < Form
   # overrides AR 
   def form_type
-    FormType.new :data => FORM_HASH
+    FORM_HASH
   end
 
   def generate_form_data_from(invitation)
@@ -22,7 +22,7 @@ private
     # overrides super
   end
 
-  FORM_HASH = 
+  FORM_HASH = FormType.new :data =>  
     {
       'form'=> {
         "Information"=> {
