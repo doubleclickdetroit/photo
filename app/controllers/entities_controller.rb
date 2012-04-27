@@ -1,10 +1,20 @@
 class EntitiesController < ApplicationController
-  before_filter :check_for_phase_id, :only => :create # [:index,:create]
+  before_filter :check_for_phase_id, :only => [:index,:create]
 
   before_filter :authenticate_user! 
   load_and_authorize_resource
 
   respond_to :json
+
+  def index
+    @entities = Entity.where(:phase_id => @phase_id).all.map &:to_hash
+    respond_with @entities
+  end
+
+  def show
+    @entity = Entity.find(params[:id]).to_hash
+    respond_with @entity
+  end
 
   def create
     respond_with Entity.spawn(params[:entity])

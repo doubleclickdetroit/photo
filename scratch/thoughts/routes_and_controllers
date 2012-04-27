@@ -46,10 +46,10 @@ Project IMPLEMENTED
 
     Entity, required keys => :type IMPLEMENTED BUT DOESNT CHECK TYPE
       C POST    /api/projects/:project_id/entities/
-    # R GET     /api/projects/:project_id/entities/:id
+      R GET     /api/projects/:project_id/entities/:id  #to_hash
       U PUT     /api/projects/:project_id/entities/:id
       D DELETE  /api/projects/:project_id/entities/:id
-    # I GET     /api/projects/:project_id/entities/
+      I GET     /api/projects/:project_id/entities/     #simple_hash
 
       Comment IMPLEMENTED
         C POST    /api/entities/:entity_id/comments/

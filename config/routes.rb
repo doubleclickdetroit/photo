@@ -17,6 +17,8 @@ App::Application.routes.draw do
     end
 
     resources :phases, :only => [:create, :update, :destroy] do
+      resources :entities, :only => [:index, :show]
+
       # routes for Task, Event, etc
       Entity::TYPES.each do |subclass|
         str = subclass.to_s

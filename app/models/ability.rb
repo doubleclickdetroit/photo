@@ -4,14 +4,15 @@ class Ability
   def if_user_has_roles(user, roles)
     Proc.new do |instance|
       group = instance.instance_of?(Group) ? instance : instance.group
-      instance && user.has_role?(roles, :for => group)
+      instance && group && user.has_role?(roles, :for => group)
     end
   end
   alias :if_user_has_role :if_user_has_roles
 
   def if_user_is_a_member(user)
     Proc.new do |instance|
-      instance && user.belongs_to?(instance.group)
+      group = instance.group
+      instance && group && user.belongs_to?(group)
     end
   end
 

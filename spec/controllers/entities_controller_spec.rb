@@ -20,22 +20,27 @@ describe EntitiesController do
       it_should_check_permissions(@params, @session, :update, :destroy)
     end
 
-    # describe 'GET index' do
-    #   it 'should call Phase.find(param[:phase_id]) and .entities on the return' do
-    #     phase_id = '1'
-    #     Phase.should_receive(:find).with(phase_id)
-    #     get :index, { :phase_id => phase_id }
-    #   end
-    # end
+    describe 'GET index' do
+      it "should call return the simple_hash version of the Phase's Entities" do
+        pending 'calling .to_hash until #show gets figured out'
 
-    # describe 'GET show' do
-    #   it 'should call Entity.find(param[:id])' do
-    #     pending 'receiving message twice...'
-    #     id = '1'
-    #     Entity.should_receive(:find).with(id)
-    #     get :show, { :id => id }
-    #   end
-    # end
+        @entities = @phase.entities.map &:simple_hash
+
+        get :index, { :phase_id => @phase.to_param }
+
+        assigns(:entities).should == @entities
+      end
+    end
+
+    describe 'GET show' do
+      it 'should return the to_hash version of the Entity' do
+        @entity = @phase.entities.first
+
+        get :show, { :id => @entity.to_param }
+
+        assigns(:entity).should == @entity.to_hash
+      end
+    end
 
     describe "POST create" do
       it "should throw an error if no phase_id" do

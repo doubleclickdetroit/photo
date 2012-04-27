@@ -1,7 +1,17 @@
 require "spec_helper"
 
 describe EntitiesController do
-  describe "routing" do
+  describe 'vanilla Entity routing' do
+    it "routes to #index" do
+      get("/api/phases/1/entities").should route_to("entities#index", :phase_id => "1")
+    end
+
+    it "routes to #show" do
+      get("/api/phases/1/entities/2").should route_to("entities#show", :phase_id => "1", :id => "2")
+    end
+  end
+
+  describe "subclass routing" do
 
     Entity::TYPES.each do |klass|
       describe "for #{klass.to_s}" do
